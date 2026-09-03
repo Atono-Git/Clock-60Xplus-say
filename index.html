@@ -61,7 +61,7 @@ select:focus {
 }
 
 textarea {
-    min-height: 100px;
+    min-height: 120px;
     resize: vertical;
     line-height: 1.6;
 }
@@ -93,7 +93,7 @@ header h1 {
 ================================= */
 
 .container {
-    max-width: 950px;
+    max-width: 980px;
     margin: auto;
     padding: 20px;
 }
@@ -237,7 +237,7 @@ header h1 {
 
 
 /* =================================
-   放送設定
+   放送設定パネル
 ================================= */
 
 .panel {
@@ -270,18 +270,18 @@ header h1 {
 
 
 /* =================================
-   一覧
+   設定一覧
 ================================= */
 
 .announcement-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 16px;
 }
 
 
 /* =================================
-   1件の設定
+   1つの放送設定
 ================================= */
 
 .announcement-card {
@@ -331,7 +331,7 @@ header h1 {
 
 
 /* =================================
-   ラベル
+   共通ラベル
 ================================= */
 
 .setting-label {
@@ -342,7 +342,7 @@ header h1 {
 
 
 /* =================================
-   時刻
+   通知時刻
 ================================= */
 
 .time-area {
@@ -373,15 +373,20 @@ header h1 {
 
 .mode-button {
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 13px;
+    justify-content: center;
+    padding: 14px;
 
     background: #181818;
     border: 1px solid #444;
-    border-radius: 9px;
+    border-radius: 10px;
 
     cursor: pointer;
+    user-select: none;
+}
+
+.mode-button:hover {
+    background: #242424;
 }
 
 .mode-button.active {
@@ -399,7 +404,7 @@ header h1 {
 ================================= */
 
 .template-area {
-    padding: 15px;
+    padding: 16px;
     background: #222;
     border-radius: 10px;
 }
@@ -427,7 +432,7 @@ header h1 {
 ================================= */
 
 .choice-area {
-    margin-top: 5px;
+    margin-top: 10px;
 }
 
 .choice-title {
@@ -510,7 +515,7 @@ header h1 {
 
 
 /* =================================
-   保存
+   保存表示
 ================================= */
 
 .save-status {
@@ -521,7 +526,7 @@ header h1 {
 
 
 /* =================================
-   空
+   空の状態
 ================================= */
 
 .empty-message {
@@ -642,7 +647,7 @@ header h1 {
 
 
 <!-- =================================
-     アプリ
+     アプリ本体
 ================================= -->
 
 <div id="appScreen" class="container">
@@ -687,8 +692,9 @@ header h1 {
     </div>
 
 
+
     <!-- =================================
-         時計
+         Clock
     ================================= -->
 
     <div class="clock-panel">
@@ -708,6 +714,7 @@ header h1 {
         </div>
 
     </div>
+
 
 
     <!-- =================================
@@ -900,7 +907,74 @@ let announcements = [];
 
 
 /* =========================================
-   部屋ごとの保存キー
+   選択肢
+========================================= */
+
+const STATIONS = [
+    "北春日部",
+    "北越谷",
+    "竹ノ塚"
+];
+
+
+const OPERATIONS = [
+
+    "L1",
+    "L2",
+    "L3",
+
+    "TH",
+
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+
+    "S1",
+    "S2",
+    "S3",
+
+    "LM1",
+    "LM2",
+    "LM3",
+    "LM4",
+    "LM5",
+    "LM6",
+
+    "EM1",
+    "EM2"
+
+];
+
+
+const TYPES = [
+    "回送",
+    "普通",
+    "急行",
+    "特急",
+    "TH"
+];
+
+
+const TIME_TYPES = [
+    "発車時刻",
+    "入庫時刻"
+];
+
+
+const INSTRUCTIONS = [
+
+    "列車を駅に待機させてください",
+
+    "各駅員、列車の位置を共有してください"
+
+];
+
+
+/* =========================================
+   保存キー
 ========================================= */
 
 function getStorageKey() {
@@ -914,7 +988,7 @@ function getStorageKey() {
 
 
 /* =========================================
-   新規放送設定
+   新しい放送設定
 ========================================= */
 
 function createAnnouncement() {
@@ -961,30 +1035,7 @@ function createAnnouncement() {
 
 
 /* =========================================
-   定型文作成
-========================================= */
-
-function makeTemplateText(data) {
-
-    return (
-        "まもなく、" +
-        data.station +
-        "車庫、" +
-        data.operation +
-        data.type +
-        "、「" +
-        data.timeType +
-        "」です。" +
-        "「" +
-        data.instruction +
-        "」。"
-    );
-
-}
-
-
-/* =========================================
-   コメント取得
+   放送文
 ========================================= */
 
 function getAnnouncementText(data) {
@@ -1001,8 +1052,18 @@ function getAnnouncementText(data) {
     }
 
 
-    return makeTemplateText(
-        data
+    return (
+        "まもなく、" +
+        data.station +
+        "車庫、" +
+        data.operation +
+        data.type +
+        "、「" +
+        data.timeType +
+        "」です。" +
+        "「" +
+        data.instruction +
+        "」。"
     );
 
 }
@@ -1051,7 +1112,7 @@ function saveSettings() {
 
 
 /* =========================================
-   読み込み
+   設定読み込み
 ========================================= */
 
 function loadSettings() {
@@ -1082,26 +1143,78 @@ function loadSettings() {
 
 
         if (
-            Array.isArray(data)
+            !Array.isArray(data)
         ) {
-
-            announcements =
-                data.map(
-                    item => ({
-
-                        ...createAnnouncement(),
-
-                        ...item
-
-                    })
-                );
-
-        }
-        else {
 
             announcements = [];
 
+            renderAnnouncements();
+
+            return;
+
         }
+
+
+        /*
+         * 以前のデータ形式も受け取る
+         */
+
+        announcements =
+            data.map(
+                item => {
+
+                    const base =
+                        createAnnouncement();
+
+
+                    return {
+
+                        ...base,
+
+                        ...item,
+
+                        /*
+                         * modeが無い場合は
+                         * 定型文として扱う
+                         */
+
+                        mode:
+                            item.mode === "free"
+                                ? "free"
+                                : "template",
+
+                        time:
+                            item.time ||
+                            "05:00:00",
+
+                        station:
+                            item.station ||
+                            "北春日部",
+
+                        operation:
+                            item.operation ||
+                            "L1",
+
+                        type:
+                            item.type ||
+                            "普通",
+
+                        timeType:
+                            item.timeType ||
+                            "発車時刻",
+
+                        instruction:
+                            item.instruction ||
+                            "列車を駅に待機させてください",
+
+                        comment:
+                            item.comment ||
+                            ""
+
+                    };
+
+                }
+            );
 
     }
     catch (error) {
@@ -1115,6 +1228,12 @@ function loadSettings() {
 
     }
 
+
+    /*
+     * 旧データを現在形式で保存し直す
+     */
+
+    saveSettings();
 
     renderAnnouncements();
 
@@ -1144,7 +1263,10 @@ function normalizeTime(time) {
         parts.length === 2
     ) {
 
-        return time + ":00";
+        return (
+            time +
+            ":00"
+        );
 
     }
 
@@ -1164,80 +1286,7 @@ function normalizeTime(time) {
 
 
 /* =========================================
-   選択肢
-========================================= */
-
-const STATIONS = [
-
-    "北春日部",
-    "北越谷",
-    "竹ノ塚"
-
-];
-
-
-const OPERATIONS = [
-
-    "L1",
-    "L2",
-    "L3",
-
-    "TH",
-
-    "E1",
-    "E2",
-    "E3",
-    "E4",
-    "E5",
-    "E6",
-
-    "S1",
-    "S2",
-    "S3",
-
-    "LM1",
-    "LM2",
-    "LM3",
-    "LM4",
-    "LM5",
-    "LM6",
-
-    "EM1",
-    "EM2"
-
-];
-
-
-const TYPES = [
-
-    "回送",
-    "普通",
-    "急行",
-    "特急",
-    "TH"
-
-];
-
-
-const TIME_TYPES = [
-
-    "発車時刻",
-    "入庫時刻"
-
-];
-
-
-const INSTRUCTIONS = [
-
-    "列車を駅に待機させてください",
-
-    "各駅員、列車の位置を共有してください"
-
-];
-
-
-/* =========================================
-   設定一覧
+   放送設定一覧描画
 ========================================= */
 
 function renderAnnouncements() {
@@ -1259,7 +1308,8 @@ function renderAnnouncements() {
             "empty-message";
 
         empty.textContent =
-            "まだ放送設定がありません。「＋ 放送設定を追加」から追加してください。";
+            "まだ放送設定がありません。" +
+            "「＋ 放送設定を追加」から追加してください。";
 
         announcementList.appendChild(
             empty
@@ -1279,6 +1329,7 @@ function renderAnnouncements() {
                     index
                 );
 
+
             announcementList.appendChild(
                 card
             );
@@ -1290,7 +1341,7 @@ function renderAnnouncements() {
 
 
 /* =========================================
-   1件のカード
+   放送設定カード
 ========================================= */
 
 function createAnnouncementCard(
@@ -1477,6 +1528,15 @@ function createAnnouncementCard(
        通知時刻
     ================================= */
 
+    const timeArea =
+        document.createElement(
+            "div"
+        );
+
+    timeArea.className =
+        "time-area";
+
+
     const timeLabel =
         document.createElement(
             "div"
@@ -1524,12 +1584,17 @@ function createAnnouncementCard(
     );
 
 
-    card.appendChild(
+    timeArea.appendChild(
         timeLabel
     );
 
-    card.appendChild(
+    timeArea.appendChild(
         timeInput
+    );
+
+
+    card.appendChild(
+        timeArea
     );
 
 
@@ -1567,18 +1632,26 @@ function createAnnouncementCard(
         "mode-buttons";
 
 
+    /* 定型文 */
+
     const templateLabel =
         document.createElement(
             "label"
         );
 
     templateLabel.className =
-        "mode-button" +
-        (
-            data.mode === "template"
-                ? " active"
-                : ""
+        "mode-button";
+
+
+    if (
+        data.mode === "template"
+    ) {
+
+        templateLabel.classList.add(
+            "active"
         );
+
+    }
 
 
     const templateRadio =
@@ -1618,18 +1691,26 @@ function createAnnouncementCard(
     );
 
 
+    /* 自由入力 */
+
     const freeLabel =
         document.createElement(
             "label"
         );
 
     freeLabel.className =
-        "mode-button" +
-        (
-            data.mode === "free"
-                ? " active"
-                : ""
+        "mode-button";
+
+
+    if (
+        data.mode === "free"
+    ) {
+
+        freeLabel.classList.add(
+            "active"
         );
+
+    }
 
 
     const freeRadio =
@@ -1705,19 +1786,19 @@ function createAnnouncementCard(
         "template-area";
 
 
-    const fields =
+    const templateFields =
         document.createElement(
             "div"
         );
 
-    fields.className =
+    templateFields.className =
         "template-fields";
 
 
     /* 車庫 */
 
     createSelectField(
-        fields,
+        templateFields,
         "車庫",
         STATIONS,
         data.station,
@@ -1735,7 +1816,7 @@ function createAnnouncementCard(
     /* 運用番号 */
 
     createSelectField(
-        fields,
+        templateFields,
         "運用番号",
         OPERATIONS,
         data.operation,
@@ -1753,7 +1834,7 @@ function createAnnouncementCard(
     /* 種別 */
 
     createSelectField(
-        fields,
+        templateFields,
         "種別",
         TYPES,
         data.type,
@@ -1769,7 +1850,7 @@ function createAnnouncementCard(
 
 
     templateArea.appendChild(
-        fields
+        templateFields
     );
 
 
@@ -2030,7 +2111,7 @@ function createAnnouncementCard(
 
 
     /* =================================
-       表示更新
+       モード切替
     ================================= */
 
     function updateModeDisplay() {
@@ -2073,17 +2154,28 @@ function createAnnouncementCard(
         }
 
 
-        updatePreview();
+        updatePreviewOnly();
+
+    }
+
+
+    /* =================================
+       プレビュー更新
+    ================================= */
+
+    function updatePreviewOnly() {
+
+        previewText.textContent =
+            getAnnouncementText(
+                data
+            );
 
     }
 
 
     function updatePreview() {
 
-        previewText.textContent =
-            getAnnouncementText(
-                data
-            );
+        updatePreviewOnly();
 
         saveSettings();
 
@@ -2103,6 +2195,8 @@ function createAnnouncementCard(
 
                 updateModeDisplay();
 
+                saveSettings();
+
             }
 
         }
@@ -2121,6 +2215,8 @@ function createAnnouncementCard(
                     "free";
 
                 updateModeDisplay();
+
+                saveSettings();
 
             }
 
@@ -2362,7 +2458,7 @@ addAnnouncementButton.addEventListener(
 
 
 /* =========================================
-   Clock
+   Clock表示
 ========================================= */
 
 function formatTime(seconds) {
@@ -2577,7 +2673,9 @@ joinButton.addEventListener(
             }
 
 
-            /* 参加成功 */
+            /* =================================
+               参加成功
+            ================================= */
 
             joinedRoomCode =
                 roomCode;
@@ -2593,6 +2691,7 @@ joinButton.addEventListener(
             joinScreen.style.display =
                 "none";
 
+
             appScreen.style.display =
                 "block";
 
@@ -2606,6 +2705,10 @@ joinButton.addEventListener(
                 "Clock_60Xと同期中";
 
 
+            /*
+             * 部屋ごとの設定読み込み
+             */
+
             loadSettings();
 
 
@@ -2617,6 +2720,10 @@ joinButton.addEventListener(
 
             }
 
+
+            /*
+             * Clock_60Xの部屋を監視
+             */
 
             unsubscribeRoom =
                 onSnapshot(
@@ -2666,6 +2773,7 @@ joinButton.addEventListener(
                             "接続エラー";
 
                     }
+
                 );
 
 
