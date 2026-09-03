@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Clock_60X 時刻放送</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+}
+
+body {
+
+    background: #111;
+
+    color: white;
+
+    font-family:
+        Arial,
+        "Noto Sans JP",
+        sans-serif;
+}
+
+
+/* ================================
+   共通
+================================ */
+
+button,
+input,
+select {
+
+    font: inherit;
+
+}
+
+
+button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 13px 20px;
+
+    background: #164a7b;
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+
+}
+
+button:hover {
+
+    background: #21649f;
+
+}
+
+button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 13px;
+
+    border-radius: 8px;
+
+    border: 1px solid #444;
+
+    background: #292929;
+
+    color: white;
+
+    outline: none;
+
+}
+
+input:focus,
+select:focus {
+
+    border-color: #3b82c4;
+
+}
+
+
+label {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #bbb;
+
+}
+
+
+/* ================================
+   ヘッダー
+================================ */
+
+header {
+
+    background: #181818;
+
+    border-bottom: 1px solid #333;
+
+    padding: 18px;
+
+    text-align: center;
+
+}
+
+header h1 {
+
+    margin: 0;
+
+    font-size: 27px;
+
+}
+
+
+/* ================================
+   コンテナ
+================================ */
+
+.container {
+
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 20px;
+
+}
+
+
+/* ================================
+   接続画面
+================================ */
+
+#joinScreen {
+
+    max-width: 500px;
+
+    margin: 60px auto;
+
+}
+
+.join-title {
+
+    text-align: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    margin-bottom: 30px;
+
+}
+
+.join-box {
+
+    background: #1d1d1d;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+}
+
+.join-box .field {
+
+    margin-bottom: 18px;
+
+}
+
+#joinButton {
+
+    width: 100%;
+
+    font-size: 20px;
+
+    padding: 16px;
+
+}
+
+.join-status {
+
+    text-align: center;
+
+    min-height: 26px;
+
+    margin-top: 15px;
+
+    color: #aaa;
+
+}
+
+
+/* ================================
+   アプリ本体
+================================ */
+
+#appScreen {
+
+    display: none;
+
+}
+
+
+/* ================================
+   接続情報
+================================ */
+
+.connection {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    background: #1d1d1d;
+
+    padding: 15px 18px;
+
+    border-radius: 12px;
+
+    margin-bottom: 18px;
+
+}
+
+.connection-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+.connection-dot {
+
+    width: 12px;
+
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: #777;
+
+}
+
+.connection-dot.online {
+
+    background: #38c172;
+
+    box-shadow:
+        0 0 8px rgba(56, 193, 114, 0.7);
+
+}
+
+.room-number {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+}
+
+.leave-button {
+
+    background: #632727;
+
+}
+
+.leave-button:hover {
+
+    background: #873333;
+
+}
+
+
+/* ================================
+   時計
+================================ */
+
+.clock-panel {
+
+    background: #181818;
+
+    border-radius: 15px;
+
+    padding: 25px 20px;
+
+    text-align: center;
+
+    margin-bottom: 18px;
+
+}
+
+.clock {
+
+    font-size: clamp(52px, 11vw, 100px);
+
+    font-weight: bold;
+
+    line-height: 1;
+
+    letter-spacing: 4px;
+
+}
+
+.clock-status {
+
+    margin-top: 15px;
+
+    font-size: 19px;
+
+    color: #aaa;
+
+}
+
+
+/* ================================
+   放送パネル
+================================ */
+
+.panel {
+
+    background: #1d1d1d;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+
+}
+
+.panel h2 {
+
+    margin:
+        0 0 18px 0;
+
+    font-size: 22px;
+
+}
+
+
+/* ================================
+   グリッド
+================================ */
+
+.fields {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+}
+
+.field {
+
+    min-width: 0;
+
+}
+
+
+/* ================================
+   ラジオ
+================================ */
+
+.radio-group {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+}
+
+.radio-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: #292929;
+
+    border-radius: 9px;
+
+    padding: 11px 13px;
+
+    cursor: pointer;
+
+}
+
+.radio-item input {
+
+    width: auto;
+
+}
+
+
+/* ================================
+   プレビュー
+================================ */
+
+.preview {
+
+    margin-top: 18px;
+
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+}
+
+.preview-label {
+
+    color: #888;
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
+
+}
+
+.preview-text {
+
+    line-height: 1.8;
+
+}
+
+
+/* ================================
+   通知設定
+================================ */
+
+.notification-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+.notification-row {
+
+    display: grid;
+
+    grid-template-columns:
+        auto
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background: #292929;
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+}
+
+.notification-row input[type="checkbox"] {
+
+    width: 20px;
+
+    height: 20px;
+
+}
+
+.notification-row input[type="time"] {
+
+    min-width: 0;
+
+}
+
+.delete-button {
+
+    background: #632727;
+
+}
+
+.delete-button:hover {
+
+    background: #873333;
+
+}
+
+.add-button {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    background: #235f38;
+
+}
+
+.add-button:hover {
+
+    background: #2c7846;
+
+}
+
+
+/* ================================
+   テスト
+================================ */
+
+.test-area {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+}
+
+.test-area button {
+
+    flex: 1;
+
+}
+
+
+/* ================================
+   次の通知
+================================ */
+
+.next-notification {
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    background: #172c3e;
+
+    margin-top: 15px;
+
+    line-height: 1.7;
+
+}
+
+.next-notification strong {
+
+    color: #8ecbff;
+
+}
+
+
+/* ================================
+   通知表示
+================================ */
+
+.speaking {
+
+    position: fixed;
+
+    left: 20px;
+
+    right: 20px;
+
+    bottom: 20px;
+
+    background: #193c56;
+
+    border: 1px solid #34749f;
+
+    padding: 18px;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.5);
+
+    display: none;
+
+    z-index: 1000;
+
+}
+
+.speaking.show {
+
+    display: block;
+
+}
+
+.speaking-title {
+
+    font-size: 13px;
+
+    color: #91c9ec;
+
+    margin-bottom: 5px;
+
+}
+
+.speaking-text {
+
+    line-height: 1.7;
+
+}
+
+
+/* ================================
+   レスポンシブ
+================================ */
+
+@media (max-width: 700px) {
+
+    .fields {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .connection {
+
+        align-items: stretch;
+
+        flex-direction: column;
+
+    }
+
+    .notification-row {
+
+        grid-template-columns:
+            auto
+            1fr;
+
+    }
+
+    .delete-button {
+
+        grid-column: 1 / -1;
+
+        width: 100%;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>Clock_60X 時刻放送</h1>
+
+</header>
+
+
+<!-- =================================
+     部屋参加画面
+================================= -->
+
+<div
+    id="joinScreen"
+    class="container"
+>
+
+    <div class="join-title">
+        部屋に参加
+    </div>
+
+    <div class="join-box">
+
+        <div class="field">
+
+            <label for="roomCode">
+                5桁の部屋番号
+            </label>
+
+            <input
+                id="roomCode"
+                type="text"
+                inputmode="numeric"
+                maxlength="5"
+                placeholder="例：12345"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="field">
+
+            <label for="roomPassword">
+                パスワード
+            </label>
+
+            <input
+                id="roomPassword"
+                type="password"
+                placeholder="パスワード"
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <button id="joinButton">
+            部屋に参加
+        </button>
+
+
+        <div
+            id="joinStatus"
+            class="join-status"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =================================
+     アプリ本体
+================================= -->
+
+<div
+    id="appScreen"
+    class="container"
+>
+
+
+    <!-- 接続情報 -->
+
+    <div class="connection">
+
+        <div class="connection-left">
+
+            <div
+                id="connectionDot"
+                class="connection-dot"
+            ></div>
+
+            <div>
+
+                <div class="room-number">
+                    部屋 <span id="currentRoom">-----</span>
+                </div>
+
+                <div id="connectionStatus">
+                    接続中...
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="leaveButton"
+            class="leave-button"
+        >
+            部屋から退出
+        </button>
+
+    </div>
+
+
+    <!-- 時計 -->
+
+    <div class="clock-panel">
+
+        <div
+            id="clock"
+            class="clock"
+        >
+            00:00:00
+        </div>
+
+
+        <div
+            id="clockStatus"
+            class="clock-status"
+        >
+            時計情報を待っています
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         放送内容
+    ================================= -->
+
+    <div class="panel">
+
+        <h2>
+            放送内容
+        </h2>
+
+
+        <div class="fields">
+
+
+            <div class="field">
+
+                <label for="station">
+                    駅名
+                </label>
+
+                <input
+                    id="station"
+                    type="text"
+                    placeholder="例：千葉"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="operation">
+                    運用番号
+                </label>
+
+                <input
+                    id="operation"
+                    type="text"
+                    placeholder="例：A101"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="type">
+                    種別
+                </label>
+
+                <input
+                    id="type"
+                    type="text"
+                    placeholder="例：普通"
+                >
+
+            </div>
+
+        </div>
+
+
+        <label>
+            時刻種別
+        </label>
+
+
+        <div class="radio-group">
+
+
+            <label class="radio-item">
+
+                <input
+                    type="radio"
+                    name="timeType"
+                    value="発車時刻"
+                    checked
+                >
+
+                発車時刻
+
+            </label>
+
+
+            <label class="radio-item">
+
+                <input
+                    type="radio"
+                    name="timeType"
+                    value="入庫時刻"
+                >
+
+                入庫時刻
+
+            </label>
+
+
+        </div>
+
+
+        <label style="margin-top: 18px;">
+            指示内容
+        </label>
+
+
+        <div class="radio-group">
+
+
+            <label class="radio-item">
+
+                <input
+                    type="radio"
+                    name="instruction"
+                    value="列車を駅に待機させてください"
+                    checked
+                >
+
+                列車を駅に待機させてください
+
+            </label>
+
+
+            <label class="radio-item">
+
+                <input
+                    type="radio"
+                    name="instruction"
+                    value="各駅員、列車の位置を共有してください"
+                >
+
+                各駅員、列車の位置を共有してください
+
+            </label>
+
+
+        </div>
+
+
+        <div class="preview">
+
+            <div class="preview-label">
+                放送プレビュー
+            </div>
+
+            <div
+                id="previewText"
+                class="preview-text"
+            ></div>
+
+        </div>
+
+
+        <div class="test-area">
+
+            <button id="testButton">
+                🔊 放送テスト
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         通知設定
+    ================================= -->
+
+    <div class="panel">
+
+        <h2>
+            通知設定
+        </h2>
+
+
+        <div
+            id="notificationList"
+            class="notification-list"
+        ></div>
+
+
+        <button
+            id="addNotificationButton"
+            class="add-button"
+        >
+            ＋ 通知を追加
+        </button>
+
+
+        <div
+            id="nextNotification"
+            class="next-notification"
+        >
+            次の通知を計算中...
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<!-- =================================
+     放送中表示
+================================= -->
+
+<div
+    id="speaking"
+    class="speaking"
+>
+
+    <div class="speaking-title">
+        🔊 時刻放送
+    </div>
+
+    <div
+        id="speakingText"
+        class="speaking-text"
+    ></div>
+
+</div>
+
+
+<script type="module">
+
+import {
+    db
+} from "./firebase.js";
+
+import {
+    doc,
+    getDoc,
+    onSnapshot
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const joinScreen =
+    document.getElementById("joinScreen");
+
+const appScreen =
+    document.getElementById("appScreen");
+
+const roomCodeInput =
+    document.getElementById("roomCode");
+
+const roomPasswordInput =
+    document.getElementById("roomPassword");
+
+const joinButton =
+    document.getElementById("joinButton");
+
+const joinStatus =
+    document.getElementById("joinStatus");
+
+const currentRoom =
+    document.getElementById("currentRoom");
+
+const connectionDot =
+    document.getElementById("connectionDot");
+
+const connectionStatus =
+    document.getElementById("connectionStatus");
+
+const leaveButton =
+    document.getElementById("leaveButton");
+
+const clock =
+    document.getElementById("clock");
+
+const clockStatus =
+    document.getElementById("clockStatus");
+
+const stationInput =
+    document.getElementById("station");
+
+const operationInput =
+    document.getElementById("operation");
+
+const typeInput =
+    document.getElementById("type");
+
+const previewText =
+    document.getElementById("previewText");
+
+const notificationList =
+    document.getElementById("notificationList");
+
+const addNotificationButton =
+    document.getElementById(
+        "addNotificationButton"
+    );
+
+const nextNotification =
+    document.getElementById(
+        "nextNotification"
+    );
+
+const testButton =
+    document.getElementById(
+        "testButton"
+    );
+
+const speaking =
+    document.getElementById(
+        "speaking"
+    );
+
+const speakingText =
+    document.getElementById(
+        "speakingText"
+    );
+
+
+/* =====================================================
+   状態
+===================================================== */
+
+let unsubscribeRoom = null;
+
+let joinedRoomCode = null;
+
+let roomData = null;
+
+let previousVirtualSeconds = null;
+
+let notifications = [];
+
+let speechQueue = [];
+
+let speechRunning = false;
+
+
+/* =====================================================
+   86400秒
+===================================================== */
+
+const DAY_SECONDS =
+    24 * 60 * 60;
+
+
+/* =====================================================
+   秒 -> HH:MM:SS
+===================================================== */
+
+function formatTime(totalSeconds) {
+
+    totalSeconds =
+        Math.floor(totalSeconds)
+        % DAY_SECONDS;
+
+    if (totalSeconds < 0) {
+
+        totalSeconds +=
+            DAY_SECONDS;
+
+    }
+
+
+    const hours =
+        Math.floor(
+            totalSeconds / 3600
+        );
+
+    const minutes =
+        Math.floor(
+            (totalSeconds % 3600) / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+
+    return (
+        String(hours).padStart(2, "0") +
+        ":" +
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0")
+    );
+
+}
+
+
+/* =====================================================
+   HH:MM:SS -> 秒
+===================================================== */
+
+function timeToSeconds(value) {
+
+    if (!value) {
+        return null;
+    }
+
+
+    const parts =
+        value.split(":");
+
+
+    const hours =
+        Number(parts[0] || 0);
+
+    const minutes =
+        Number(parts[1] || 0);
+
+    const seconds =
+        Number(parts[2] || 0);
+
+
+    if (
+        !Number.isFinite(hours) ||
+        !Number.isFinite(minutes) ||
+        !Number.isFinite(seconds)
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        hours * 3600 +
+        minutes * 60 +
+        seconds
+    );
+
+}
+
+
+/* =====================================================
+   放送文
+===================================================== */
+
+function getSelectedValue(name) {
+
+    const element =
+        document.querySelector(
+            `input[name="${name}"]:checked`
+        );
+
+    return element
+        ? element.value
+        : "";
+
+}
+
+
+function getAnnouncementText() {
+
+    const station =
+        stationInput.value.trim();
+
+    const operation =
+        operationInput.value.trim();
+
+    const type =
+        typeInput.value.trim();
+
+    const timeType =
+        getSelectedValue(
+            "timeType"
+        );
+
+    const instruction =
+        getSelectedValue(
+            "instruction"
+        );
+
+
+    return (
+        "まもなく、" +
+        station +
+        "車庫、" +
+        operation +
+        type +
+        "、「" +
+        timeType +
+        "」です。「" +
+        instruction +
+        "」。"
+    );
+
+}
+
+
+/* =====================================================
+   プレビュー更新
+===================================================== */
+
+function updatePreview() {
+
+    previewText.textContent =
+        getAnnouncementText();
+
+}
+
+
+stationInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+operationInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+typeInput.addEventListener(
+    "input",
+    updatePreview
+);
+
+document
+    .querySelectorAll(
+        'input[name="timeType"], input[name="instruction"]'
+    )
+    .forEach(
+        element => {
+
+            element.addEventListener(
+                "change",
+                updatePreview
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   音声
+===================================================== */
+
+function speak(text) {
+
+    if (
+        !("speechSynthesis" in window)
+    ) {
+
+        alert(
+            "このブラウザは音声読み上げに対応していません。"
+        );
+
+        return;
+
+    }
+
+
+    speechQueue.push(text);
+
+    processSpeechQueue();
+
+}
+
+
+function processSpeechQueue() {
+
+    if (speechRunning) {
+        return;
+    }
+
+    if (speechQueue.length === 0) {
+        return;
+    }
+
+
+    const text =
+        speechQueue.shift();
+
+
+    speechRunning = true;
+
+
+    speakingText.textContent =
+        text;
+
+    speaking.classList.add(
+        "show"
+    );
+
+
+    speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    utterance.lang =
+        "ja-JP";
+
+
+    utterance.rate =
+        0.95;
+
+
+    utterance.pitch =
+        1.0;
+
+
+    utterance.volume =
+        1.0;
+
+
+    utterance.onend =
+    () => {
+
+        speechRunning = false;
+
+        speaking.classList.remove(
+            "show"
+        );
+
+        processSpeechQueue();
+
+    };
+
+
+    utterance.onerror =
+    () => {
+
+        speechRunning = false;
+
+        speaking.classList.remove(
+            "show"
+        );
+
+        processSpeechQueue();
+
+    };
+
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =====================================================
+   通知設定の保存
+===================================================== */
+
+function getSettingsStorageKey() {
+
+    if (!joinedRoomCode) {
+        return null;
+    }
+
+
+    return (
+        "clock60x-announcer-" +
+        joinedRoomCode
+    );
+
+}
+
+
+function saveSettings() {
+
+    const key =
+        getSettingsStorageKey();
+
+
+    if (!key) {
+        return;
+    }
+
+
+    const data = {
+
+        station:
+            stationInput.value,
+
+        operation:
+            operationInput.value,
+
+        type:
+            typeInput.value,
+
+        timeType:
+            getSelectedValue(
+                "timeType"
+            ),
+
+        instruction:
+            getSelectedValue(
+                "instruction"
+            ),
+
+        notifications:
+            notifications
+
+    };
+
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(data)
+    );
+
+}
+
+
+function loadSettings() {
+
+    const key =
+        getSettingsStorageKey();
+
+
+    if (!key) {
+        return;
+    }
+
+
+    const raw =
+        localStorage.getItem(key);
+
+
+    if (!raw) {
+        return;
+    }
+
+
+    try {
+
+        const data =
+            JSON.parse(raw);
+
+
+        stationInput.value =
+            data.station || "";
+
+
+        operationInput.value =
+            data.operation || "";
+
+
+        typeInput.value =
+            data.type || "";
+
+
+        const timeType =
+            data.timeType ||
+            "発車時刻";
+
+
+        const timeTypeElement =
+            document.querySelector(
+                `input[name="timeType"][value="${CSS.escape(timeType)}"]`
+            );
+
+
+        if (timeTypeElement) {
+
+            timeTypeElement.checked =
+                true;
+
+        }
+
+
+        const instruction =
+            data.instruction ||
+            "列車を駅に待機させてください";
+
+
+        const instructionElement =
+            document.querySelector(
+                `input[name="instruction"][value="${CSS.escape(instruction)}"]`
+            );
+
+
+        if (instructionElement) {
+
+            instructionElement.checked =
+                true;
+
+        }
+
+
+        if (
+            Array.isArray(
+                data.notifications
+            )
+        ) {
+
+            notifications =
+                data.notifications
+                .filter(
+                    item =>
+                        item &&
+                        typeof item.time === "string"
+                )
+                .map(
+                    item => ({
+                        id:
+                            item.id ||
+                            crypto.randomUUID(),
+
+                        time:
+                            item.time,
+
+                        enabled:
+                            item.enabled !== false
+                    })
+                );
+
+        }
+
+    }
+    catch (error) {
+
+        console.warn(
+            "設定の読み込みに失敗:",
+            error
+        );
+
+    }
+
+
+    updatePreview();
+
+    renderNotifications();
+
+}
+
+
+/* =====================================================
+   通知設定描画
+===================================================== */
+
+function renderNotifications() {
+
+    notificationList.innerHTML = "";
+
+
+    notifications.sort(
+        (a, b) => {
+
+            const x =
+                timeToSeconds(a.time) ?? 0;
+
+            const y =
+                timeToSeconds(b.time) ?? 0;
+
+            return x - y;
+
+        }
+    );
+
+
+    notifications.forEach(
+        notification => {
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className =
+                "notification-row";
+
+
+            const checkbox =
+                document.createElement(
+                    "input"
+                );
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.checked =
+                notification.enabled;
+
+
+            checkbox.title =
+                "この通知を有効にする";
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    notification.enabled =
+                        checkbox.checked;
+
+                    saveSettings();
+
+                    updateNextNotification();
+
+                }
+            );
+
+
+            const timeInput =
+                document.createElement(
+                    "input"
+                );
+
+            timeInput.type =
+                "time";
+
+            timeInput.step =
+                "1";
+
+            timeInput.value =
+                notification.time;
+
+
+            timeInput.addEventListener(
+                "change",
+                () => {
+
+                    notification.time =
+                        timeInput.value;
+
+                    saveSettings();
+
+                    renderNotifications();
+
+                    updateNextNotification();
+
+                }
+            );
+
+
+            const deleteButton =
+                document.createElement(
+                    "button"
+                );
+
+            deleteButton.textContent =
+                "削除";
+
+            deleteButton.className =
+                "delete-button";
+
+
+            deleteButton.addEventListener(
+                "click",
+                () => {
+
+                    notifications =
+                        notifications.filter(
+                            item =>
+                                item.id !==
+                                notification.id
+                        );
+
+
+                    saveSettings();
+
+                    renderNotifications();
+
+                    updateNextNotification();
+
+                }
+            );
+
+
+            row.appendChild(
+                checkbox
+            );
+
+            row.appendChild(
+                timeInput
+            );
+
+            row.appendChild(
+                deleteButton
+            );
+
+
+            notificationList.appendChild(
+                row
+            );
+
+        }
+    );
+
+
+    updateNextNotification();
+
+}
+
+
+/* =====================================================
+   通知追加
+===================================================== */
+
+addNotificationButton.addEventListener(
+    "click",
+    () => {
+
+        notifications.push({
+
+            id:
+                crypto.randomUUID(),
+
+            time:
+                "05:00:00",
+
+            enabled:
+                true
+
+        });
+
+
+        saveSettings();
+
+        renderNotifications();
+
+    }
+);
+
+
+/* =====================================================
+   次の通知
+===================================================== */
+
+function updateNextNotification() {
+
+    if (
+        !roomData ||
+        previousVirtualSeconds === null
+    ) {
+
+        nextNotification.textContent =
+            "次の通知を計算中...";
+
+        return;
+
+    }
+
+
+    const current =
+        (
+            Math.floor(
+                roomData.virtualSeconds
+            ) % DAY_SECONDS
+        );
+
+
+    const active =
+        notifications
+            .filter(
+                n =>
+                    n.enabled &&
+                    timeToSeconds(
+                        n.time
+                    ) !== null
+            );
+
+
+    if (active.length === 0) {
+
+        nextNotification.innerHTML =
+            "通知設定がありません。";
+
+        return;
+
+    }
+
+
+    let best = null;
+
+
+    for (
+        const notification
+        of active
+    ) {
+
+        const target =
+            timeToSeconds(
+                notification.time
+            );
+
+
+        let difference =
+            target - current;
+
+
+        if (difference < 0) {
+
+            difference +=
+                DAY_SECONDS;
+
+        }
+
+
+        if (
+            best === null ||
+            difference < best.difference
+        ) {
+
+            best = {
+
+                notification,
+                difference,
+                target
+
+            };
+
+        }
+
+    }
+
+
+    nextNotification.innerHTML =
+
+        "次の通知：<strong>" +
+        formatTime(
+            best.target
+        ) +
+        "</strong>";
+
+
+    if (best.difference <= DAY_SECONDS) {
+
+        const minutes =
+            Math.floor(
+                best.difference / 60
+            );
+
+        const seconds =
+            best.difference % 60;
+
+
+        nextNotification.innerHTML +=
+
+            "<br>" +
+            "あと " +
+            minutes +
+            "分 " +
+            String(seconds).padStart(
+                2,
+                "0"
+            ) +
+            "秒";
+
+    }
+
+}
+
+
+/* =====================================================
+   通知時刻通過判定
+===================================================== */
+
+function getCrossedNotifications(
+    previous,
+    current
+) {
+
+    previous =
+        Math.floor(
+            previous
+        ) % DAY_SECONDS;
+
+
+    current =
+        Math.floor(
+            current
+        ) % DAY_SECONDS;
+
+
+    let targets = [];
+
+
+    for (
+        const notification
+        of notifications
+    ) {
+
+        if (
+            !notification.enabled
+        ) {
+
+            continue;
+
+        }
+
+
+        const target =
+            timeToSeconds(
+                notification.time
+            );
+
+
+        if (target === null) {
+            continue;
+        }
+
+
+        let crossed = false;
+
+
+        /*
+         * 通常の時間経過
+         */
+
+        if (current >= previous) {
+
+            crossed =
+                target > previous &&
+                target <= current;
+
+        }
+
+        /*
+         * 0時をまたいだ
+         */
+
+        else {
+
+            crossed =
+                (
+                    target > previous &&
+                    target < DAY_SECONDS
+                )
+                ||
+                (
+                    target >= 0 &&
+                    target <= current
+                );
+
+        }
+
+
+        if (crossed) {
+
+            targets.push({
+
+                notification,
+                target
+
+            });
+
+        }
+
+    }
+
+
+    targets.sort(
+        (a, b) =>
+            a.target - b.target
+    );
+
+
+    return targets;
+
+}
+
+
+/* =====================================================
+   Clock_60X更新
+===================================================== */
+
+function handleRoomSnapshot(
+    snapshot
+) {
+
+    if (!snapshot.exists()) {
+
+        setDisconnected(
+            "部屋が終了しました"
+        );
+
+        return;
+
+    }
+
+
+    const data =
+        snapshot.data();
+
+
+    /*
+     * パスワードは参加時に確認済み
+     */
+
+    roomData =
+        data;
+
+
+    const virtualSeconds =
+        Number(
+            data.virtualSeconds
+        );
+
+
+    if (
+        !Number.isFinite(
+            virtualSeconds
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+     * 時計表示
+     */
+
+    clock.textContent =
+        formatTime(
+            virtualSeconds
+        );
+
+
+    /*
+     * 状態表示
+     */
+
+    const running =
+        Boolean(
+            data.running
+        );
+
+
+    const speed =
+        Number(
+            data.speed || 1
+        );
+
+
+    clockStatus.textContent =
+        running
+            ? `運転中 ・ ${speed}倍速`
+            : "停止中";
+
+
+    /*
+     * 通知判定
+     *
+     * 最初の1回は基準時刻として保存
+     */
+
+    if (
+        previousVirtualSeconds === null
+    ) {
+
+        previousVirtualSeconds =
+            virtualSeconds;
+
+        updateNextNotification();
+
+        return;
+
+    }
+
+
+    /*
+     * 時計が進んでいるときだけ通知
+     */
+
+    if (running) {
+
+        /*
+         * 通常の進行か、
+         * 日付跨ぎかを判定
+         */
+
+        const previousNormalized =
+            Math.floor(
+                previousVirtualSeconds
+            ) % DAY_SECONDS;
+
+
+        const currentNormalized =
+            Math.floor(
+                virtualSeconds
+            ) % DAY_SECONDS;
+
+
+        /*
+         * 通常の進行なら通知判定
+         */
+
+        const isNormalAdvance =
+            currentNormalized >=
+            previousNormalized;
+
+
+        /*
+         * 0時跨ぎは
+         * 前回が23時台、
+         * 今回が0時台のときだけ許可
+         */
+
+        const isMidnightWrap =
+            previousNormalized >=
+                23 * 3600
+            &&
+            currentNormalized <
+                60 * 60;
+
+
+        if (
+            isNormalAdvance ||
+            isMidnightWrap
+        ) {
+
+            const crossed =
+                getCrossedNotifications(
+                    previousVirtualSeconds,
+                    virtualSeconds
+                );
+
+
+            for (
+                const item
+                of crossed
+            ) {
+
+                speak(
+                    getAnnouncementText()
+                );
+
+            }
+
+        }
+
+    }
+
+
+    previousVirtualSeconds =
+        virtualSeconds;
+
+
+    updateNextNotification();
+
+}
+
+
+/* =====================================================
+   接続成功
+===================================================== */
+
+function setConnected() {
+
+    connectionDot.classList.add(
+        "online"
+    );
+
+    connectionStatus.textContent =
+        "Clock_60Xと同期中";
+
+}
+
+
+/* =====================================================
+   切断
+===================================================== */
+
+function setDisconnected(
+    message
+) {
+
+    connectionDot.classList.remove(
+        "online"
+    );
+
+    connectionStatus.textContent =
+        message;
+
+
+    clockStatus.textContent =
+        "時計との接続がありません";
+
+}
+
+
+/* =====================================================
+   部屋参加
+===================================================== */
+
+joinButton.addEventListener(
+    "click",
+    async () => {
+
+        const roomCode =
+            roomCodeInput.value.trim();
+
+
+        const password =
+            roomPasswordInput.value;
+
+
+        /*
+         * 5桁確認
+         */
+
+        if (
+            !/^\d{5}$/.test(
+                roomCode
+            )
+        ) {
+
+            joinStatus.textContent =
+                "5桁の部屋番号を入力してください。";
+
+            return;
+
+        }
+
+
+        if (
+            password.trim() === ""
+        ) {
+
+            joinStatus.textContent =
+                "パスワードを入力してください。";
+
+            return;
+
+        }
+
+
+        joinButton.disabled =
+            true;
+
+
+        joinStatus.textContent =
+            "部屋を確認しています...";
+
+
+        try {
+
+            const roomRef =
+                doc(
+                    db,
+                    "rooms",
+                    roomCode
+                );
+
+
+            const roomSnap =
+                await getDoc(
+                    roomRef
+                );
+
+
+            if (
+                !roomSnap.exists()
+            ) {
+
+                joinStatus.textContent =
+                    "部屋が存在しません。";
+
+                joinButton.disabled =
+                    false;
+
+                return;
+
+            }
+
+
+            const data =
+                roomSnap.data();
+
+
+            if (
+                data.password !==
+                password
+            ) {
+
+                joinStatus.textContent =
+                    "パスワードが違います。";
+
+                joinButton.disabled =
+                    false;
+
+                return;
+
+            }
+
+
+            /*
+             * 音声再生を許可するため、
+             * ユーザー操作の中で一度だけ
+             * speechSynthesisを触る
+             */
+
+            if (
+                "speechSynthesis" in window
+            ) {
+
+                speechSynthesis.cancel();
+
+            }
+
+
+            /*
+             * 前回購読があれば解除
+             */
+
+            if (
+                unsubscribeRoom
+            ) {
+
+                unsubscribeRoom();
+
+                unsubscribeRoom =
+                    null;
+
+            }
+
+
+            joinedRoomCode =
+                roomCode;
+
+
+            currentRoom.textContent =
+                roomCode;
+
+
+            /*
+             * 部屋ごとの設定読み込み
+             */
+
+            loadSettings();
+
+
+            /*
+             * アプリ画面
+             */
+
+            joinScreen.style.display =
+                "none";
+
+            appScreen.style.display =
+                "block";
+
+
+            joinStatus.textContent =
+                "";
+
+
+            previousVirtualSeconds =
+                null;
+
+
+            /*
+             * リアルタイム購読
+             */
+
+            unsubscribeRoom =
+                onSnapshot(
+                    roomRef,
+                    handleRoomSnapshot,
+                    error => {
+
+                        console.error(
+                            error
+                        );
+
+
+                        setDisconnected(
+                            "接続エラー"
+                        );
+
+                    }
+                );
+
+
+            setConnected();
+
+        }
+        catch (error) {
+
+            console.error(
+                error
+            );
+
+
+            joinStatus.textContent =
+                "接続に失敗しました。";
+
+        }
+
+
+        joinButton.disabled =
+            false;
+
+    }
+);
+
+
+/* =====================================================
+   Enterキーでも参加
+===================================================== */
+
+roomPasswordInput.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            joinButton.click();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   部屋から退出
+===================================================== */
+
+leaveButton.addEventListener(
+    "click",
+    () => {
+
+        if (
+            unsubscribeRoom
+        ) {
+
+            unsubscribeRoom();
+
+            unsubscribeRoom =
+                null;
+
+        }
+
+
+        joinedRoomCode =
+            null;
+
+
+        roomData =
+            null;
+
+
+        previousVirtualSeconds =
+            null;
+
+
+        speechQueue =
+            [];
+
+
+        speechSynthesis.cancel();
+
+
+        speaking.classList.remove(
+            "show"
+        );
+
+
+        appScreen.style.display =
+            "none";
+
+        joinScreen.style.display =
+            "block";
+
+
+        roomCodeInput.value =
+            "";
+
+        roomPasswordInput.value =
+            "";
+
+
+        clock.textContent =
+            "00:00:00";
+
+
+        clockStatus.textContent =
+            "時計情報を待っています";
+
+
+        setDisconnected(
+            "未接続"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   放送テスト
+===================================================== */
+
+testButton.addEventListener(
+    "click",
+    () => {
+
+        const text =
+            getAnnouncementText();
+
+
+        speak(text);
+
+    }
+);
+
+
+/* =====================================================
+   設定変更時の保存
+===================================================== */
+
+[
+    stationInput,
+    operationInput,
+    typeInput
+].forEach(
+    element => {
+
+        element.addEventListener(
+            "input",
+            () => {
+
+                updatePreview();
+
+                saveSettings();
+
+            }
+        );
+
+    }
+);
+
+
+document
+    .querySelectorAll(
+        'input[name="timeType"], input[name="instruction"]'
+    )
+    .forEach(
+        element => {
+
+            element.addEventListener(
+                "change",
+                () => {
+
+                    updatePreview();
+
+                    saveSettings();
+
+                }
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   初期表示
+===================================================== */
+
+updatePreview();
+
+renderNotifications();
+
+</script>
+
+
+</body>
+
+</html>
