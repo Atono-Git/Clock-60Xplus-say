@@ -19,7 +19,8 @@ body {
 
 button,
 input,
-textarea {
+textarea,
+select {
     font: inherit;
 }
 
@@ -42,7 +43,8 @@ button:disabled {
 }
 
 input,
-textarea {
+textarea,
+select {
     width: 100%;
     padding: 12px;
     background: #292929;
@@ -53,7 +55,8 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
     border-color: #438bd0;
 }
 
@@ -61,6 +64,10 @@ textarea {
     min-height: 100px;
     resize: vertical;
     line-height: 1.6;
+}
+
+select {
+    cursor: pointer;
 }
 
 
@@ -93,7 +100,7 @@ header h1 {
 
 
 /* =================================
-   部屋参加画面
+   部屋参加
 ================================= */
 
 #joinScreen {
@@ -141,7 +148,7 @@ header h1 {
 
 
 /* =================================
-   アプリ画面
+   アプリ
 ================================= */
 
 #appScreen {
@@ -158,10 +165,8 @@ header h1 {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-
     margin-bottom: 18px;
     padding: 14px 16px;
-
     background: #1d1d1d;
     border-radius: 12px;
 }
@@ -176,7 +181,6 @@ header h1 {
     width: 12px;
     height: 12px;
     flex-shrink: 0;
-
     background: #777;
     border-radius: 50%;
 }
@@ -213,10 +217,8 @@ header h1 {
 .clock-panel {
     margin-bottom: 18px;
     padding: 25px;
-
     background: #181818;
     border-radius: 15px;
-
     text-align: center;
 }
 
@@ -235,13 +237,12 @@ header h1 {
 
 
 /* =================================
-   放送設定パネル
+   放送設定
 ================================= */
 
 .panel {
     margin-bottom: 18px;
     padding: 22px;
-
     background: #1d1d1d;
     border-radius: 15px;
 }
@@ -251,7 +252,6 @@ header h1 {
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-
     margin-bottom: 18px;
 }
 
@@ -270,7 +270,7 @@ header h1 {
 
 
 /* =================================
-   設定一覧
+   一覧
 ================================= */
 
 .announcement-list {
@@ -286,7 +286,6 @@ header h1 {
 
 .announcement-card {
     padding: 18px;
-
     background: #292929;
     border: 1px solid #3b3b3b;
     border-radius: 14px;
@@ -297,7 +296,6 @@ header h1 {
     align-items: center;
     justify-content: space-between;
     gap: 10px;
-
     margin-bottom: 18px;
 }
 
@@ -321,7 +319,6 @@ header h1 {
     display: flex;
     align-items: center;
     gap: 7px;
-
     color: #ccc;
     cursor: pointer;
 }
@@ -334,13 +331,22 @@ header h1 {
 
 
 /* =================================
-   時刻
+   ラベル
 ================================= */
 
 .setting-label {
     margin-bottom: 7px;
     color: #aaa;
     font-size: 14px;
+}
+
+
+/* =================================
+   時刻
+================================= */
+
+.time-area {
+    margin-bottom: 18px;
 }
 
 .time-input {
@@ -352,28 +358,116 @@ header h1 {
 
 
 /* =================================
-   コメント
+   コメント方式
 ================================= */
 
-.comment-area {
-    margin-top: 16px;
+.comment-mode {
+    margin-bottom: 18px;
 }
 
-.comment-textarea {
-    font-size: 16px;
+.mode-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.mode-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 13px;
+
+    background: #181818;
+    border: 1px solid #444;
+    border-radius: 9px;
+
+    cursor: pointer;
+}
+
+.mode-button.active {
+    background: #18548a;
+    border-color: #438bd0;
+}
+
+.mode-button input {
+    display: none;
 }
 
 
 /* =================================
-   削除
+   定型文
 ================================= */
 
-.delete-button {
-    background: #682929;
+.template-area {
+    padding: 15px;
+    background: #222;
+    border-radius: 10px;
 }
 
-.delete-button:hover {
-    background: #893636;
+.template-fields {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.card-field {
+    margin-bottom: 14px;
+}
+
+.card-field label {
+    display: block;
+    margin-bottom: 6px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+/* =================================
+   選択ボタン
+================================= */
+
+.choice-area {
+    margin-top: 5px;
+}
+
+.choice-title {
+    margin-bottom: 8px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+.choice-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.choice-button {
+    padding: 10px 13px;
+    background: #181818;
+    border: 1px solid #444;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.15s;
+}
+
+.choice-button:hover {
+    background: #303030;
+}
+
+.choice-button.active {
+    background: #18548a;
+    border-color: #438bd0;
+}
+
+
+/* =================================
+   自由入力
+================================= */
+
+.free-comment {
+    margin-top: 5px;
 }
 
 
@@ -384,7 +478,6 @@ header h1 {
 .preview {
     margin-top: 16px;
     padding: 14px;
-
     background: #111;
     border: 1px solid #383838;
     border-radius: 10px;
@@ -404,7 +497,20 @@ header h1 {
 
 
 /* =================================
-   保存表示
+   削除
+================================= */
+
+.delete-button {
+    background: #682929;
+}
+
+.delete-button:hover {
+    background: #893636;
+}
+
+
+/* =================================
+   保存
 ================================= */
 
 .save-status {
@@ -415,15 +521,13 @@ header h1 {
 
 
 /* =================================
-   設定がない場合
+   空
 ================================= */
 
 .empty-message {
     padding: 25px;
-
     background: #111;
     border-radius: 10px;
-
     color: #777;
     text-align: center;
     line-height: 1.7;
@@ -463,6 +567,9 @@ header h1 {
         justify-content: flex-end;
     }
 
+    .template-fields {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
@@ -580,8 +687,9 @@ header h1 {
     </div>
 
 
-
-    <!-- 時計 -->
+    <!-- =================================
+         時計
+    ================================= -->
 
     <div class="clock-panel">
 
@@ -602,8 +710,9 @@ header h1 {
     </div>
 
 
-
-    <!-- 放送設定 -->
+    <!-- =================================
+         放送設定
+    ================================= -->
 
     <div class="panel">
 
@@ -805,7 +914,7 @@ function getStorageKey() {
 
 
 /* =========================================
-   新規設定
+   新規放送設定
 ========================================= */
 
 function createAnnouncement() {
@@ -825,10 +934,76 @@ function createAnnouncement() {
         time:
             "05:00:00",
 
+        mode:
+            "template",
+
+        station:
+            "北春日部",
+
+        operation:
+            "L1",
+
+        type:
+            "普通",
+
+        timeType:
+            "発車時刻",
+
+        instruction:
+            "列車を駅に待機させてください",
+
         comment:
             ""
 
     };
+
+}
+
+
+/* =========================================
+   定型文作成
+========================================= */
+
+function makeTemplateText(data) {
+
+    return (
+        "まもなく、" +
+        data.station +
+        "車庫、" +
+        data.operation +
+        data.type +
+        "、「" +
+        data.timeType +
+        "」です。" +
+        "「" +
+        data.instruction +
+        "」。"
+    );
+
+}
+
+
+/* =========================================
+   コメント取得
+========================================= */
+
+function getAnnouncementText(data) {
+
+    if (
+        data.mode === "free"
+    ) {
+
+        return (
+            data.comment ||
+            "コメントがまだ入力されていません。"
+        );
+
+    }
+
+
+    return makeTemplateText(
+        data
+    );
 
 }
 
@@ -914,24 +1089,9 @@ function loadSettings() {
                 data.map(
                     item => ({
 
-                        id:
-                            item.id ||
-                            (
-                                Date.now() +
-                                "-" +
-                                Math.random()
-                            ),
+                        ...createAnnouncement(),
 
-                        enabled:
-                            item.enabled !== false,
-
-                        time:
-                            item.time ||
-                            "05:00:00",
-
-                        comment:
-                            item.comment ||
-                            ""
+                        ...item
 
                     })
                 );
@@ -962,7 +1122,7 @@ function loadSettings() {
 
 
 /* =========================================
-   時刻をHH:MM:SSに揃える
+   時刻整形
 ========================================= */
 
 function normalizeTime(time) {
@@ -1004,7 +1164,80 @@ function normalizeTime(time) {
 
 
 /* =========================================
-   放送設定一覧描画
+   選択肢
+========================================= */
+
+const STATIONS = [
+
+    "北春日部",
+    "北越谷",
+    "竹ノ塚"
+
+];
+
+
+const OPERATIONS = [
+
+    "L1",
+    "L2",
+    "L3",
+
+    "TH",
+
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6",
+
+    "S1",
+    "S2",
+    "S3",
+
+    "LM1",
+    "LM2",
+    "LM3",
+    "LM4",
+    "LM5",
+    "LM6",
+
+    "EM1",
+    "EM2"
+
+];
+
+
+const TYPES = [
+
+    "回送",
+    "普通",
+    "急行",
+    "特急",
+    "TH"
+
+];
+
+
+const TIME_TYPES = [
+
+    "発車時刻",
+    "入庫時刻"
+
+];
+
+
+const INSTRUCTIONS = [
+
+    "列車を駅に待機させてください",
+
+    "各駅員、列車の位置を共有してください"
+
+];
+
+
+/* =========================================
+   設定一覧
 ========================================= */
 
 function renderAnnouncements() {
@@ -1026,8 +1259,7 @@ function renderAnnouncements() {
             "empty-message";
 
         empty.textContent =
-            "まだ放送設定がありません。" +
-            "「＋ 放送設定を追加」から追加してください。";
+            "まだ放送設定がありません。「＋ 放送設定を追加」から追加してください。";
 
         announcementList.appendChild(
             empty
@@ -1039,11 +1271,11 @@ function renderAnnouncements() {
 
 
     announcements.forEach(
-        (announcement, index) => {
+        (data, index) => {
 
             const card =
                 createAnnouncementCard(
-                    announcement,
+                    data,
                     index
                 );
 
@@ -1058,7 +1290,7 @@ function renderAnnouncements() {
 
 
 /* =========================================
-   1件の設定カード
+   1件のカード
 ========================================= */
 
 function createAnnouncementCard(
@@ -1075,9 +1307,9 @@ function createAnnouncementCard(
         "announcement-card";
 
 
-    /* -------------------------
+    /* =================================
        ヘッダー
-    ------------------------- */
+    ================================= */
 
     const header =
         document.createElement(
@@ -1139,7 +1371,9 @@ function createAnnouncementCard(
         );
 
     switchText.textContent =
-        "ON";
+        data.enabled
+            ? "ON"
+            : "OFF";
 
 
     checkbox.addEventListener(
@@ -1149,21 +1383,17 @@ function createAnnouncementCard(
             data.enabled =
                 checkbox.checked;
 
+
             switchText.textContent =
-                checkbox.checked
+                data.enabled
                     ? "ON"
                     : "OFF";
+
 
             saveSettings();
 
         }
     );
-
-
-    switchText.textContent =
-        data.enabled
-            ? "ON"
-            : "OFF";
 
 
     switchLabel.appendChild(
@@ -1193,14 +1423,14 @@ function createAnnouncementCard(
         "click",
         () => {
 
-            const confirmed =
-                confirm(
+            if (
+                !confirm(
                     "この放送設定を削除しますか？"
-                );
+                )
+            ) {
 
-
-            if (!confirmed) {
                 return;
+
             }
 
 
@@ -1243,9 +1473,9 @@ function createAnnouncementCard(
     );
 
 
-    /* -------------------------
+    /* =================================
        通知時刻
-    ------------------------- */
+    ================================= */
 
     const timeLabel =
         document.createElement(
@@ -1303,81 +1533,457 @@ function createAnnouncementCard(
     );
 
 
-    /* -------------------------
-       コメント
-    ------------------------- */
+    /* =================================
+       コメント方式
+    ================================= */
 
-    const commentArea =
+    const modeArea =
         document.createElement(
             "div"
         );
 
-    commentArea.className =
-        "comment-area";
+    modeArea.className =
+        "comment-mode";
 
 
-    const commentLabel =
+    const modeLabel =
         document.createElement(
             "div"
         );
 
-    commentLabel.className =
+    modeLabel.className =
         "setting-label";
 
-    commentLabel.textContent =
-        "コメント";
+    modeLabel.textContent =
+        "コメント方式";
 
 
-    const commentInput =
+    const modeButtons =
         document.createElement(
-            "textarea"
+            "div"
         );
 
-    commentInput.className =
-        "comment-textarea";
-
-    commentInput.placeholder =
-        "ここに、この時刻に読み上げる文章を入力";
+    modeButtons.className =
+        "mode-buttons";
 
 
-    commentInput.value =
-        data.comment;
+    const templateLabel =
+        document.createElement(
+            "label"
+        );
+
+    templateLabel.className =
+        "mode-button" +
+        (
+            data.mode === "template"
+                ? " active"
+                : ""
+        );
 
 
-    commentInput.addEventListener(
-        "input",
-        () => {
+    const templateRadio =
+        document.createElement(
+            "input"
+        );
 
-            data.comment =
-                commentInput.value;
+    templateRadio.type =
+        "radio";
 
-            preview.textContent =
-                data.comment ||
-                "コメントがまだ入力されていません。";
+    templateRadio.name =
+        "mode-" +
+        data.id;
 
-            saveSettings();
+    templateRadio.value =
+        "template";
+
+    templateRadio.checked =
+        data.mode === "template";
+
+
+    const templateSpan =
+        document.createElement(
+            "span"
+        );
+
+    templateSpan.textContent =
+        "定型文";
+
+
+    templateLabel.appendChild(
+        templateRadio
+    );
+
+    templateLabel.appendChild(
+        templateSpan
+    );
+
+
+    const freeLabel =
+        document.createElement(
+            "label"
+        );
+
+    freeLabel.className =
+        "mode-button" +
+        (
+            data.mode === "free"
+                ? " active"
+                : ""
+        );
+
+
+    const freeRadio =
+        document.createElement(
+            "input"
+        );
+
+    freeRadio.type =
+        "radio";
+
+    freeRadio.name =
+        "mode-" +
+        data.id;
+
+    freeRadio.value =
+        "free";
+
+    freeRadio.checked =
+        data.mode === "free";
+
+
+    const freeSpan =
+        document.createElement(
+            "span"
+        );
+
+    freeSpan.textContent =
+        "自由入力";
+
+
+    freeLabel.appendChild(
+        freeRadio
+    );
+
+    freeLabel.appendChild(
+        freeSpan
+    );
+
+
+    modeButtons.appendChild(
+        templateLabel
+    );
+
+    modeButtons.appendChild(
+        freeLabel
+    );
+
+
+    modeArea.appendChild(
+        modeLabel
+    );
+
+    modeArea.appendChild(
+        modeButtons
+    );
+
+
+    card.appendChild(
+        modeArea
+    );
+
+
+    /* =================================
+       定型文エリア
+    ================================= */
+
+    const templateArea =
+        document.createElement(
+            "div"
+        );
+
+    templateArea.className =
+        "template-area";
+
+
+    const fields =
+        document.createElement(
+            "div"
+        );
+
+    fields.className =
+        "template-fields";
+
+
+    /* 車庫 */
+
+    createSelectField(
+        fields,
+        "車庫",
+        STATIONS,
+        data.station,
+        value => {
+
+            data.station =
+                value;
+
+            updatePreview();
 
         }
     );
 
 
-    commentArea.appendChild(
-        commentLabel
+    /* 運用番号 */
+
+    createSelectField(
+        fields,
+        "運用番号",
+        OPERATIONS,
+        data.operation,
+        value => {
+
+            data.operation =
+                value;
+
+            updatePreview();
+
+        }
     );
 
-    commentArea.appendChild(
-        commentInput
+
+    /* 種別 */
+
+    createSelectField(
+        fields,
+        "種別",
+        TYPES,
+        data.type,
+        value => {
+
+            data.type =
+                value;
+
+            updatePreview();
+
+        }
+    );
+
+
+    templateArea.appendChild(
+        fields
+    );
+
+
+    /* =================================
+       時刻種別
+    ================================= */
+
+    const timeTypeArea =
+        document.createElement(
+            "div"
+        );
+
+    timeTypeArea.className =
+        "choice-area";
+
+
+    const timeTypeTitle =
+        document.createElement(
+            "div"
+        );
+
+    timeTypeTitle.className =
+        "choice-title";
+
+    timeTypeTitle.textContent =
+        "時刻種別";
+
+
+    const timeTypeButtons =
+        document.createElement(
+            "div"
+        );
+
+    timeTypeButtons.className =
+        "choice-buttons";
+
+
+    TIME_TYPES.forEach(
+        value => {
+
+            createChoiceButton(
+                timeTypeButtons,
+                value,
+                data.timeType,
+                selected => {
+
+                    data.timeType =
+                        selected;
+
+                    updatePreview();
+
+                }
+            );
+
+        }
+    );
+
+
+    timeTypeArea.appendChild(
+        timeTypeTitle
+    );
+
+    timeTypeArea.appendChild(
+        timeTypeButtons
+    );
+
+
+    templateArea.appendChild(
+        timeTypeArea
+    );
+
+
+    /* =================================
+       指示内容
+    ================================= */
+
+    const instructionArea =
+        document.createElement(
+            "div"
+        );
+
+    instructionArea.className =
+        "choice-area";
+
+
+    const instructionTitle =
+        document.createElement(
+            "div"
+        );
+
+    instructionTitle.className =
+        "choice-title";
+
+    instructionTitle.textContent =
+        "指示内容";
+
+
+    const instructionButtons =
+        document.createElement(
+            "div"
+        );
+
+    instructionButtons.className =
+        "choice-buttons";
+
+
+    INSTRUCTIONS.forEach(
+        value => {
+
+            createChoiceButton(
+                instructionButtons,
+                value,
+                data.instruction,
+                selected => {
+
+                    data.instruction =
+                        selected;
+
+                    updatePreview();
+
+                }
+            );
+
+        }
+    );
+
+
+    instructionArea.appendChild(
+        instructionTitle
+    );
+
+    instructionArea.appendChild(
+        instructionButtons
+    );
+
+
+    templateArea.appendChild(
+        instructionArea
     );
 
 
     card.appendChild(
-        commentArea
+        templateArea
     );
 
 
-    /* -------------------------
+    /* =================================
+       自由入力
+    ================================= */
+
+    const freeArea =
+        document.createElement(
+            "div"
+        );
+
+    freeArea.className =
+        "free-comment";
+
+
+    const freeLabel =
+        document.createElement(
+            "div"
+        );
+
+    freeLabel.className =
+        "setting-label";
+
+    freeLabel.textContent =
+        "コメント";
+
+
+    const freeInput =
+        document.createElement(
+            "textarea"
+        );
+
+    freeInput.placeholder =
+        "この時刻に読み上げる文章を入力してください。";
+
+
+    freeInput.value =
+        data.comment || "";
+
+
+    freeInput.addEventListener(
+        "input",
+        () => {
+
+            data.comment =
+                freeInput.value;
+
+            updatePreview();
+
+        }
+    );
+
+
+    freeArea.appendChild(
+        freeLabel
+    );
+
+    freeArea.appendChild(
+        freeInput
+    );
+
+
+    card.appendChild(
+        freeArea
+    );
+
+
+    /* =================================
        プレビュー
-    ------------------------- */
+    ================================= */
 
     const previewBox =
         document.createElement(
@@ -1397,20 +2003,16 @@ function createAnnouncementCard(
         "preview-label";
 
     previewLabel.textContent =
-        "読み上げ内容";
+        "この設定で読み上げる内容";
 
 
-    const preview =
+    const previewText =
         document.createElement(
             "div"
         );
 
-    preview.className =
+    previewText.className =
         "preview-text";
-
-    preview.textContent =
-        data.comment ||
-        "コメントがまだ入力されていません。";
 
 
     previewBox.appendChild(
@@ -1418,7 +2020,7 @@ function createAnnouncementCard(
     );
 
     previewBox.appendChild(
-        preview
+        previewText
     );
 
 
@@ -1427,7 +2029,284 @@ function createAnnouncementCard(
     );
 
 
+    /* =================================
+       表示更新
+    ================================= */
+
+    function updateModeDisplay() {
+
+        if (
+            data.mode === "template"
+        ) {
+
+            templateArea.style.display =
+                "block";
+
+            freeArea.style.display =
+                "none";
+
+            templateLabel.classList.add(
+                "active"
+            );
+
+            freeLabel.classList.remove(
+                "active"
+            );
+
+        }
+        else {
+
+            templateArea.style.display =
+                "none";
+
+            freeArea.style.display =
+                "block";
+
+            templateLabel.classList.remove(
+                "active"
+            );
+
+            freeLabel.classList.add(
+                "active"
+            );
+
+        }
+
+
+        updatePreview();
+
+    }
+
+
+    function updatePreview() {
+
+        previewText.textContent =
+            getAnnouncementText(
+                data
+            );
+
+        saveSettings();
+
+    }
+
+
+    templateRadio.addEventListener(
+        "change",
+        () => {
+
+            if (
+                templateRadio.checked
+            ) {
+
+                data.mode =
+                    "template";
+
+                updateModeDisplay();
+
+            }
+
+        }
+    );
+
+
+    freeRadio.addEventListener(
+        "change",
+        () => {
+
+            if (
+                freeRadio.checked
+            ) {
+
+                data.mode =
+                    "free";
+
+                updateModeDisplay();
+
+            }
+
+        }
+    );
+
+
+    updateModeDisplay();
+
+
     return card;
+
+}
+
+
+/* =========================================
+   SELECT作成
+========================================= */
+
+function createSelectField(
+    parent,
+    labelText,
+    options,
+    currentValue,
+    onChange
+) {
+
+    const field =
+        document.createElement(
+            "div"
+        );
+
+    field.className =
+        "card-field";
+
+
+    const label =
+        document.createElement(
+            "label"
+        );
+
+    label.textContent =
+        labelText;
+
+
+    const select =
+        document.createElement(
+            "select"
+        );
+
+
+    options.forEach(
+        optionValue => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                optionValue;
+
+            option.textContent =
+                optionValue;
+
+
+            if (
+                optionValue ===
+                currentValue
+            ) {
+
+                option.selected =
+                    true;
+
+            }
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    select.addEventListener(
+        "change",
+        () => {
+
+            onChange(
+                select.value
+            );
+
+        }
+    );
+
+
+    field.appendChild(
+        label
+    );
+
+    field.appendChild(
+        select
+    );
+
+
+    parent.appendChild(
+        field
+    );
+
+}
+
+
+/* =========================================
+   選択ボタン作成
+========================================= */
+
+function createChoiceButton(
+    parent,
+    text,
+    currentValue,
+    onChange
+) {
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+    button.type =
+        "button";
+
+    button.className =
+        "choice-button";
+
+
+    if (
+        currentValue === text
+    ) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.textContent =
+        text;
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            parent
+                .querySelectorAll(
+                    ".choice-button"
+                )
+                .forEach(
+                    item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            onChange(
+                text
+            );
+
+        }
+    );
+
+
+    parent.appendChild(
+        button
+    );
 
 }
 
@@ -1440,12 +2319,8 @@ addAnnouncementButton.addEventListener(
     "click",
     () => {
 
-        const newAnnouncement =
-            createAnnouncement();
-
-
         announcements.push(
-            newAnnouncement
+            createAnnouncement()
         );
 
 
@@ -1476,19 +2351,6 @@ addAnnouncementButton.addEventListener(
                         block: "center"
                     });
 
-
-                    const textarea =
-                        lastCard.querySelector(
-                            "textarea"
-                        );
-
-
-                    if (textarea) {
-
-                        textarea.focus();
-
-                    }
-
                 }
 
             },
@@ -1500,7 +2362,7 @@ addAnnouncementButton.addEventListener(
 
 
 /* =========================================
-   Clock 時刻表示
+   Clock
 ========================================= */
 
 function formatTime(seconds) {
@@ -1715,9 +2577,7 @@ joinButton.addEventListener(
             }
 
 
-            /* -------------------------
-               参加成功
-            ------------------------- */
+            /* 参加成功 */
 
             joinedRoomCode =
                 roomCode;
@@ -1806,7 +2666,6 @@ joinButton.addEventListener(
                             "接続エラー";
 
                     }
-
                 );
 
 
@@ -1844,7 +2703,7 @@ joinButton.addEventListener(
 
 
 /* =========================================
-   Enter
+   Enterキー
 ========================================= */
 
 roomPasswordInput.addEventListener(
@@ -1864,7 +2723,7 @@ roomPasswordInput.addEventListener(
 
 
 /* =========================================
-   部屋退出
+   退出
 ========================================= */
 
 leaveButton.addEventListener(
