@@ -2,13 +2,18 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Clock_60X 放送設定</title>
 
 <style>
+
 /* =========================================================
-   基本設定
+   基本
 ========================================================= */
 
 * {
@@ -19,7 +24,7 @@ body {
     margin: 0;
 
     background: #111;
-    color: white;
+    color: #fff;
 
     font-family:
         Arial,
@@ -57,11 +62,12 @@ header h1 {
 
 
 /* =========================================================
-   共通コンテナ
+   コンテナ
 ========================================================= */
 
 .container {
     width: 100%;
+
     max-width: 980px;
 
     margin: 0 auto;
@@ -71,7 +77,7 @@ header h1 {
 
 
 /* =========================================================
-   部屋参加画面
+   部屋参加
 ========================================================= */
 
 #joinScreen {
@@ -86,6 +92,7 @@ header h1 {
     text-align: center;
 
     font-size: 30px;
+
     font-weight: bold;
 }
 
@@ -117,9 +124,13 @@ select {
     padding: 12px;
 
     background: #292929;
-    color: white;
 
-    border: 1px solid #444;
+    color: #fff;
+
+    border:
+        1px solid
+        #444;
+
     border-radius: 8px;
 
     outline: none;
@@ -131,8 +142,17 @@ select:focus {
     border-color: #438bd0;
 }
 
+textarea {
+    min-height: 120px;
 
-/* 参加ボタン */
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+select {
+    cursor: pointer;
+}
 
 #joinButton {
     width: 100%;
@@ -141,7 +161,7 @@ select:focus {
 
     background: #18548a;
 
-    color: white;
+    color: #fff;
 
     border: none;
 
@@ -162,9 +182,6 @@ select:focus {
     cursor: default;
 }
 
-
-/* 接続メッセージ */
-
 #joinStatus {
     min-height: 24px;
 
@@ -181,7 +198,7 @@ select:focus {
 
 
 /* =========================================================
-   アプリ画面
+   アプリ
 ========================================================= */
 
 #appScreen {
@@ -194,6 +211,7 @@ select:focus {
 ========================================================= */
 
 .connection {
+
     display: flex;
 
     align-items: center;
@@ -212,6 +230,7 @@ select:focus {
 }
 
 .connection-left {
+
     display: flex;
 
     align-items: center;
@@ -220,6 +239,7 @@ select:focus {
 }
 
 .connection-dot {
+
     width: 12px;
     height: 12px;
 
@@ -231,6 +251,7 @@ select:focus {
 }
 
 .connection-dot.online {
+
     background: #39c172;
 
     box-shadow:
@@ -239,12 +260,14 @@ select:focus {
 }
 
 .room-number {
+
     font-size: 18px;
 
     font-weight: bold;
 }
 
 .connection-status {
+
     margin-top: 3px;
 
     color: #aaa;
@@ -252,15 +275,13 @@ select:focus {
     font-size: 14px;
 }
 
-
-/* 退出ボタン */
-
 .leave-button {
+
     padding: 12px 18px;
 
     background: #682929;
 
-    color: white;
+    color: #fff;
 
     border: none;
 
@@ -275,10 +296,11 @@ select:focus {
 
 
 /* =========================================================
-   時計表示
+   時計
 ========================================================= */
 
 .clock-panel {
+
     margin-bottom: 18px;
 
     padding: 25px;
@@ -291,6 +313,7 @@ select:focus {
 }
 
 .clock {
+
     font-size:
         clamp(52px, 11vw, 100px);
 
@@ -302,6 +325,7 @@ select:focus {
 }
 
 .clock-status {
+
     margin-top: 14px;
 
     color: #aaa;
@@ -315,6 +339,7 @@ select:focus {
 ========================================================= */
 
 .panel {
+
     margin-bottom: 18px;
 
     padding: 22px;
@@ -325,6 +350,7 @@ select:focus {
 }
 
 .panel-title {
+
     display: flex;
 
     align-items: center;
@@ -337,22 +363,19 @@ select:focus {
 }
 
 .panel-title h2 {
+
     margin: 0;
 
     font-size: 23px;
 }
 
-
-/* =========================================================
-   追加ボタン
-========================================================= */
-
 .add-button {
+
     padding: 12px 18px;
 
     background: #28613c;
 
-    color: white;
+    color: #fff;
 
     border: none;
 
@@ -367,10 +390,11 @@ select:focus {
 
 
 /* =========================================================
-   放送設定一覧
+   設定一覧
 ========================================================= */
 
 .announcement-list {
+
     display: flex;
 
     flex-direction: column;
@@ -380,10 +404,11 @@ select:focus {
 
 
 /* =========================================================
-   放送設定1件
+   1つの放送設定
 ========================================================= */
 
 .announcement-card {
+
     padding: 18px;
 
     background: #292929;
@@ -393,12 +418,44 @@ select:focus {
         #3b3b3b;
 
     border-radius: 14px;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
 }
 
 
-/* カードヘッダー */
+/*
+    現在放送中の設定。
+*/
+.announcement-card.speaking {
+
+    border-color: #e7b93b;
+
+    box-shadow:
+        0 0 18px
+        rgba(231, 185, 59, 0.25);
+
+    background: #332f20;
+}
+
+
+/*
+    直近に読み上げた設定。
+*/
+.announcement-card.spoken {
+
+    border-color: #3c7655;
+}
+
+
+/* =========================================================
+   カードヘッダー
+========================================================= */
 
 .announcement-header {
+
     display: flex;
 
     align-items: center;
@@ -411,12 +468,14 @@ select:focus {
 }
 
 .announcement-number {
+
     font-size: 19px;
 
     font-weight: bold;
 }
 
 .header-right {
+
     display: flex;
 
     align-items: center;
@@ -426,10 +485,53 @@ select:focus {
 
 
 /* =========================================================
+   状態表示
+========================================================= */
+
+.announcement-status {
+
+    padding:
+        5px
+        9px;
+
+    background: #181818;
+
+    border-radius: 7px;
+
+    color: #aaa;
+
+    font-size: 12px;
+}
+
+
+/*
+    放送中
+*/
+.announcement-status.speaking {
+
+    background: #695717;
+
+    color: #ffe58c;
+}
+
+
+/*
+    読み上げ済み
+*/
+.announcement-status.spoken {
+
+    background: #1e4931;
+
+    color: #8ee6aa;
+}
+
+
+/* =========================================================
    ON / OFF
 ========================================================= */
 
 .switch {
+
     display: flex;
 
     align-items: center;
@@ -442,6 +544,7 @@ select:focus {
 }
 
 .switch input {
+
     width: 20px;
     height: 20px;
 
@@ -454,6 +557,7 @@ select:focus {
 ========================================================= */
 
 .setting-label {
+
     margin-bottom: 7px;
 
     color: #aaa;
@@ -463,14 +567,16 @@ select:focus {
 
 
 /* =========================================================
-   通知時刻
+   時刻
 ========================================================= */
 
 .time-area {
+
     margin-bottom: 18px;
 }
 
 .time-input {
+
     font-size: 28px;
 
     font-weight: bold;
@@ -486,6 +592,7 @@ select:focus {
 ========================================================= */
 
 .mode-buttons {
+
     display: grid;
 
     grid-template-columns:
@@ -497,6 +604,7 @@ select:focus {
 }
 
 .mode-button {
+
     display: flex;
 
     align-items: center;
@@ -519,21 +627,24 @@ select:focus {
 }
 
 .mode-button.active {
+
     background: #18548a;
 
     border-color: #438bd0;
 }
 
 .mode-button input {
+
     display: none;
 }
 
 
 /* =========================================================
-   定型文エリア
+   定型文
 ========================================================= */
 
 .template-area {
+
     padding: 16px;
 
     background: #222;
@@ -542,6 +653,7 @@ select:focus {
 }
 
 .template-fields {
+
     display: grid;
 
     grid-template-columns:
@@ -551,10 +663,12 @@ select:focus {
 }
 
 .card-field {
+
     margin-bottom: 14px;
 }
 
 .card-field label {
+
     display: block;
 
     margin-bottom: 6px;
@@ -570,10 +684,12 @@ select:focus {
 ========================================================= */
 
 .choice-area {
+
     margin-top: 10px;
 }
 
 .choice-title {
+
     margin-bottom: 8px;
 
     color: #aaa;
@@ -582,6 +698,7 @@ select:focus {
 }
 
 .choice-buttons {
+
     display: flex;
 
     flex-wrap: wrap;
@@ -592,11 +709,14 @@ select:focus {
 }
 
 .choice-button {
-    padding: 10px 13px;
+
+    padding:
+        10px
+        13px;
 
     background: #181818;
 
-    color: white;
+    color: #fff;
 
     border:
         1px solid
@@ -608,10 +728,12 @@ select:focus {
 }
 
 .choice-button:hover {
+
     background: #303030;
 }
 
 .choice-button.active {
+
     background: #18548a;
 
     border-color: #438bd0;
@@ -623,6 +745,7 @@ select:focus {
 ========================================================= */
 
 .free-comment {
+
     margin-top: 5px;
 }
 
@@ -632,6 +755,7 @@ select:focus {
 ========================================================= */
 
 .preview {
+
     margin-top: 16px;
 
     padding: 14px;
@@ -646,6 +770,7 @@ select:focus {
 }
 
 .preview-label {
+
     margin-bottom: 7px;
 
     color: #777;
@@ -654,6 +779,7 @@ select:focus {
 }
 
 .preview-text {
+
     line-height: 1.8;
 
     white-space: pre-wrap;
@@ -663,15 +789,56 @@ select:focus {
 
 
 /* =========================================================
+   音声設定
+========================================================= */
+
+.voice-panel {
+
+    margin-top: 16px;
+
+    padding: 16px;
+
+    background: #222;
+
+    border-radius: 10px;
+}
+
+.voice-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+.voice-test-button {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    background: #4a4a4a;
+}
+
+.voice-test-button:hover {
+
+    background: #5b5b5b;
+}
+
+
+/* =========================================================
    削除
 ========================================================= */
 
 .delete-button {
+
     padding: 10px 15px;
 
     background: #682929;
 
-    color: white;
+    color: #fff;
 
     border: none;
 
@@ -681,15 +848,17 @@ select:focus {
 }
 
 .delete-button:hover {
+
     background: #893636;
 }
 
 
 /* =========================================================
-   保存表示
+   保存
 ========================================================= */
 
 .save-status {
+
     min-height: 20px;
 
     margin-top: 10px;
@@ -699,10 +868,65 @@ select:focus {
 
 
 /* =========================================================
-   設定なし
+   放送ログ
+========================================================= */
+
+.broadcast-log {
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    background: #111;
+
+    border-radius: 10px;
+}
+
+.broadcast-log-title {
+
+    margin-bottom: 10px;
+
+    color: #888;
+
+    font-size: 13px;
+}
+
+.broadcast-log-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.log-item {
+
+    padding: 8px 10px;
+
+    background: #1c1c1c;
+
+    border-radius: 7px;
+
+    line-height: 1.5;
+
+    font-size: 13px;
+}
+
+.log-time {
+
+    color: #7db2e5;
+
+    margin-right: 7px;
+}
+
+
+/* =========================================================
+   空の状態
 ========================================================= */
 
 .empty-message {
+
     padding: 25px;
 
     background: #111;
@@ -718,42 +942,54 @@ select:focus {
 
 
 /* =========================================================
-   スマホ / iPad
+   スマホ
 ========================================================= */
 
 @media (max-width: 700px) {
 
     .connection {
+
         flex-direction: column;
 
         align-items: stretch;
     }
 
     .leave-button {
+
         width: 100%;
     }
 
     .panel-title {
+
         flex-direction: column;
 
         align-items: stretch;
     }
 
     .add-button {
+
         width: 100%;
     }
 
     .announcement-header {
+
         align-items: flex-start;
     }
 
     .header-right {
+
         flex-wrap: wrap;
 
         justify-content: flex-end;
     }
 
     .template-fields {
+
+        grid-template-columns: 1fr;
+    }
+
+    .voice-grid {
+
         grid-template-columns: 1fr;
     }
 
@@ -765,22 +1001,14 @@ select:focus {
 <body>
 
 
-<!-- =====================================================
-     ヘッダー
-===================================================== -->
-
 <header>
-
-    <h1>
-        Clock_60X 放送設定
-    </h1>
-
+    <h1>Clock_60X 放送設定</h1>
 </header>
 
 
 
 <!-- =====================================================
-     部屋参加画面
+     部屋参加
 ===================================================== -->
 
 <div
@@ -848,7 +1076,7 @@ select:focus {
 
 
 <!-- =====================================================
-     アプリ本体
+     アプリ
 ===================================================== -->
 
 <div
@@ -857,9 +1085,7 @@ select:focus {
 >
 
 
-    <!-- =================================================
-         接続情報
-    ================================================== -->
+    <!-- 接続情報 -->
 
     <div class="connection">
 
@@ -967,15 +1193,149 @@ select:focus {
             class="save-status"
         ></div>
 
+
+        <!-- =================================================
+             音声設定
+        ================================================= -->
+
+        <div class="voice-panel">
+
+            <div class="setting-label">
+                読み上げ設定
+            </div>
+
+
+            <div class="voice-grid">
+
+                <div class="card-field">
+
+                    <label for="voiceSelect">
+                        音声
+                    </label>
+
+                    <select
+                        id="voiceSelect"
+                    >
+                        <option>
+                            読み込み中...
+                        </option>
+                    </select>
+
+                </div>
+
+
+                <div class="card-field">
+
+                    <label for="voiceRate">
+                        読み上げ速度
+                    </label>
+
+                    <select
+                        id="voiceRate"
+                    >
+                        <option value="0.8">
+                            0.8
+                        </option>
+
+                        <option value="0.9">
+                            0.9
+                        </option>
+
+                        <option value="1.0" selected>
+                            1.0
+                        </option>
+
+                        <option value="1.1">
+                            1.1
+                        </option>
+
+                        <option value="1.2">
+                            1.2
+                        </option>
+
+                        <option value="1.3">
+                            1.3
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="card-field">
+
+                    <label for="voicePitch">
+                        声の高さ
+                    </label>
+
+                    <select
+                        id="voicePitch"
+                    >
+                        <option value="0.8">
+                            0.8
+                        </option>
+
+                        <option value="0.9">
+                            0.9
+                        </option>
+
+                        <option value="1.0" selected>
+                            1.0
+                        </option>
+
+                        <option value="1.1">
+                            1.1
+                        </option>
+
+                        <option value="1.2">
+                            1.2
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <button
+                id="voiceTestButton"
+                class="voice-test-button"
+                type="button"
+            >
+                🔊 テスト読み上げ
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             放送ログ
+        ================================================== -->
+
+        <div class="broadcast-log">
+
+            <div class="broadcast-log-title">
+                放送ログ
+            </div>
+
+
+            <div
+                id="broadcastLogList"
+                class="broadcast-log-list"
+            >
+                <div class="log-item">
+                    まだ放送されていません。
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>
 
 
-
-<!-- =====================================================
-     JavaScript
-===================================================== -->
 
 <script type="module">
 
@@ -984,9 +1344,6 @@ select:focus {
    Firebase
 ========================================================= */
 
-/*
-    Clock_60Xと同じFirebaseプロジェクトを使う。
-*/
 import {
     initializeApp
 }
@@ -994,9 +1351,6 @@ from
     "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
-/*
-    Firestoreの必要な機能だけ読み込む。
-*/
 import {
     getFirestore,
     doc,
@@ -1037,18 +1391,12 @@ const firebaseConfig = {
 };
 
 
-/*
-    Firebaseを初期化
-*/
 const firebaseApp =
     initializeApp(
         firebaseConfig
     );
 
 
-/*
-    Firestoreへ接続
-*/
 const db =
     getFirestore(
         firebaseApp
@@ -1056,7 +1404,7 @@ const db =
 
 
 /* =========================================================
-   DOM取得
+   DOM
 ========================================================= */
 
 const joinScreen =
@@ -1064,70 +1412,84 @@ const joinScreen =
         "joinScreen"
     );
 
+
 const appScreen =
     document.getElementById(
         "appScreen"
     );
+
 
 const roomCodeInput =
     document.getElementById(
         "roomCode"
     );
 
+
 const roomPasswordInput =
     document.getElementById(
         "roomPassword"
     );
+
 
 const joinButton =
     document.getElementById(
         "joinButton"
     );
 
+
 const joinStatus =
     document.getElementById(
         "joinStatus"
     );
+
 
 const currentRoom =
     document.getElementById(
         "currentRoom"
     );
 
+
 const connectionDot =
     document.getElementById(
         "connectionDot"
     );
+
 
 const connectionStatus =
     document.getElementById(
         "connectionStatus"
     );
 
+
 const leaveButton =
     document.getElementById(
         "leaveButton"
     );
+
 
 const clock =
     document.getElementById(
         "clock"
     );
 
+
 const clockStatus =
     document.getElementById(
         "clockStatus"
     );
+
 
 const announcementList =
     document.getElementById(
         "announcementList"
     );
 
+
 const addAnnouncementButton =
     document.getElementById(
         "addAnnouncementButton"
     );
+
 
 const saveStatus =
     document.getElementById(
@@ -1135,53 +1497,93 @@ const saveStatus =
     );
 
 
+const voiceSelect =
+    document.getElementById(
+        "voiceSelect"
+    );
+
+
+const voiceRate =
+    document.getElementById(
+        "voiceRate"
+    );
+
+
+const voicePitch =
+    document.getElementById(
+        "voicePitch"
+    );
+
+
+const voiceTestButton =
+    document.getElementById(
+        "voiceTestButton"
+    );
+
+
+const broadcastLogList =
+    document.getElementById(
+        "broadcastLogList"
+    );
+
+
 /* =========================================================
-   アプリ状態
+   状態
 ========================================================= */
 
-/*
-    現在参加している部屋番号。
-*/
 let roomCode = null;
 
-
-/*
-    Clock_60Xから受信した最新データ。
-*/
 let roomData = null;
 
-
-/*
-    Firestore監視停止用。
-*/
 let unsubscribeRoom = null;
 
+let announcements = [];
+
+let voices = [];
+
 
 /*
-    放送設定一覧。
+    読み上げ済み時刻を記録する。
+
+    例えば
+
+        05:00:00
+
+    の設定が発火したあと、
+    Clockの更新が何度来ても同じ放送を
+    何度も読み上げないようにする。
 */
-let announcements = [];
+const spokenKeys =
+    new Set();
+
+
+/*
+    現在読み上げ中の設定ID
+*/
+const speakingIds =
+    new Set();
+
+
+/*
+    過去の放送ログ。
+    最新10件だけ保持。
+*/
+let broadcastLogs = [];
 
 
 /* =========================================================
    選択肢
 ========================================================= */
 
-/*
-    車庫
-*/
 const STATIONS = [
+
     "北春日部",
     "北越谷",
     "竹ノ塚"
+
 ];
 
 
-/*
-    運用番号。
-
-    すべて1個ずつ独立した選択肢。
-*/
 const OPERATIONS = [
 
     "L1",
@@ -1214,53 +1616,52 @@ const OPERATIONS = [
 ];
 
 
-/*
-    種別
-*/
 const TYPES = [
+
     "回送",
     "普通",
     "急行",
     "特急",
     "TH"
+
 ];
 
 
-/*
-    時刻種別
-*/
 const TIME_TYPES = [
+
     "発車時刻",
     "入庫時刻"
+
 ];
 
 
-/*
-    指示内容
-*/
 const INSTRUCTIONS = [
+
     "列車を駅に待機させてください",
+
     "各駅員、列車の位置を共有してください"
+
 ];
 
 
 /* =========================================================
-   保存先
+   部屋ごとの保存キー
 ========================================================= */
 
-/*
-    部屋番号ごとに保存場所を分ける。
-
-    42540なら
-
-        clock60x-say-42540
-
-    という保存キーになる。
-*/
 function getStorageKey() {
 
     return (
         "clock60x-say-" +
+        roomCode
+    );
+
+}
+
+
+function getVoiceStorageKey() {
+
+    return (
+        "clock60x-say-voice-" +
         roomCode
     );
 
@@ -1282,27 +1683,15 @@ function createAnnouncement() {
                 .toString(36)
                 .substring(2),
 
-        /*
-            初期状態はON
-        */
         enabled:
             true,
 
-        /*
-            初期通知時刻
-        */
         time:
             "05:00:00",
 
-        /*
-            最初は定型文
-        */
         mode:
             "template",
 
-        /*
-            定型文の初期値
-        */
         station:
             "北春日部",
 
@@ -1318,9 +1707,6 @@ function createAnnouncement() {
         instruction:
             "列車を駅に待機させてください",
 
-        /*
-            自由入力欄
-        */
         comment:
             ""
 
@@ -1330,14 +1716,16 @@ function createAnnouncement() {
 
 
 /* =========================================================
-   放送文を作成
+   放送文章
 ========================================================= */
 
 function getAnnouncementText(data) {
 
+
     /*
         自由入力
     */
+
     if (
         data.mode === "free"
     ) {
@@ -1359,12 +1747,6 @@ function getAnnouncementText(data) {
 
     /*
         定型文
-
-        まもなく、
-        {車庫}車庫、
-        {運用番号}{種別}、
-        「{発車時刻/入庫時刻}」です。
-        「{指示内容}」。
     */
 
     return (
@@ -1397,14 +1779,11 @@ function getAnnouncementText(data) {
 
 
 /* =========================================================
-   設定保存
+   保存
 ========================================================= */
 
 function saveAnnouncements() {
 
-    /*
-        部屋に参加していなければ保存しない
-    */
     if (!roomCode) {
 
         return;
@@ -1412,9 +1791,6 @@ function saveAnnouncements() {
     }
 
 
-    /*
-        現在の設定をJSONとして保存
-    */
     localStorage.setItem(
 
         getStorageKey(),
@@ -1426,16 +1802,10 @@ function saveAnnouncements() {
     );
 
 
-    /*
-        保存しました表示
-    */
     saveStatus.textContent =
         "設定を保存しました";
 
 
-    /*
-        連続入力時に表示を消すタイマー
-    */
     clearTimeout(
         saveAnnouncements.timer
     );
@@ -1449,14 +1819,14 @@ function saveAnnouncements() {
                     "";
 
             },
-            1200
+            1000
         );
 
 }
 
 
 /* =========================================================
-   設定読み込み
+   読み込み
 ========================================================= */
 
 function loadAnnouncements() {
@@ -1467,9 +1837,6 @@ function loadAnnouncements() {
         );
 
 
-    /*
-        保存データがなければ空
-    */
     if (!raw) {
 
         announcements = [];
@@ -1502,25 +1869,21 @@ function loadAnnouncements() {
                 data.map(
                     item => {
 
-                        /*
-                            最新の初期値を作ってから
-                            保存データを上書きする。
+                        const base =
+                            createAnnouncement();
 
-                            これによって、古いデータに
-                            新しい項目がなくても壊れにくい。
-                        */
 
                         return {
 
-                            ...createAnnouncement(),
+                            ...base,
 
                             ...item,
 
                             /*
-                                ここ重要。
-                                modeがtemplate/free以外なら
-                                定型文として扱う。
+                                新しい形式にない
+                                値だけ初期値に戻す。
                             */
+
                             mode:
                                 (
                                     item.mode === "free" ||
@@ -1540,9 +1903,10 @@ function loadAnnouncements() {
     catch (error) {
 
         console.error(
-            "放送設定の読み込みエラー:",
+            "放送設定読み込みエラー:",
             error
         );
+
 
         announcements = [];
 
@@ -1555,7 +1919,7 @@ function loadAnnouncements() {
 
 
 /* =========================================================
-   時刻を整形
+   時刻の正規化
 ========================================================= */
 
 function normalizeTime(time) {
@@ -1573,9 +1937,6 @@ function normalizeTime(time) {
         time.split(":");
 
 
-    /*
-        HH:MMなら秒を追加
-    */
     if (
         parts.length === 2
     ) {
@@ -1588,9 +1949,6 @@ function normalizeTime(time) {
     }
 
 
-    /*
-        HH:MM:SS
-    */
     if (
         parts.length === 3
     ) {
@@ -1606,21 +1964,199 @@ function normalizeTime(time) {
 
 
 /* =========================================================
-   放送設定一覧
+   SELECT作成
+========================================================= */
+
+function createSelectField(
+    parent,
+    labelText,
+    options,
+    currentValue,
+    onChange
+) {
+
+    const field =
+        document.createElement(
+            "div"
+        );
+
+
+    field.className =
+        "card-field";
+
+
+    const label =
+        document.createElement(
+            "label"
+        );
+
+
+    label.textContent =
+        labelText;
+
+
+    const select =
+        document.createElement(
+            "select"
+        );
+
+
+    options.forEach(
+        value => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                value;
+
+
+            option.textContent =
+                value;
+
+
+            if (
+                value ===
+                currentValue
+            ) {
+
+                option.selected =
+                    true;
+
+            }
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    select.addEventListener(
+        "change",
+        () => {
+
+            onChange(
+                select.value
+            );
+
+        }
+    );
+
+
+    field.appendChild(
+        label
+    );
+
+
+    field.appendChild(
+        select
+    );
+
+
+    parent.appendChild(
+        field
+    );
+
+}
+
+
+/* =========================================================
+   選択ボタン作成
+========================================================= */
+
+function createChoiceButton(
+    parent,
+    text,
+    currentValue,
+    onChange
+) {
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.type =
+        "button";
+
+
+    button.className =
+        "choice-button";
+
+
+    if (
+        text ===
+        currentValue
+    ) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.textContent =
+        text;
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+
+            parent
+                .querySelectorAll(
+                    ".choice-button"
+                )
+                .forEach(
+                    other => {
+
+                        other.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            onChange(
+                text
+            );
+
+        }
+    );
+
+
+    parent.appendChild(
+        button
+    );
+
+}
+
+
+/* =========================================================
+   放送設定描画
 ========================================================= */
 
 function renderAnnouncements() {
 
-    /*
-        画面を一旦空にする
-    */
     announcementList.innerHTML =
         "";
 
 
-    /*
-        設定がまだない場合
-    */
     if (
         announcements.length === 0
     ) {
@@ -1636,8 +2172,7 @@ function renderAnnouncements() {
 
 
         empty.textContent =
-            "まだ放送設定がありません。" +
-            "「＋ 放送設定を追加」から登録してください。";
+            "まだ放送設定がありません。「＋ 放送設定を追加」から登録してください。";
 
 
         announcementList.appendChild(
@@ -1650,9 +2185,6 @@ function renderAnnouncements() {
     }
 
 
-    /*
-        各設定をカード化
-    */
     announcements.forEach(
         (data, index) => {
 
@@ -1690,6 +2222,19 @@ function createAnnouncementCard(
 
     card.className =
         "announcement-card";
+
+
+    if (
+        speakingIds.has(
+            data.id
+        )
+    ) {
+
+        card.classList.add(
+            "speaking"
+        );
+
+    }
 
 
     /* =====================================================
@@ -1731,9 +2276,42 @@ function createAnnouncementCard(
         "header-right";
 
 
-    /* =====================================================
-       ON/OFF
-    ===================================================== */
+    /* 状態 */
+
+    const status =
+        document.createElement(
+            "div"
+        );
+
+
+    status.className =
+        "announcement-status";
+
+
+    if (
+        speakingIds.has(
+            data.id
+        )
+    ) {
+
+        status.classList.add(
+            "speaking"
+        );
+
+
+        status.textContent =
+            "🔊 放送中";
+
+    }
+    else {
+
+        status.textContent =
+            "待機中";
+
+    }
+
+
+    /* ON/OFF */
 
     const switchLabel =
         document.createElement(
@@ -1802,13 +2380,16 @@ function createAnnouncementCard(
 
 
     headerRight.appendChild(
+        status
+    );
+
+
+    headerRight.appendChild(
         switchLabel
     );
 
 
-    /* =====================================================
-       削除
-    ===================================================== */
+    /* 削除 */
 
     const deleteButton =
         document.createElement(
@@ -1852,6 +2433,7 @@ function createAnnouncementCard(
 
 
             saveAnnouncements();
+
 
             renderAnnouncements();
 
@@ -1917,9 +2499,6 @@ function createAnnouncementCard(
         "time";
 
 
-    /*
-        秒まで設定できるようにする
-    */
     timeInput.step =
         "1";
 
@@ -2004,9 +2583,7 @@ function createAnnouncementCard(
         "mode-buttons";
 
 
-    /* -------------------------
-       定型文
-    ------------------------- */
+    /* 定型文 */
 
     const templateLabel =
         document.createElement(
@@ -2062,9 +2639,7 @@ function createAnnouncementCard(
     );
 
 
-    /* -------------------------
-       自由入力
-    ------------------------- */
+    /* 自由入力 */
 
     const freeLabel =
         document.createElement(
@@ -2378,17 +2953,17 @@ function createAnnouncementCard(
         "free-comment";
 
 
-    const freeLabelText =
+    const freeLabel =
         document.createElement(
             "div"
         );
 
 
-    freeLabelText.className =
+    freeLabel.className =
         "setting-label";
 
 
-    freeLabelText.textContent =
+    freeLabel.textContent =
         "コメント";
 
 
@@ -2403,8 +2978,7 @@ function createAnnouncementCard(
 
 
     freeInput.value =
-        data.comment ||
-        "";
+        data.comment || "";
 
 
     freeInput.addEventListener(
@@ -2422,7 +2996,7 @@ function createAnnouncementCard(
 
 
     freeArea.appendChild(
-        freeLabelText
+        freeLabel
     );
 
 
@@ -2490,7 +3064,7 @@ function createAnnouncementCard(
 
 
     /* =====================================================
-       モード表示更新
+       モード切替
     ===================================================== */
 
     function updateModeDisplay() {
@@ -2500,27 +3074,18 @@ function createAnnouncementCard(
             "template";
 
 
-        /*
-            定型文なら定型文エリアを表示
-        */
         templateArea.style.display =
             templateMode
                 ? "block"
                 : "none";
 
 
-        /*
-            自由入力なら自由入力を表示
-        */
         freeArea.style.display =
             templateMode
                 ? "none"
                 : "block";
 
 
-        /*
-            ボタンの色
-        */
         templateLabel.classList.toggle(
             "active",
             templateMode
@@ -2562,7 +3127,7 @@ function createAnnouncementCard(
 
 
     /* =====================================================
-       定型文選択
+       定型文へ
     ===================================================== */
 
     templateRadio.addEventListener(
@@ -2579,7 +3144,6 @@ function createAnnouncementCard(
 
                 updateModeDisplay();
 
-
                 saveAnnouncements();
 
             }
@@ -2589,7 +3153,7 @@ function createAnnouncementCard(
 
 
     /* =====================================================
-       自由入力選択
+       自由入力へ
     ===================================================== */
 
     freeRadio.addEventListener(
@@ -2606,7 +3170,6 @@ function createAnnouncementCard(
 
                 updateModeDisplay();
 
-
                 saveAnnouncements();
 
             }
@@ -2615,9 +3178,6 @@ function createAnnouncementCard(
     );
 
 
-    /*
-        初期表示
-    */
     updateModeDisplay();
 
 
@@ -2627,278 +3187,10 @@ function createAnnouncementCard(
 
 
 /* =========================================================
-   プルダウン作成
+   Clock表示
 ========================================================= */
 
-function createSelectField(
-    parent,
-    labelText,
-    options,
-    currentValue,
-    onChange
-) {
-
-    const field =
-        document.createElement(
-            "div"
-        );
-
-
-    field.className =
-        "card-field";
-
-
-    const label =
-        document.createElement(
-            "label"
-        );
-
-
-    label.textContent =
-        labelText;
-
-
-    const select =
-        document.createElement(
-            "select"
-        );
-
-
-    options.forEach(
-        optionValue => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                optionValue;
-
-
-            option.textContent =
-                optionValue;
-
-
-            if (
-                optionValue ===
-                currentValue
-            ) {
-
-                option.selected =
-                    true;
-
-            }
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    select.addEventListener(
-        "change",
-        () => {
-
-            onChange(
-                select.value
-            );
-
-        }
-    );
-
-
-    field.appendChild(
-        label
-    );
-
-
-    field.appendChild(
-        select
-    );
-
-
-    parent.appendChild(
-        field
-    );
-
-}
-
-
-/* =========================================================
-   選択ボタン作成
-========================================================= */
-
-function createChoiceButton(
-    parent,
-    text,
-    currentValue,
-    onChange
-) {
-
-    const button =
-        document.createElement(
-            "button"
-        );
-
-
-    button.type =
-        "button";
-
-
-    button.className =
-        "choice-button";
-
-
-    if (
-        text ===
-        currentValue
-    ) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-
-    button.textContent =
-        text;
-
-
-    button.addEventListener(
-        "click",
-        () => {
-
-
-            /*
-                同じグループのボタンを全部OFF
-            */
-            parent
-                .querySelectorAll(
-                    ".choice-button"
-                )
-                .forEach(
-                    other => {
-
-                        other.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-            /*
-                押したボタンをON
-            */
-            button.classList.add(
-                "active"
-            );
-
-
-            /*
-                データを更新
-            */
-            onChange(
-                text
-            );
-
-        }
-    );
-
-
-    parent.appendChild(
-        button
-    );
-
-}
-
-
-/* =========================================================
-   放送設定追加
-========================================================= */
-
-addAnnouncementButton.addEventListener(
-    "click",
-    () => {
-
-
-        /*
-            新しい設定を作る
-        */
-        const newAnnouncement =
-            createAnnouncement();
-
-
-        /*
-            一覧に追加
-        */
-        announcements.push(
-            newAnnouncement
-        );
-
-
-        /*
-            保存
-        */
-        saveAnnouncements();
-
-
-        /*
-            画面更新
-        */
-        renderAnnouncements();
-
-
-        /*
-            追加した場所へスクロール
-        */
-        setTimeout(
-            () => {
-
-                const cards =
-                    document.querySelectorAll(
-                        ".announcement-card"
-                    );
-
-
-                const lastCard =
-                    cards[
-                        cards.length - 1
-                    ];
-
-
-                if (
-                    lastCard
-                ) {
-
-                    lastCard.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                }
-
-            },
-            100
-        );
-
-    }
-);
-
-
-/* =========================================================
-   Clock時刻変換
-========================================================= */
-
-function formatClockTime(
-    seconds
-) {
+function formatClockTime(seconds) {
 
     const value =
         Math.floor(
@@ -2919,9 +3211,6 @@ function formatClockTime(
     }
 
 
-    /*
-        24時間単位にする
-    */
     const normalized =
         (
             (value % 86400) +
@@ -2977,14 +3266,12 @@ function formatClockTime(
 
 
 /* =========================================================
-   Clock表示更新
+   Clock更新
 ========================================================= */
 
 function updateClock() {
 
-    if (
-        !roomData
-    ) {
+    if (!roomData) {
 
         return;
 
@@ -2992,26 +3279,42 @@ function updateClock() {
 
 
     /*
-        Clock_60XのvirtualSecondsを表示
+        まず画面の時計を更新
     */
-    clock.textContent =
-        formatClockTime(
+
+    const currentSeconds =
+        Number(
             roomData.virtualSeconds
         );
 
 
+    clock.textContent =
+        formatClockTime(
+            currentSeconds
+        );
+
+
     /*
-        Clock_60Xの動作状態
+        Clock_60Xの状態
     */
-    if (
-        roomData.running
-    ) {
+
+    const running =
+        Boolean(
+            roomData.running
+        );
+
+
+    const speed =
+        Number(
+            roomData.speed || 1
+        );
+
+
+    if (running) {
 
         clockStatus.textContent =
             "Clock_60X運転中 ・ " +
-            Number(
-                roomData.speed || 1
-            ) +
+            speed +
             "倍速";
 
     }
@@ -3022,7 +3325,916 @@ function updateClock() {
 
     }
 
+
+    /*
+        放送時刻判定
+    */
+
+    checkAnnouncements(
+        currentSeconds
+    );
+
 }
+
+
+/* =========================================================
+   時刻文字列 → 秒
+========================================================= */
+
+function timeToSeconds(
+    time
+) {
+
+    const parts =
+        normalizeTime(
+            time
+        ).split(":");
+
+
+    const h =
+        Number(
+            parts[0]
+        );
+
+
+    const m =
+        Number(
+            parts[1]
+        );
+
+
+    const s =
+        Number(
+            parts[2]
+        );
+
+
+    if (
+        !Number.isFinite(h) ||
+        !Number.isFinite(m) ||
+        !Number.isFinite(s)
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        h * 3600 +
+        m * 60 +
+        s
+    );
+
+}
+
+
+/* =========================================================
+   放送判定
+========================================================= */
+
+function checkAnnouncements(
+    currentSeconds
+) {
+
+    /*
+        現在の時刻を
+        0～86399秒にそろえる。
+    */
+
+    const now =
+        (
+            Math.floor(
+                Number(
+                    currentSeconds
+                )
+            ) % 86400 +
+            86400
+        ) % 86400;
+
+
+    announcements.forEach(
+        announcement => {
+
+
+            /*
+                OFFなら何もしない
+            */
+
+            if (
+                !announcement.enabled
+            ) {
+
+                return;
+
+            }
+
+
+            const target =
+                timeToSeconds(
+                    announcement.time
+                );
+
+
+            if (
+                target === null
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+                現在時刻と設定時刻が
+                完全一致したとき。
+            */
+
+            if (
+                now !== target
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+                1秒に複数回
+                同じ放送を出さない。
+            */
+
+            const key =
+                announcement.id +
+                "-" +
+                target;
+
+
+            if (
+                spokenKeys.has(
+                    key
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            spokenKeys.add(
+                key
+            );
+
+
+            /*
+                放送実行
+            */
+
+            speakAnnouncement(
+                announcement
+            );
+
+        }
+    );
+
+
+
+    /*
+        古いspokenKeysが増えすぎないようにする。
+
+        1周したらリセットできるように、
+        virtualSecondsが0付近になったら
+        今回はまとめてクリアする。
+    */
+
+    if (
+        now <= 2
+    ) {
+
+        spokenKeys.clear();
+
+    }
+
+}
+
+
+/* =========================================================
+   読み上げ
+========================================================= */
+
+function speakAnnouncement(
+    data
+) {
+
+    const text =
+        getAnnouncementText(
+            data
+        );
+
+
+    if (
+        !text ||
+        text.trim() === ""
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+        現在読み上げ中として表示
+    */
+
+    speakingIds.add(
+        data.id
+    );
+
+
+    renderAnnouncements();
+
+
+    /*
+        ログへ追加
+    */
+
+    addBroadcastLog(
+        text
+    );
+
+
+    /*
+        SpeechSynthesisUtteranceを作成
+    */
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            text
+        );
+
+
+    /*
+        日本語として読み上げる。
+    */
+
+    utterance.lang =
+        "ja-JP";
+
+
+    /*
+        ユーザーが選択した音声
+    */
+
+    const selectedVoiceName =
+        voiceSelect.value;
+
+
+    const selectedVoice =
+        voices.find(
+            voice =>
+                voice.name ===
+                selectedVoiceName
+        );
+
+
+    if (
+        selectedVoice
+    ) {
+
+        utterance.voice =
+            selectedVoice;
+
+    }
+
+
+    /*
+        読み上げ速度
+    */
+
+    utterance.rate =
+        Number(
+            voiceRate.value
+        );
+
+
+    /*
+        声の高さ
+    */
+
+    utterance.pitch =
+        Number(
+            voicePitch.value
+        );
+
+
+    /*
+        音量
+
+        1 = 最大
+    */
+
+    utterance.volume =
+        1.0;
+
+
+    /*
+        読み上げ終了時
+    */
+
+    utterance.onend =
+        () => {
+
+            speakingIds.delete(
+                data.id
+            );
+
+
+            renderAnnouncements();
+
+        };
+
+
+    /*
+        エラー時も状態を戻す
+    */
+
+    utterance.onerror =
+        error => {
+
+            console.error(
+                "読み上げエラー:",
+                error
+            );
+
+
+            speakingIds.delete(
+                data.id
+            );
+
+
+            renderAnnouncements();
+
+        };
+
+
+    /*
+        音声再生。
+
+        近い時刻の放送も
+        それぞれここへ追加する。
+    */
+
+    window.speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   テスト読み上げ
+========================================================= */
+
+function testVoice() {
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            "これはClock_60X放送設定のテスト読み上げです。"
+        );
+
+
+    utterance.lang =
+        "ja-JP";
+
+
+    const selectedVoice =
+        voices.find(
+            voice =>
+                voice.name ===
+                voiceSelect.value
+        );
+
+
+    if (
+        selectedVoice
+    ) {
+
+        utterance.voice =
+            selectedVoice;
+
+    }
+
+
+    utterance.rate =
+        Number(
+            voiceRate.value
+        );
+
+
+    utterance.pitch =
+        Number(
+            voicePitch.value
+        );
+
+
+    utterance.volume =
+        1.0;
+
+
+    /*
+        現在キューに残っている音声を
+        テスト開始時だけ消す。
+    */
+    window.speechSynthesis.cancel();
+
+
+    window.speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+/* =========================================================
+   音声一覧を読み込む
+========================================================= */
+
+function loadVoices() {
+
+    voices =
+        window.speechSynthesis.getVoices();
+
+
+    voiceSelect.innerHTML =
+        "";
+
+
+    /*
+        日本語音声を先にする
+    */
+
+    const sorted =
+        [...voices].sort(
+            (a, b) => {
+
+                const aJa =
+                    a.lang
+                        .toLowerCase()
+                        .startsWith(
+                            "ja"
+                        );
+
+
+                const bJa =
+                    b.lang
+                        .toLowerCase()
+                        .startsWith(
+                            "ja"
+                        );
+
+
+                if (
+                    aJa &&
+                    !bJa
+                ) {
+
+                    return -1;
+
+                }
+
+
+                if (
+                    !aJa &&
+                    bJa
+                ) {
+
+                    return 1;
+
+                }
+
+
+                return 0;
+
+            }
+        );
+
+
+    sorted.forEach(
+        voice => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+
+            option.value =
+                voice.name;
+
+
+            option.textContent =
+                voice.name +
+                " (" +
+                voice.lang +
+                ")";
+
+
+            voiceSelect.appendChild(
+                option
+            );
+
+        }
+    );
+
+
+    /*
+        日本語音声があれば自動選択
+    */
+
+    const japaneseVoice =
+        sorted.find(
+            voice =>
+                voice.lang
+                    .toLowerCase()
+                    .startsWith(
+                        "ja"
+                    )
+        );
+
+
+    if (
+        japaneseVoice
+    ) {
+
+        voiceSelect.value =
+            japaneseVoice.name;
+
+    }
+
+
+    loadVoiceSettings();
+
+}
+
+
+/* =========================================================
+   音声設定を保存
+========================================================= */
+
+function saveVoiceSettings() {
+
+    if (!roomCode) {
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+
+        getVoiceStorageKey(),
+
+        JSON.stringify({
+
+            voice:
+                voiceSelect.value,
+
+            rate:
+                voiceRate.value,
+
+            pitch:
+                voicePitch.value
+
+        })
+
+    );
+
+}
+
+
+/* =========================================================
+   音声設定を読み込み
+========================================================= */
+
+function loadVoiceSettings() {
+
+    if (!roomCode) {
+
+        return;
+
+    }
+
+
+    const raw =
+        localStorage.getItem(
+            getVoiceStorageKey()
+        );
+
+
+    if (!raw) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const settings =
+            JSON.parse(
+                raw
+            );
+
+
+        if (
+            settings.rate
+        ) {
+
+            voiceRate.value =
+                settings.rate;
+
+        }
+
+
+        if (
+            settings.pitch
+        ) {
+
+            voicePitch.value =
+                settings.pitch;
+
+        }
+
+
+        if (
+            settings.voice
+        ) {
+
+            const exists =
+                [...voiceSelect.options]
+                    .some(
+                        option =>
+                            option.value ===
+                            settings.voice
+                    );
+
+
+            if (
+                exists
+            ) {
+
+                voiceSelect.value =
+                    settings.voice;
+
+            }
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "音声設定読み込みエラー:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   放送ログ
+========================================================= */
+
+function addBroadcastLog(
+    text
+) {
+
+    const now =
+        formatClockTime(
+            roomData
+                ? roomData.virtualSeconds
+                : 0
+        );
+
+
+    broadcastLogs.unshift({
+
+        time:
+            now,
+
+        text:
+            text
+
+    });
+
+
+    /*
+        最大10件
+    */
+
+    if (
+        broadcastLogs.length >
+        10
+    ) {
+
+        broadcastLogs =
+            broadcastLogs.slice(
+                0,
+                10
+            );
+
+    }
+
+
+    renderBroadcastLogs();
+
+}
+
+
+/* =========================================================
+   ログ描画
+========================================================= */
+
+function renderBroadcastLogs() {
+
+    broadcastLogList.innerHTML =
+        "";
+
+
+    if (
+        broadcastLogs.length === 0
+    ) {
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+
+        empty.className =
+            "log-item";
+
+
+        empty.textContent =
+            "まだ放送されていません。";
+
+
+        broadcastLogList.appendChild(
+            empty
+        );
+
+
+        return;
+
+    }
+
+
+    broadcastLogs.forEach(
+        log => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "log-item";
+
+
+            const time =
+                document.createElement(
+                    "span"
+                );
+
+
+            time.className =
+                "log-time";
+
+
+            time.textContent =
+                "[" +
+                log.time +
+                "]";
+
+
+            const text =
+                document.createElement(
+                    "span"
+                );
+
+
+            text.textContent =
+                log.text;
+
+
+            item.appendChild(
+                time
+            );
+
+
+            item.appendChild(
+                text
+            );
+
+
+            broadcastLogList.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   音声テスト
+========================================================= */
+
+voiceTestButton.addEventListener(
+    "click",
+    () => {
+
+        testVoice();
+
+    }
+);
+
+
+/* 音声設定変更 */
+
+voiceSelect.addEventListener(
+    "change",
+    saveVoiceSettings
+);
+
+
+voiceRate.addEventListener(
+    "change",
+    saveVoiceSettings
+);
+
+
+voicePitch.addEventListener(
+    "change",
+    saveVoiceSettings
+);
+
+
+/* =========================================================
+   放送設定追加
+========================================================= */
+
+addAnnouncementButton.addEventListener(
+    "click",
+    () => {
+
+        announcements.push(
+            createAnnouncement()
+        );
+
+
+        saveAnnouncements();
+
+
+        renderAnnouncements();
+
+
+        setTimeout(
+            () => {
+
+                const cards =
+                    document.querySelectorAll(
+                        ".announcement-card"
+                    );
+
+
+                const last =
+                    cards[
+                        cards.length - 1
+                    ];
+
+
+                if (
+                    last
+                ) {
+
+                    last.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center"
+                    });
+
+                }
+
+            },
+            100
+        );
+
+    }
+);
 
 
 /* =========================================================
@@ -3034,9 +4246,6 @@ joinButton.addEventListener(
     async () => {
 
 
-        /*
-            入力値取得
-        */
         const inputRoomCode =
             roomCodeInput.value.trim();
 
@@ -3045,9 +4254,9 @@ joinButton.addEventListener(
             roomPasswordInput.value;
 
 
-        /* -------------------------------------------------
-           部屋番号チェック
-        ------------------------------------------------- */
+        /*
+            部屋番号チェック
+        */
 
         if (
             !/^\d{5}$/.test(
@@ -3068,9 +4277,9 @@ joinButton.addEventListener(
         }
 
 
-        /* -------------------------------------------------
-           パスワードチェック
-        ------------------------------------------------- */
+        /*
+            パスワード
+        */
 
         if (
             password === ""
@@ -3088,10 +4297,6 @@ joinButton.addEventListener(
 
         }
 
-
-        /* -------------------------------------------------
-           接続中
-        ------------------------------------------------- */
 
         joinButton.disabled =
             true;
@@ -3112,9 +4317,10 @@ joinButton.addEventListener(
         try {
 
 
-            /* =============================================
-               元のClock_60Xと同じ場所を見る
-            ============================================= */
+            /*
+                元のClock_60Xと同じ
+                rooms/{部屋番号}
+            */
 
             const roomRef =
                 doc(
@@ -3125,20 +4331,21 @@ joinButton.addEventListener(
 
 
             /*
-                まず1回取得
+                部屋取得
             */
-            const roomSnap =
+
+            const snapshot =
                 await getDoc(
                     roomRef
                 );
 
 
-            /* =============================================
-               部屋が存在するか
-            ============================================= */
+            /*
+                存在確認
+            */
 
             if (
-                !roomSnap.exists()
+                !snapshot.exists()
             ) {
 
                 joinStatus.textContent =
@@ -3155,15 +4362,16 @@ joinButton.addEventListener(
 
 
             /*
-                部屋データ
+                データ
             */
+
             const data =
-                roomSnap.data();
+                snapshot.data();
 
 
-            /* =============================================
-               パスワード確認
-            ============================================= */
+            /*
+                パスワード
+            */
 
             if (
                 data.password !==
@@ -3183,9 +4391,11 @@ joinButton.addEventListener(
             }
 
 
-            /* =============================================
-               参加成功
-            ============================================= */
+            /*
+                ==============================
+                参加成功
+                ==============================
+            */
 
             roomCode =
                 inputRoomCode;
@@ -3195,9 +4405,6 @@ joinButton.addEventListener(
                 data;
 
 
-            /*
-                表示
-            */
             currentRoom.textContent =
                 roomCode;
 
@@ -3205,20 +4412,23 @@ joinButton.addEventListener(
             /*
                 参加画面を隠す
             */
+
             joinScreen.style.display =
                 "none";
 
 
             /*
-                アプリ画面を表示
+                アプリ表示
             */
+
             appScreen.style.display =
                 "block";
 
 
             /*
-                接続状態を緑
+                接続表示
             */
+
             connectionDot.classList.add(
                 "online"
             );
@@ -3229,29 +4439,36 @@ joinButton.addEventListener(
 
 
             /*
-                この部屋専用の設定を読み込む
+                設定読み込み
             */
+
             loadAnnouncements();
 
 
             /*
-                時計を最初に表示
+                音声一覧
             */
+
+            loadVoices();
+
+
+            /*
+                時計初期表示
+            */
+
             updateClock();
 
 
-            /* =============================================
-               Clock_60Xをリアルタイム監視
-            ============================================= */
-
             /*
-                以前の監視があれば停止
+                以前の監視を解除
             */
+
             if (
                 unsubscribeRoom
             ) {
 
                 unsubscribeRoom();
+
 
                 unsubscribeRoom =
                     null;
@@ -3260,9 +4477,9 @@ joinButton.addEventListener(
 
 
             /*
-                Clock_60Xの元コードと同じく
-                onSnapshotで部屋を監視する。
+                Clock_60Xを監視
             */
+
             unsubscribeRoom =
                 onSnapshot(
 
@@ -3272,8 +4489,9 @@ joinButton.addEventListener(
 
 
                         /*
-                            部屋が削除された場合
+                            部屋が消えた
                         */
+
                         if (
                             !snapshot.exists()
                         ) {
@@ -3295,13 +4513,15 @@ joinButton.addEventListener(
                         /*
                             最新データ
                         */
+
                         roomData =
                             snapshot.data();
 
 
                         /*
-                            接続表示
+                            接続中
                         */
+
                         connectionDot.classList.add(
                             "online"
                         );
@@ -3312,17 +4532,15 @@ joinButton.addEventListener(
 
 
                         /*
-                            時計更新
+                            時計＋放送判定
                         */
+
                         updateClock();
 
                     },
 
-
-                    /*
-                        接続エラー
-                    */
                     error => {
+
 
                         console.error(
                             "Firestore監視エラー:",
@@ -3365,9 +4583,6 @@ joinButton.addEventListener(
         finally {
 
 
-            /*
-                ボタンを元に戻す
-            */
             joinButton.disabled =
                 false;
 
@@ -3382,7 +4597,7 @@ joinButton.addEventListener(
 
 
 /* =========================================================
-   Enterキーでも参加
+   Enter
 ========================================================= */
 
 roomPasswordInput.addEventListener(
@@ -3403,7 +4618,7 @@ roomPasswordInput.addEventListener(
 
 
 /* =========================================================
-   部屋から退出
+   退出
 ========================================================= */
 
 leaveButton.addEventListener(
@@ -3411,14 +4626,12 @@ leaveButton.addEventListener(
     () => {
 
 
-        /*
-            Firestore監視を停止
-        */
         if (
             unsubscribeRoom
         ) {
 
             unsubscribeRoom();
+
 
             unsubscribeRoom =
                 null;
@@ -3427,8 +4640,12 @@ leaveButton.addEventListener(
 
 
         /*
-            状態をリセット
+            SpeechSynthesis停止
         */
+
+        window.speechSynthesis.cancel();
+
+
         roomCode =
             null;
 
@@ -3441,20 +4658,20 @@ leaveButton.addEventListener(
             [];
 
 
-        /*
-            画面を戻す
-        */
-        appScreen.style.display =
-            "none";
+        spokenKeys.clear();
+
+
+        speakingIds.clear();
 
 
         joinScreen.style.display =
             "block";
 
 
-        /*
-            入力欄をクリア
-        */
+        appScreen.style.display =
+            "none";
+
+
         roomCodeInput.value =
             "";
 
@@ -3463,9 +4680,6 @@ leaveButton.addEventListener(
             "";
 
 
-        /*
-            接続表示リセット
-        */
         connectionDot.classList.remove(
             "online"
         );
@@ -3475,9 +4689,6 @@ leaveButton.addEventListener(
             "接続中...";
 
 
-        /*
-            時計リセット
-        */
         clock.textContent =
             "--:--:--";
 
@@ -3486,9 +4697,6 @@ leaveButton.addEventListener(
             "Clock_60Xの時刻を取得中...";
 
 
-        /*
-            一覧リセット
-        */
         renderAnnouncements();
 
     }
@@ -3496,10 +4704,38 @@ leaveButton.addEventListener(
 
 
 /* =========================================================
+   音声一覧が後から読み込まれた場合
+========================================================= */
+
+if (
+    "speechSynthesis" in window
+) {
+
+    /*
+        ブラウザによっては
+        ページロード直後にはvoicesが空で、
+        voiceschangedイベント後に取得できる。
+    */
+
+    window.speechSynthesis.onvoiceschanged =
+        loadVoices;
+
+}
+else {
+
+    voiceSelect.innerHTML =
+        "<option>音声読み上げ非対応</option>";
+
+}
+
+
+/* =========================================================
    初期化
 ========================================================= */
 
 renderAnnouncements();
+
+renderBroadcastLogs();
 
 </script>
 
