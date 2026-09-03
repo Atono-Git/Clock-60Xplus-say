@@ -1,1064 +1,124 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Clock_60X 時刻放送</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clock_60X 放送テスト</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
-}
-
-html,
 body {
     margin: 0;
-    padding: 0;
-    min-height: 100%;
-}
-
-body {
-
     background: #111;
-
     color: white;
-
-    font-family:
-        Arial,
-        "Noto Sans JP",
-        sans-serif;
+    font-family: Arial, sans-serif;
+    padding: 30px;
 }
 
-
-/* ================================
-   共通
-================================ */
-
-button,
-input,
-select {
-
-    font: inherit;
-
+.box {
+    max-width: 500px;
+    margin: auto;
+    background: #1d1d1d;
+    padding: 25px;
+    border-radius: 15px;
 }
 
+input {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    padding: 14px;
+    font-size: 18px;
+    background: #292929;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 8px;
+}
 
 button {
-
-    border: none;
-
-    border-radius: 10px;
-
-    padding: 13px 20px;
-
-    background: #164a7b;
-
-    color: white;
-
-    cursor: pointer;
-
-    transition: 0.15s;
-
-}
-
-button:hover {
-
-    background: #21649f;
-
-}
-
-button:active {
-
-    transform: scale(0.98);
-
-}
-
-
-input,
-select {
-
     width: 100%;
-
-    padding: 13px;
-
-    border-radius: 8px;
-
-    border: 1px solid #444;
-
-    background: #292929;
-
-    color: white;
-
-    outline: none;
-
-}
-
-input:focus,
-select:focus {
-
-    border-color: #3b82c4;
-
-}
-
-
-label {
-
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #bbb;
-
-}
-
-
-/* ================================
-   ヘッダー
-================================ */
-
-header {
-
-    background: #181818;
-
-    border-bottom: 1px solid #333;
-
-    padding: 18px;
-
-    text-align: center;
-
-}
-
-header h1 {
-
-    margin: 0;
-
-    font-size: 27px;
-
-}
-
-
-/* ================================
-   コンテナ
-================================ */
-
-.container {
-
-    max-width: 900px;
-
-    margin: auto;
-
-    padding: 20px;
-
-}
-
-
-/* ================================
-   接続画面
-================================ */
-
-#joinScreen {
-
-    max-width: 500px;
-
-    margin: 60px auto;
-
-}
-
-.join-title {
-
-    text-align: center;
-
-    font-size: 30px;
-
-    font-weight: bold;
-
-    margin-bottom: 30px;
-
-}
-
-.join-box {
-
-    background: #1d1d1d;
-
-    padding: 25px;
-
-    border-radius: 15px;
-
-}
-
-.join-box .field {
-
-    margin-bottom: 18px;
-
-}
-
-#joinButton {
-
-    width: 100%;
-
-    font-size: 20px;
-
-    padding: 16px;
-
-}
-
-.join-status {
-
-    text-align: center;
-
-    min-height: 26px;
-
-    margin-top: 15px;
-
-    color: #aaa;
-
-}
-
-
-/* ================================
-   アプリ本体
-================================ */
-
-#appScreen {
-
-    display: none;
-
-}
-
-
-/* ================================
-   接続情報
-================================ */
-
-.connection {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    background: #1d1d1d;
-
-    padding: 15px 18px;
-
-    border-radius: 12px;
-
-    margin-bottom: 18px;
-
-}
-
-.connection-left {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-.connection-dot {
-
-    width: 12px;
-
-    height: 12px;
-
-    border-radius: 50%;
-
-    background: #777;
-
-}
-
-.connection-dot.online {
-
-    background: #38c172;
-
-    box-shadow:
-        0 0 8px rgba(56, 193, 114, 0.7);
-
-}
-
-.room-number {
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-}
-
-.leave-button {
-
-    background: #632727;
-
-}
-
-.leave-button:hover {
-
-    background: #873333;
-
-}
-
-
-/* ================================
-   時計
-================================ */
-
-.clock-panel {
-
-    background: #181818;
-
-    border-radius: 15px;
-
-    padding: 25px 20px;
-
-    text-align: center;
-
-    margin-bottom: 18px;
-
-}
-
-.clock {
-
-    font-size: clamp(52px, 11vw, 100px);
-
-    font-weight: bold;
-
-    line-height: 1;
-
-    letter-spacing: 4px;
-
-}
-
-.clock-status {
-
-    margin-top: 15px;
-
-    font-size: 19px;
-
-    color: #aaa;
-
-}
-
-
-/* ================================
-   放送パネル
-================================ */
-
-.panel {
-
-    background: #1d1d1d;
-
-    border-radius: 15px;
-
-    padding: 22px;
-
-    margin-bottom: 18px;
-
-}
-
-.panel h2 {
-
-    margin:
-        0 0 18px 0;
-
-    font-size: 22px;
-
-}
-
-
-/* ================================
-   グリッド
-================================ */
-
-.fields {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 12px;
-
-}
-
-.field {
-
-    min-width: 0;
-
-}
-
-
-/* ================================
-   ラジオ
-================================ */
-
-.radio-group {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-}
-
-.radio-item {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    background: #292929;
-
-    border-radius: 9px;
-
-    padding: 11px 13px;
-
-    cursor: pointer;
-
-}
-
-.radio-item input {
-
-    width: auto;
-
-}
-
-
-/* ================================
-   プレビュー
-================================ */
-
-.preview {
-
-    margin-top: 18px;
-
-    background: #111;
-
-    border: 1px solid #333;
-
-    border-radius: 10px;
-
-    padding: 16px;
-
-}
-
-.preview-label {
-
-    color: #888;
-
-    font-size: 14px;
-
-    margin-bottom: 7px;
-
-}
-
-.preview-text {
-
-    line-height: 1.8;
-
-}
-
-
-/* ================================
-   通知設定
-================================ */
-
-.notification-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-}
-
-.notification-row {
-
-    display: grid;
-
-    grid-template-columns:
-        auto
-        1fr
-        auto;
-
-    align-items: center;
-
-    gap: 10px;
-
-    background: #292929;
-
-    border-radius: 10px;
-
-    padding: 10px;
-
-}
-
-.notification-row input[type="checkbox"] {
-
-    width: 20px;
-
-    height: 20px;
-
-}
-
-.notification-row input[type="time"] {
-
-    min-width: 0;
-
-}
-
-.delete-button {
-
-    background: #632727;
-
-}
-
-.delete-button:hover {
-
-    background: #873333;
-
-}
-
-.add-button {
-
-    width: 100%;
-
-    margin-top: 12px;
-
-    background: #235f38;
-
-}
-
-.add-button:hover {
-
-    background: #2c7846;
-
-}
-
-
-/* ================================
-   テスト
-================================ */
-
-.test-area {
-
-    display: flex;
-
-    gap: 10px;
-
-    margin-top: 18px;
-
-}
-
-.test-area button {
-
-    flex: 1;
-
-}
-
-
-/* ================================
-   次の通知
-================================ */
-
-.next-notification {
-
     padding: 15px;
-
+    font-size: 18px;
+    background: #164a7b;
+    color: white;
+    border: none;
     border-radius: 10px;
-
-    background: #172c3e;
-
-    margin-top: 15px;
-
-    line-height: 1.7;
-
+    cursor: pointer;
 }
 
-.next-notification strong {
-
-    color: #8ecbff;
-
+#status {
+    margin-top: 20px;
+    padding: 15px;
+    background: #111;
+    border-radius: 8px;
+    white-space: pre-wrap;
 }
 
-
-/* ================================
-   通知表示
-================================ */
-
-.speaking {
-
-    position: fixed;
-
-    left: 20px;
-
-    right: 20px;
-
-    bottom: 20px;
-
-    background: #193c56;
-
-    border: 1px solid #34749f;
-
-    padding: 18px;
-
-    border-radius: 14px;
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.5);
-
-    display: none;
-
-    z-index: 1000;
-
+.success {
+    color: #63d297;
 }
 
-.speaking.show {
-
-    display: block;
-
+.error {
+    color: #ff6b6b;
 }
-
-.speaking-title {
-
-    font-size: 13px;
-
-    color: #91c9ec;
-
-    margin-bottom: 5px;
-
-}
-
-.speaking-text {
-
-    line-height: 1.7;
-
-}
-
-
-/* ================================
-   レスポンシブ
-================================ */
-
-@media (max-width: 700px) {
-
-    .fields {
-
-        grid-template-columns:
-            1fr;
-
-    }
-
-    .connection {
-
-        align-items: stretch;
-
-        flex-direction: column;
-
-    }
-
-    .notification-row {
-
-        grid-template-columns:
-            auto
-            1fr;
-
-    }
-
-    .delete-button {
-
-        grid-column: 1 / -1;
-
-        width: 100%;
-
-    }
-
-}
-
 </style>
-
 </head>
-
 
 <body>
 
+<div class="box">
 
-<header>
+    <h1>Clock_60X 放送アプリ</h1>
 
-    <h1>Clock_60X 時刻放送</h1>
+    <label>5桁の部屋番号</label>
+    <input
+        id="roomCode"
+        type="text"
+        inputmode="numeric"
+        maxlength="5"
+        placeholder="12345"
+    >
 
-</header>
+    <label>パスワード</label>
+    <input
+        id="roomPassword"
+        type="password"
+        placeholder="パスワード"
+    >
 
-
-<!-- =================================
-     部屋参加画面
-================================= -->
-
-<div
-    id="joinScreen"
-    class="container"
->
-
-    <div class="join-title">
+    <button id="joinButton">
         部屋に参加
+    </button>
+
+    <div id="status">
+        待機中
     </div>
-
-    <div class="join-box">
-
-        <div class="field">
-
-            <label for="roomCode">
-                5桁の部屋番号
-            </label>
-
-            <input
-                id="roomCode"
-                type="text"
-                inputmode="numeric"
-                maxlength="5"
-                placeholder="例：12345"
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <div class="field">
-
-            <label for="roomPassword">
-                パスワード
-            </label>
-
-            <input
-                id="roomPassword"
-                type="password"
-                placeholder="パスワード"
-                autocomplete="off"
-            >
-
-        </div>
-
-
-        <button id="joinButton">
-            部屋に参加
-        </button>
-
-
-        <div
-            id="joinStatus"
-            class="join-status"
-        ></div>
-
-    </div>
-
-</div>
-
-
-<!-- =================================
-     アプリ本体
-================================= -->
-
-<div
-    id="appScreen"
-    class="container"
->
-
-
-    <!-- 接続情報 -->
-
-    <div class="connection">
-
-        <div class="connection-left">
-
-            <div
-                id="connectionDot"
-                class="connection-dot"
-            ></div>
-
-            <div>
-
-                <div class="room-number">
-                    部屋 <span id="currentRoom">-----</span>
-                </div>
-
-                <div id="connectionStatus">
-                    接続中...
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <button
-            id="leaveButton"
-            class="leave-button"
-        >
-            部屋から退出
-        </button>
-
-    </div>
-
-
-    <!-- 時計 -->
-
-    <div class="clock-panel">
-
-        <div
-            id="clock"
-            class="clock"
-        >
-            00:00:00
-        </div>
-
-
-        <div
-            id="clockStatus"
-            class="clock-status"
-        >
-            時計情報を待っています
-        </div>
-
-    </div>
-
-
-    <!-- =================================
-         放送内容
-    ================================= -->
-
-    <div class="panel">
-
-        <h2>
-            放送内容
-        </h2>
-
-
-        <div class="fields">
-
-
-            <div class="field">
-
-                <label for="station">
-                    駅名
-                </label>
-
-                <input
-                    id="station"
-                    type="text"
-                    placeholder="例：千葉"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label for="operation">
-                    運用番号
-                </label>
-
-                <input
-                    id="operation"
-                    type="text"
-                    placeholder="例：A101"
-                >
-
-            </div>
-
-
-            <div class="field">
-
-                <label for="type">
-                    種別
-                </label>
-
-                <input
-                    id="type"
-                    type="text"
-                    placeholder="例：普通"
-                >
-
-            </div>
-
-        </div>
-
-
-        <label>
-            時刻種別
-        </label>
-
-
-        <div class="radio-group">
-
-
-            <label class="radio-item">
-
-                <input
-                    type="radio"
-                    name="timeType"
-                    value="発車時刻"
-                    checked
-                >
-
-                発車時刻
-
-            </label>
-
-
-            <label class="radio-item">
-
-                <input
-                    type="radio"
-                    name="timeType"
-                    value="入庫時刻"
-                >
-
-                入庫時刻
-
-            </label>
-
-
-        </div>
-
-
-        <label style="margin-top: 18px;">
-            指示内容
-        </label>
-
-
-        <div class="radio-group">
-
-
-            <label class="radio-item">
-
-                <input
-                    type="radio"
-                    name="instruction"
-                    value="列車を駅に待機させてください"
-                    checked
-                >
-
-                列車を駅に待機させてください
-
-            </label>
-
-
-            <label class="radio-item">
-
-                <input
-                    type="radio"
-                    name="instruction"
-                    value="各駅員、列車の位置を共有してください"
-                >
-
-                各駅員、列車の位置を共有してください
-
-            </label>
-
-
-        </div>
-
-
-        <div class="preview">
-
-            <div class="preview-label">
-                放送プレビュー
-            </div>
-
-            <div
-                id="previewText"
-                class="preview-text"
-            ></div>
-
-        </div>
-
-
-        <div class="test-area">
-
-            <button id="testButton">
-                🔊 放送テスト
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <!-- =================================
-         通知設定
-    ================================= -->
-
-    <div class="panel">
-
-        <h2>
-            通知設定
-        </h2>
-
-
-        <div
-            id="notificationList"
-            class="notification-list"
-        ></div>
-
-
-        <button
-            id="addNotificationButton"
-            class="add-button"
-        >
-            ＋ 通知を追加
-        </button>
-
-
-        <div
-            id="nextNotification"
-            class="next-notification"
-        >
-            次の通知を計算中...
-        </div>
-
-    </div>
-
-
-</div>
-
-
-<!-- =================================
-     放送中表示
-================================= -->
-
-<div
-    id="speaking"
-    class="speaking"
->
-
-    <div class="speaking-title">
-        🔊 時刻放送
-    </div>
-
-    <div
-        id="speakingText"
-        class="speaking-text"
-    ></div>
 
 </div>
 
 
 <script type="module">
+
+/* =========================================
+   まずJavaScriptが動いているか確認
+========================================= */
+
+const status =
+    document.getElementById("status");
+
+status.textContent =
+    "JavaScript読み込み成功";
+
+
+console.log(
+    "[Clock_60X Announcer] JavaScript OK"
+);
+
+
+/* =========================================
+   Firebase
+========================================= */
 
 import {
     initializeApp
@@ -1067,145 +127,73 @@ import {
 import {
     getFirestore,
     doc,
-    getDoc,
-    onSnapshot
+    getDoc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
-/* =========================================
-   Clock_60X と同じFirebase設定
-========================================= */
-
 const firebaseConfig = {
-    apiKey: "AIzaSyACeTgCIWyynzbHcbdPLfeK24nnOjEvOJk",
-    authDomain: "clock-60x.firebaseapp.com",
-    projectId: "clock-60x",
-    storageBucket: "clock-60x.firebasestorage.app",
-    messagingSenderId: "311438870758",
-    appId: "1:311438870758:web:41d7ec11bad3c924965327",
-    measurementId: "G-JXQN631WTB"
+
+    apiKey:
+        "AIzaSyACeTgCIWyynzbHcbdPLfeK24nnOjEvOJk",
+
+    authDomain:
+        "clock-60x.firebaseapp.com",
+
+    projectId:
+        "clock-60x",
+
+    storageBucket:
+        "clock-60x.firebasestorage.app",
+
+    messagingSenderId:
+        "311438870758",
+
+    appId:
+        "1:311438870758:web:41d7ec11bad3c924965327",
+
+    measurementId:
+        "G-JXQN631WTB"
+
 };
 
-
-/* =========================================
-   Firebase開始
-========================================= */
-
-let app;
 
 let db;
 
 try {
 
-    app = initializeApp(firebaseConfig);
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
 
-    db = getFirestore(app);
+    db =
+        getFirestore(
+            app
+        );
+
+    status.textContent =
+        "Firebase接続準備OK";
+
+    status.className =
+        "success";
 
     console.log(
-        "[Announcer] Firebase初期化成功"
+        "[Clock_60X Announcer] Firebase OK"
     );
 
 }
 catch (error) {
 
+    status.textContent =
+        "Firebase初期化エラー\n\n" +
+        error.message;
+
+    status.className =
+        "error";
+
     console.error(
-        "[Announcer] Firebase初期化失敗",
         error
     );
-
-    alert(
-        "Firebaseの初期化に失敗しました。\n\n" +
-        error.message
-    );
-
-}
-
-
-/* =========================================
-   DOM
-========================================= */
-
-const roomCodeInput =
-    document.getElementById(
-        "roomCode"
-    );
-
-const roomPasswordInput =
-    document.getElementById(
-        "roomPassword"
-    );
-
-const joinButton =
-    document.getElementById(
-        "joinButton"
-    );
-
-const joinStatus =
-    document.getElementById(
-        "joinStatus"
-    );
-
-const joinScreen =
-    document.getElementById(
-        "joinScreen"
-    );
-
-const appScreen =
-    document.getElementById(
-        "appScreen"
-    );
-
-const currentRoom =
-    document.getElementById(
-        "currentRoom"
-    );
-
-const connectionDot =
-    document.getElementById(
-        "connectionDot"
-    );
-
-const connectionStatus =
-    document.getElementById(
-        "connectionStatus"
-    );
-
-const clock =
-    document.getElementById(
-        "clock"
-    );
-
-const clockStatus =
-    document.getElementById(
-        "clockStatus"
-    );
-
-
-/* =========================================
-   状態
-========================================= */
-
-let unsubscribeRoom = null;
-
-let joinedRoomCode = null;
-
-let roomData = null;
-
-
-/* =========================================
-   接続状態
-========================================= */
-
-function setStatus(
-    text,
-    color = "#aaa"
-) {
-
-    joinStatus.textContent =
-        text;
-
-    joinStatus.style.color =
-        color;
 
 }
 
@@ -1214,498 +202,190 @@ function setStatus(
    部屋参加
 ========================================= */
 
-joinButton.addEventListener(
-    "click",
-    async () => {
+document
+    .getElementById("joinButton")
+    .addEventListener(
+        "click",
+        async () => {
 
-        console.log(
-            "[Announcer] 部屋参加ボタン押下"
-        );
-
-
-        const roomCode =
-            roomCodeInput.value.trim();
-
-        const password =
-            roomPasswordInput.value;
-
-
-        console.log(
-            "[Announcer] 部屋番号:",
-            roomCode
-        );
-
-
-        /* -------------------------
-           入力チェック
-        ------------------------- */
-
-        if (
-            !/^\d{5}$/.test(
-                roomCode
-            )
-        ) {
-
-            setStatus(
-                "部屋番号は5桁の数字で入力してください。",
-                "#ff6b6b"
+            console.log(
+                "[Clock_60X Announcer] ボタン押下"
             );
 
-            return;
 
-        }
-
-
-        if (
-            password.trim() === ""
-        ) {
-
-            setStatus(
-                "パスワードを入力してください。",
-                "#ff6b6b"
-            );
-
-            return;
-
-        }
+            const roomCode =
+                document
+                    .getElementById(
+                        "roomCode"
+                    )
+                    .value
+                    .trim();
 
 
-        if (!db) {
-
-            setStatus(
-                "Firebaseが初期化されていません。",
-                "#ff6b6b"
-            );
-
-            return;
-
-        }
+            const password =
+                document
+                    .getElementById(
+                        "roomPassword"
+                    )
+                    .value;
 
 
-        joinButton.disabled =
-            true;
+            status.className = "";
 
 
-        joinButton.textContent =
-            "接続中...";
-
-
-        setStatus(
-            "部屋を確認しています..."
-        );
-
-
-        try {
-
-            /* -------------------------
-               部屋取得
-            ------------------------- */
-
-            const roomRef =
-                doc(
-                    db,
-                    "rooms",
+            if (
+                !/^\d{5}$/.test(
                     roomCode
-                );
-
-
-            console.log(
-                "[Announcer] Firestore取得:",
-                `rooms/${roomCode}`
-            );
-
-
-            const snapshot =
-                await getDoc(
-                    roomRef
-                );
-
-
-            console.log(
-                "[Announcer] exists:",
-                snapshot.exists()
-            );
-
-
-            /* -------------------------
-               部屋なし
-            ------------------------- */
-
-            if (
-                !snapshot.exists()
+                )
             ) {
 
-                setStatus(
-                    "その部屋は存在しません。",
-                    "#ff6b6b"
-                );
+                status.textContent =
+                    "部屋番号は5桁の数字で入力してください。";
 
-                joinButton.disabled =
-                    false;
-
-                joinButton.textContent =
-                    "部屋に参加";
+                status.className =
+                    "error";
 
                 return;
 
             }
 
 
-            const data =
-                snapshot.data();
-
-
-            console.log(
-                "[Announcer] room data:",
-                data
-            );
-
-
-            /* -------------------------
-               パスワード確認
-            ------------------------- */
-
             if (
-                data.password !==
-                password
+                password === ""
             ) {
 
-                setStatus(
-                    "パスワードが違います。",
-                    "#ff6b6b"
-                );
+                status.textContent =
+                    "パスワードを入力してください。";
 
-                joinButton.disabled =
-                    false;
-
-                joinButton.textContent =
-                    "部屋に参加";
+                status.className =
+                    "error";
 
                 return;
 
             }
 
 
-            /* -------------------------
-               参加成功
-            ------------------------- */
+            if (!db) {
 
-            joinedRoomCode =
-                roomCode;
+                status.textContent =
+                    "Firebaseが初期化されていません。";
 
-            roomData =
-                data;
+                status.className =
+                    "error";
 
-
-            currentRoom.textContent =
-                roomCode;
-
-
-            joinScreen.style.display =
-                "none";
-
-
-            appScreen.style.display =
-                "block";
-
-
-            connectionDot.classList.add(
-                "online"
-            );
-
-
-            connectionStatus.textContent =
-                "Clock_60Xと接続中";
-
-
-            setStatus(
-                ""
-            );
-
-
-            console.log(
-                "[Announcer] 参加成功"
-            );
-
-
-            /* -------------------------
-               リアルタイム監視
-            ------------------------- */
-
-            if (
-                unsubscribeRoom
-            ) {
-
-                unsubscribeRoom();
+                return;
 
             }
 
 
-            unsubscribeRoom =
-                onSnapshot(
-                    roomRef,
-
-                    snapshot => {
-
-                        console.log(
-                            "[Announcer] 更新受信",
-                            snapshot.data()
-                        );
+            status.textContent =
+                "部屋を検索中...";
 
 
-                        if (
-                            !snapshot.exists()
-                        ) {
+            try {
 
-                            connectionDot.classList.remove(
-                                "online"
-                            );
-
-                            connectionStatus.textContent =
-                                "部屋が削除されました";
-
-                            return;
-
-                        }
+                const roomRef =
+                    doc(
+                        db,
+                        "rooms",
+                        roomCode
+                    );
 
 
-                        roomData =
-                            snapshot.data();
-
-
-                        updateClock();
-
-                    },
-
-                    error => {
-
-                        console.error(
-                            "[Announcer] onSnapshot error",
-                            error
-                        );
-
-
-                        connectionDot.classList.remove(
-                            "online"
-                        );
-
-
-                        connectionStatus.textContent =
-                            "Firebase接続エラー";
-
-
-                        alert(
-                            "時計の監視中にエラーが発生しました。\n\n" +
-                            error.message
-                        );
-
-                    }
+                console.log(
+                    "検索:",
+                    "rooms/" + roomCode
                 );
 
 
-            updateClock();
-
-        }
-        catch (error) {
-
-            console.error(
-                "[Announcer] 部屋参加エラー",
-                error
-            );
+                const snapshot =
+                    await getDoc(
+                        roomRef
+                    );
 
 
-            let message =
-                "部屋への参加に失敗しました。\n\n" +
-                error.message;
+                console.log(
+                    "snapshot:",
+                    snapshot
+                );
 
 
-            if (
-                error.code ===
-                "permission-denied"
-            ) {
+                if (
+                    !snapshot.exists()
+                ) {
 
-                message =
-                    "Firestoreの権限で拒否されました。\n\n" +
-                    "Firestore Security Rulesを確認してください。";
+                    status.textContent =
+                        "部屋が存在しません。";
+
+                    status.className =
+                        "error";
+
+                    return;
+
+                }
+
+
+                const data =
+                    snapshot.data();
+
+
+                console.log(
+                    "部屋データ:",
+                    data
+                );
+
+
+                if (
+                    data.password !==
+                    password
+                ) {
+
+                    status.textContent =
+                        "パスワードが違います。";
+
+                    status.className =
+                        "error";
+
+                    return;
+
+                }
+
+
+                status.textContent =
+                    "部屋への参加に成功しました！\n\n" +
+                    "部屋番号: " +
+                    roomCode;
+
+                status.className =
+                    "success";
+
+
+            }
+            catch (error) {
+
+                console.error(
+                    "Firestoreエラー:",
+                    error
+                );
+
+
+                status.textContent =
+                    "エラーが発生しました。\n\n" +
+                    "code: " +
+                    (error.code || "なし") +
+                    "\n\n" +
+                    error.message;
+
+                status.className =
+                    "error";
 
             }
 
-
-            if (
-                error.code ===
-                "unavailable"
-            ) {
-
-                message =
-                    "Firebaseに接続できませんでした。\n\n" +
-                    "ネットワーク接続を確認してください。";
-
-            }
-
-
-            setStatus(
-                message,
-                "#ff6b6b"
-            );
-
-
-            alert(
-                message
-            );
-
         }
-        finally {
-
-            joinButton.disabled =
-                false;
-
-            joinButton.textContent =
-                "部屋に参加";
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   時計更新
-========================================= */
-
-function updateClock() {
-
-    if (!roomData) {
-        return;
-    }
-
-
-    const seconds =
-        Number(
-            roomData.virtualSeconds
-        );
-
-
-    if (
-        !Number.isFinite(
-            seconds
-        )
-    ) {
-
-        clock.textContent =
-            "--:--:--";
-
-        clockStatus.textContent =
-            "時計データなし";
-
-        return;
-
-    }
-
-
-    clock.textContent =
-        formatTime(
-            seconds
-        );
-
-
-    const running =
-        Boolean(
-            roomData.running
-        );
-
-
-    const speed =
-        Number(
-            roomData.speed || 1
-        );
-
-
-    clockStatus.textContent =
-        running
-            ? `運転中 ・ ${speed}倍速`
-            : "停止中";
-
-}
-
-
-/* =========================================
-   時刻表示
-========================================= */
-
-function formatTime(
-    totalSeconds
-) {
-
-    totalSeconds =
-        Math.floor(
-            totalSeconds
-        );
-
-
-    const h =
-        Math.floor(
-            totalSeconds / 3600
-        ) % 24;
-
-
-    const m =
-        Math.floor(
-            (totalSeconds % 3600) / 60
-        );
-
-
-    const s =
-        totalSeconds % 60;
-
-
-    return (
-        String(h).padStart(2, "0") +
-        ":" +
-        String(m).padStart(2, "0") +
-        ":" +
-        String(s).padStart(2, "0")
     );
-
-}
-
-
-/* =========================================
-   Enterキー
-========================================= */
-
-roomCodeInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            roomPasswordInput.focus();
-
-        }
-
-    }
-);
-
-
-roomPasswordInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (
-            event.key === "Enter"
-        ) {
-
-            joinButton.click();
-
-        }
-
-    }
-);
 
 </script>
 
 </body>
-
 </html>
+```
