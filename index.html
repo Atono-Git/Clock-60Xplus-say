@@ -60,6 +60,7 @@ label {
     margin-bottom: 7px;
 }
 
+
 /* ===============================
    ヘッダー
 ================================ */
@@ -76,6 +77,7 @@ header h1 {
     font-size: 27px;
 }
 
+
 /* ===============================
    コンテナ
 ================================ */
@@ -85,6 +87,7 @@ header h1 {
     margin: auto;
     padding: 20px;
 }
+
 
 /* ===============================
    部屋参加
@@ -127,6 +130,7 @@ header h1 {
     min-height: 25px;
 }
 
+
 /* ===============================
    アプリ
 ================================ */
@@ -134,6 +138,7 @@ header h1 {
 #appScreen {
     display: none;
 }
+
 
 /* ===============================
    接続情報
@@ -186,6 +191,7 @@ header h1 {
     background: #893636;
 }
 
+
 /* ===============================
    Clock
 ================================ */
@@ -211,6 +217,7 @@ header h1 {
     font-size: 18px;
 }
 
+
 /* ===============================
    設定パネル
 ================================ */
@@ -227,6 +234,7 @@ header h1 {
     font-size: 23px;
 }
 
+
 /* ===============================
    3項目
 ================================ */
@@ -236,6 +244,7 @@ header h1 {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
 }
+
 
 /* ===============================
    ラジオ
@@ -261,6 +270,7 @@ header h1 {
     width: auto;
 }
 
+
 /* ===============================
    放送文プレビュー
 ================================ */
@@ -283,8 +293,9 @@ header h1 {
     line-height: 1.8;
 }
 
+
 /* ===============================
-   通知
+   通知設定
 ================================ */
 
 .notification-list {
@@ -293,38 +304,81 @@ header h1 {
     gap: 10px;
 }
 
+
+/* 通知1件 */
+
 .notification-row {
     display: grid;
-    grid-template-columns: 32px 1fr auto;
+    grid-template-columns: 40px 1fr auto;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+
     background: #292929;
-    padding: 10px;
+    padding: 12px;
+
     border-radius: 10px;
 }
 
+
+/* ON/OFF */
+
 .notification-row input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
+    cursor: pointer;
 }
+
+
+/* 時刻 */
+
+.notification-time {
+    font-size: 22px;
+    font-weight: bold;
+    padding: 12px;
+    text-align: center;
+    letter-spacing: 2px;
+    background: #181818;
+}
+
+
+/* 削除 */
 
 .delete-button {
     background: #682929;
+    padding: 11px 16px;
 }
 
 .delete-button:hover {
     background: #893636;
 }
 
+
+/* 追加 */
+
 .add-button {
     width: 100%;
     margin-top: 12px;
     background: #28613c;
+    font-size: 17px;
 }
 
 .add-button:hover {
     background: #347a4b;
 }
+
+
+/* ===============================
+   通知がないとき
+================================ */
+
+.no-notifications {
+    text-align: center;
+    color: #777;
+    padding: 20px;
+    background: #111;
+    border-radius: 10px;
+}
+
 
 /* ===============================
    保存表示
@@ -336,11 +390,13 @@ header h1 {
     min-height: 20px;
 }
 
+
 /* ===============================
    スマホ
 ================================ */
 
 @media (max-width: 700px) {
+
     .fields {
         grid-template-columns: 1fr;
     }
@@ -353,15 +409,28 @@ header h1 {
     .leave-button {
         width: 100%;
     }
+
+    .notification-row {
+        grid-template-columns: 35px 1fr auto;
+    }
+
+    .notification-time {
+        font-size: 20px;
+    }
+
 }
 </style>
 </head>
 
+
 <body>
+
 
 <header>
     <h1>Clock_60X 放送設定</h1>
 </header>
+
+
 
 <!-- =====================================
      部屋参加
@@ -376,7 +445,10 @@ header h1 {
     <div class="join-box">
 
         <div class="field">
-            <label for="roomCode">5桁の部屋番号</label>
+
+            <label for="roomCode">
+                5桁の部屋番号
+            </label>
 
             <input
                 id="roomCode"
@@ -386,10 +458,15 @@ header h1 {
                 placeholder="例：42540"
                 autocomplete="off"
             >
+
         </div>
 
+
         <div class="field">
-            <label for="roomPassword">パスワード</label>
+
+            <label for="roomPassword">
+                パスワード
+            </label>
 
             <input
                 id="roomPassword"
@@ -397,16 +474,22 @@ header h1 {
                 placeholder="パスワード"
                 autocomplete="off"
             >
+
         </div>
+
 
         <button id="joinButton">
             部屋に参加
         </button>
 
+
         <div id="joinStatus"></div>
 
     </div>
+
 </div>
+
+
 
 <!-- =====================================
      本体
@@ -414,7 +497,8 @@ header h1 {
 
 <div id="appScreen" class="container">
 
-    <!-- 接続状態 -->
+
+    <!-- 接続情報 -->
 
     <div class="connection">
 
@@ -442,6 +526,7 @@ header h1 {
 
         </div>
 
+
         <button
             id="leaveButton"
             class="leave-button"
@@ -451,7 +536,11 @@ header h1 {
 
     </div>
 
-    <!-- Clock -->
+
+
+    <!-- =================================
+         Clock
+    ================================== -->
 
     <div class="clock-panel">
 
@@ -471,6 +560,8 @@ header h1 {
 
     </div>
 
+
+
     <!-- =================================
          放送基本設定
     ================================== -->
@@ -481,7 +572,9 @@ header h1 {
             放送設定
         </h2>
 
+
         <div class="fields">
+
 
             <div class="field">
 
@@ -497,6 +590,8 @@ header h1 {
 
             </div>
 
+
+
             <div class="field">
 
                 <label for="operation">
@@ -510,6 +605,8 @@ header h1 {
                 >
 
             </div>
+
+
 
             <div class="field">
 
@@ -525,13 +622,18 @@ header h1 {
 
             </div>
 
+
         </div>
+
+
 
         <label style="margin-top: 4px;">
             時刻種別
         </label>
 
+
         <div class="radio-group">
+
 
             <label class="radio-item">
 
@@ -546,6 +648,7 @@ header h1 {
 
             </label>
 
+
             <label class="radio-item">
 
                 <input
@@ -558,13 +661,18 @@ header h1 {
 
             </label>
 
+
         </div>
+
+
 
         <label style="margin-top: 18px;">
             指示内容
         </label>
 
+
         <div class="radio-group">
+
 
             <label class="radio-item">
 
@@ -579,6 +687,7 @@ header h1 {
 
             </label>
 
+
             <label class="radio-item">
 
                 <input
@@ -591,7 +700,10 @@ header h1 {
 
             </label>
 
+
         </div>
+
+
 
         <div class="preview">
 
@@ -606,6 +718,7 @@ header h1 {
 
         </div>
 
+
         <div
             id="saveStatus"
             class="save-status"
@@ -613,8 +726,10 @@ header h1 {
 
     </div>
 
+
+
     <!-- =================================
-         通知設定
+         通知時刻
     ================================== -->
 
     <div class="panel">
@@ -628,19 +743,23 @@ header h1 {
             class="notification-list"
         ></div>
 
+
         <button
             id="addNotificationButton"
             class="add-button"
         >
-            ＋ 通知を追加
+            ＋ 通知時刻を追加
         </button>
 
     </div>
 
+
 </div>
 
 
+
 <script type="module">
+
 
 /* =========================================
    Firebase
@@ -680,6 +799,7 @@ const firebaseConfig = {
 
     measurementId:
         "G-JXQN631WTB"
+
 };
 
 
@@ -809,7 +929,7 @@ let notifications = [];
 
 
 /* =========================================
-   部屋ごとの保存キー
+   保存キー
 ========================================= */
 
 function getStorageKey() {
@@ -823,14 +943,16 @@ function getStorageKey() {
 
 
 /* =========================================
-   ラジオ取得
+   ラジオ値
 ========================================= */
 
 function getRadioValue(name) {
 
     const element =
         document.querySelector(
-            `input[name="${name}"]:checked`
+            'input[name="' +
+            name +
+            '"]:checked'
         );
 
     return element
@@ -940,17 +1062,16 @@ function saveSettings() {
 
 
     saveStatus.textContent =
-        "保存しました";
+        "設定を保存しました";
 
 
     setTimeout(
         () => {
 
-            saveStatus.textContent =
-                "";
+            saveStatus.textContent = "";
 
         },
-        1500
+        1200
     );
 
 }
@@ -1009,7 +1130,9 @@ function loadSettings() {
 
         const timeTypeElement =
             document.querySelector(
-                `input[name="timeType"][value="${CSS.escape(timeType)}"]`
+                'input[name="timeType"][value="' +
+                timeType +
+                '"]'
             );
 
 
@@ -1028,7 +1151,9 @@ function loadSettings() {
 
         const instructionElement =
             document.querySelector(
-                `input[name="instruction"][value="${CSS.escape(instruction)}"]`
+                'input[name="instruction"][value="' +
+                instruction +
+                '"]'
             );
 
 
@@ -1052,13 +1177,12 @@ function loadSettings() {
 
                         id:
                             item.id ||
-                            crypto.randomUUID(),
+                            Date.now() +
+                            Math.random(),
 
                         time:
-                            typeof item.time ===
-                            "string"
-                                ? item.time
-                                : "05:00",
+                            item.time ||
+                            "05:00:00",
 
                         enabled:
                             item.enabled !== false
@@ -1072,7 +1196,7 @@ function loadSettings() {
     catch (error) {
 
         console.error(
-            "設定の読み込みに失敗しました:",
+            "設定読み込みエラー:",
             error
         );
 
@@ -1092,12 +1216,36 @@ function loadSettings() {
 
 function renderNotifications() {
 
-    notificationList.innerHTML =
-        "";
+    notificationList.innerHTML = "";
+
+
+    if (
+        notifications.length === 0
+    ) {
+
+        const empty =
+            document.createElement(
+                "div"
+            );
+
+        empty.className =
+            "no-notifications";
+
+        empty.textContent =
+            "まだ通知時刻が設定されていません。";
+
+        notificationList.appendChild(
+            empty
+        );
+
+        return;
+
+    }
 
 
     notifications.forEach(
         notification => {
+
 
             const row =
                 document.createElement(
@@ -1107,6 +1255,8 @@ function renderNotifications() {
             row.className =
                 "notification-row";
 
+
+            /* ON/OFF */
 
             const checkbox =
                 document.createElement(
@@ -1118,6 +1268,10 @@ function renderNotifications() {
 
             checkbox.checked =
                 notification.enabled;
+
+
+            checkbox.title =
+                "この通知を有効にする";
 
 
             checkbox.addEventListener(
@@ -1133,6 +1287,8 @@ function renderNotifications() {
             );
 
 
+            /* 時刻 */
+
             const timeInput =
                 document.createElement(
                     "input"
@@ -1144,6 +1300,9 @@ function renderNotifications() {
             timeInput.step =
                 "1";
 
+            timeInput.className =
+                "notification-time";
+
             timeInput.value =
                 notification.time;
 
@@ -1152,16 +1311,24 @@ function renderNotifications() {
                 "change",
                 () => {
 
+                    if (
+                        !timeInput.value
+                    ) {
+                        return;
+                    }
+
+
                     notification.time =
                         timeInput.value;
 
-                    saveSettings();
 
-                    renderNotifications();
+                    saveSettings();
 
                 }
             );
 
+
+            /* 削除 */
 
             const deleteButton =
                 document.createElement(
@@ -1226,30 +1393,63 @@ addNotificationButton.addEventListener(
     "click",
     () => {
 
-        notifications.push({
+        const newNotification = {
 
             id:
-                crypto.randomUUID(),
+                Date.now() +
+                Math.random(),
 
             time:
-                "05:00",
+                "05:00:00",
 
             enabled:
                 true
 
-        });
+        };
+
+
+        notifications.push(
+            newNotification
+        );
 
 
         saveSettings();
 
         renderNotifications();
 
+
+        /* 追加直後に時刻欄へフォーカス */
+
+        setTimeout(
+            () => {
+
+                const inputs =
+                    notificationList.querySelectorAll(
+                        'input[type="time"]'
+                    );
+
+                const lastInput =
+                    inputs[
+                        inputs.length - 1
+                    ];
+
+
+                if (lastInput) {
+
+                    lastInput.focus();
+
+                }
+
+            },
+            50
+        );
+
     }
 );
 
 
 /* =========================================
-   入力変更
+   基本設定変更
 ========================================= */
 
 stationInput.addEventListener(
@@ -1311,14 +1511,16 @@ document
 
 
 /* =========================================
-   時計
+   時計表示
 ========================================= */
 
 function formatTime(seconds) {
 
     seconds =
         Math.floor(
-            Number(seconds)
+            Number(
+                seconds
+            )
         );
 
 
@@ -1334,8 +1536,10 @@ function formatTime(seconds) {
 
 
     seconds =
-        ((seconds % 86400) + 86400) %
-        86400;
+        (
+            (seconds % 86400) +
+            86400
+        ) % 86400;
 
 
     const hours =
@@ -1343,10 +1547,12 @@ function formatTime(seconds) {
             seconds / 3600
         );
 
+
     const minutes =
         Math.floor(
             (seconds % 3600) / 60
         );
+
 
     const secs =
         seconds % 60;
@@ -1520,7 +1726,9 @@ joinButton.addEventListener(
             }
 
 
-            /* 参加成功 */
+            /* =========================
+               参加成功
+            ========================= */
 
             joinedRoomCode =
                 roomCode;
@@ -1649,7 +1857,7 @@ joinButton.addEventListener(
 
 
 /* =========================================
-   Enter
+   Enterキー
 ========================================= */
 
 roomPasswordInput.addEventListener(
