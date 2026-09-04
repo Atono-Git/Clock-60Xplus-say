@@ -2,156 +2,120 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<title>Clock_60X 放送設定</title>
+<title>Clock-60Xplus-say</title>
 
 <style>
-
-/* =========================================================
-   基本
-========================================================= */
-
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-
     background: #111;
-    color: #fff;
-
+    color: white;
     font-family:
-        Arial,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
         "Noto Sans JP",
         sans-serif;
 }
 
 button,
 input,
-textarea,
 select {
     font: inherit;
 }
 
-
-/* =========================================================
-   ヘッダー
-========================================================= */
-
-header {
-    padding: 18px;
-
-    background: #181818;
-
-    border-bottom: 1px solid #333;
-
-    text-align: center;
+button {
+    cursor: pointer;
 }
 
-header h1 {
-    margin: 0;
+/* =========================
+   共通
+========================= */
 
-    font-size: 27px;
+.hidden {
+    display: none !important;
 }
-
-
-/* =========================================================
-   コンテナ
-========================================================= */
 
 .container {
-    width: 100%;
-
-    max-width: 980px;
-
+    width: min(100% - 30px, 900px);
     margin: 0 auto;
+}
+
+/* =========================
+   ログイン画面
+========================= */
+
+#joinScreen {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     padding: 20px;
 }
 
+.joinCard {
+    width: 100%;
+    max-width: 500px;
 
-/* =========================================================
-   部屋参加
-========================================================= */
+    background: #1d1d1d;
+    border-radius: 20px;
 
-#joinScreen {
-    max-width: 520px;
+    padding: 30px;
 
-    margin: 60px auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
 }
 
-.join-title {
-    margin-bottom: 25px;
+.joinCard h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
 
     text-align: center;
 
-    font-size: 30px;
-
-    font-weight: bold;
+    font-size: 28px;
 }
 
-.join-box {
-    padding: 25px;
-
-    background: #1d1d1d;
-
-    border-radius: 15px;
+.joinDescription {
+    color: #aaa;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-.field {
-    margin-bottom: 18px;
+.inputGroup {
+    margin-bottom: 20px;
 }
 
-.field label {
+.inputGroup label {
     display: block;
 
-    margin-bottom: 7px;
+    margin-bottom: 8px;
 
-    color: #bbb;
+    color: #ccc;
+    font-size: 14px;
 }
 
-input,
-textarea,
-select {
+.inputGroup input {
     width: 100%;
 
-    padding: 12px;
+    padding: 14px;
+
+    border: none;
+    border-radius: 10px;
 
     background: #292929;
-
-    color: #fff;
-
-    border:
-        1px solid
-        #444;
-
-    border-radius: 8px;
+    color: white;
 
     outline: none;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #438bd0;
-}
-
-textarea {
-    min-height: 120px;
-
-    resize: vertical;
-
-    line-height: 1.6;
-}
-
-select {
-    cursor: pointer;
+.inputGroup input:focus {
+    background: #333;
 }
 
 #joinButton {
@@ -159,874 +123,397 @@ select {
 
     padding: 15px;
 
-    background: #18548a;
-
-    color: #fff;
-
     border: none;
-
     border-radius: 10px;
 
-    font-size: 19px;
+    background: #2455a6;
+    color: white;
 
-    cursor: pointer;
+    font-weight: bold;
+    font-size: 17px;
 }
 
 #joinButton:hover {
-    background: #226ba9;
+    background: #2e67c4;
 }
 
 #joinButton:disabled {
     opacity: 0.5;
-
     cursor: default;
 }
 
-#joinStatus {
-    min-height: 24px;
-
+#errorMessage {
     margin-top: 15px;
 
-    padding: 10px;
+    color: #ff6b6b;
 
-    background: #111;
-
-    border-radius: 8px;
-
-    white-space: pre-wrap;
-}
-
-
-/* =========================================================
-   アプリ
-========================================================= */
-
-#appScreen {
-    display: none;
-}
-
-
-/* =========================================================
-   接続情報
-========================================================= */
-
-.connection {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
-    margin-bottom: 18px;
-
-    padding: 14px 16px;
-
-    background: #1d1d1d;
-
-    border-radius: 12px;
-}
-
-.connection-left {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
-.connection-dot {
-
-    width: 12px;
-    height: 12px;
-
-    flex-shrink: 0;
-
-    background: #777;
-
-    border-radius: 50%;
-}
-
-.connection-dot.online {
-
-    background: #39c172;
-
-    box-shadow:
-        0 0 8px
-        rgba(57, 193, 114, 0.7);
-}
-
-.room-number {
-
-    font-size: 18px;
-
-    font-weight: bold;
-}
-
-.connection-status {
-
-    margin-top: 3px;
-
-    color: #aaa;
-
+    text-align: center;
     font-size: 14px;
 }
 
-.leave-button {
+/* =========================
+   メイン画面
+========================= */
 
-    padding: 12px 18px;
+#mainScreen {
+    min-height: 100vh;
 
-    background: #682929;
-
-    color: #fff;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
+    padding: 20px 0 50px;
 }
 
-.leave-button:hover {
-    background: #893636;
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
 }
 
+.header h1 {
+    margin: 0;
 
-/* =========================================================
-   時計
-========================================================= */
+    font-size: 25px;
+}
 
-.clock-panel {
+.roomInfo {
+    color: #aaa;
+    font-size: 14px;
+}
 
-    margin-bottom: 18px;
+/* =========================
+   Clock同期状態
+========================= */
+
+.clockCard {
+    background: #1d1d1d;
+
+    border-radius: 20px;
 
     padding: 25px;
 
-    background: #181818;
-
-    border-radius: 15px;
+    margin-bottom: 20px;
 
     text-align: center;
 }
 
-.clock {
+.clockLabel {
+    color: #999;
 
-    font-size:
-        clamp(52px, 11vw, 100px);
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+#currentTime {
+    font-size: clamp(50px, 12vw, 90px);
 
     font-weight: bold;
 
-    letter-spacing: 4px;
-
-    line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
-.clock-status {
+#syncStatus {
+    margin-top: 10px;
 
-    margin-top: 14px;
-
-    color: #aaa;
-
-    font-size: 18px;
-}
-
-
-/* =========================================================
-   放送設定
-========================================================= */
-
-.panel {
-
-    margin-bottom: 18px;
-
-    padding: 22px;
-
-    background: #1d1d1d;
-
-    border-radius: 15px;
-}
-
-.panel-title {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
-    margin-bottom: 18px;
-}
-
-.panel-title h2 {
-
-    margin: 0;
-
-    font-size: 23px;
-}
-
-.add-button {
-
-    padding: 12px 18px;
-
-    background: #28613c;
-
-    color: #fff;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-}
-
-.add-button:hover {
-    background: #347a4b;
-}
-
-
-/* =========================================================
-   設定一覧
-========================================================= */
-
-.announcement-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 16px;
-}
-
-
-/* =========================================================
-   1つの放送設定
-========================================================= */
-
-.announcement-card {
-
-    padding: 18px;
-
-    background: #292929;
-
-    border:
-        1px solid
-        #3b3b3b;
-
-    border-radius: 14px;
-
-    transition:
-        border-color 0.2s,
-        box-shadow 0.2s,
-        background 0.2s;
-}
-
-
-/*
-    現在放送中の設定。
-*/
-.announcement-card.speaking {
-
-    border-color: #e7b93b;
-
-    box-shadow:
-        0 0 18px
-        rgba(231, 185, 59, 0.25);
-
-    background: #332f20;
-}
-
-
-/*
-    直近に読み上げた設定。
-*/
-.announcement-card.spoken {
-
-    border-color: #3c7655;
-}
-
-
-/* =========================================================
-   カードヘッダー
-========================================================= */
-
-.announcement-header {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 10px;
-
-    margin-bottom: 18px;
-}
-
-.announcement-number {
-
-    font-size: 19px;
-
-    font-weight: bold;
-}
-
-.header-right {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-}
-
-
-/* =========================================================
-   状態表示
-========================================================= */
-
-.announcement-status {
-
-    padding:
-        5px
-        9px;
-
-    background: #181818;
-
-    border-radius: 7px;
-
-    color: #aaa;
-
-    font-size: 12px;
-}
-
-
-/*
-    放送中
-*/
-.announcement-status.speaking {
-
-    background: #695717;
-
-    color: #ffe58c;
-}
-
-
-/*
-    読み上げ済み
-*/
-.announcement-status.spoken {
-
-    background: #1e4931;
-
-    color: #8ee6aa;
-}
-
-
-/* =========================================================
-   ON / OFF
-========================================================= */
-
-.switch {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    color: #ccc;
-
-    cursor: pointer;
-}
-
-.switch input {
-
-    width: 20px;
-    height: 20px;
-
-    cursor: pointer;
-}
-
-
-/* =========================================================
-   ラベル
-========================================================= */
-
-.setting-label {
-
-    margin-bottom: 7px;
-
-    color: #aaa;
+    color: #6fcf97;
 
     font-size: 14px;
 }
 
+/* =========================
+   設定カード
+========================= */
 
-/* =========================================================
-   時刻
-========================================================= */
+.card {
+    background: #1d1d1d;
 
-.time-area {
+    border-radius: 18px;
 
-    margin-bottom: 18px;
+    padding: 20px;
+
+    margin-bottom: 20px;
 }
 
-.time-input {
+.card h2 {
+    margin-top: 0;
 
-    font-size: 28px;
+    font-size: 20px;
+}
+
+/* =========================
+   放送追加
+========================= */
+
+.addButton {
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #2455a6;
+    color: white;
 
     font-weight: bold;
-
-    letter-spacing: 2px;
-
-    text-align: center;
 }
 
-
-/* =========================================================
-   コメント方式
-========================================================= */
-
-.mode-buttons {
-
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 10px;
-
-    margin-bottom: 18px;
+.addButton:hover {
+    background: #2e67c4;
 }
 
-.mode-button {
+/* =========================
+   放送カード
+========================= */
 
+.announcement {
+    background: #292929;
+
+    border-radius: 15px;
+
+    padding: 18px;
+
+    margin-top: 15px;
+}
+
+.announcementHeader {
     display: flex;
 
     align-items: center;
+    justify-content: space-between;
 
-    justify-content: center;
+    gap: 10px;
 
-    padding: 14px;
-
-    background: #181818;
-
-    border:
-        1px solid
-        #444;
-
-    border-radius: 10px;
-
-    cursor: pointer;
-
-    user-select: none;
+    margin-bottom: 15px;
 }
 
-.mode-button.active {
-
-    background: #18548a;
-
-    border-color: #438bd0;
+.announcementTitle {
+    font-weight: bold;
 }
 
-.mode-button input {
+.deleteButton {
+    border: none;
 
-    display: none;
+    background: #713333;
+    color: white;
+
+    border-radius: 8px;
+
+    padding: 8px 12px;
 }
 
-
-/* =========================================================
-   定型文
-========================================================= */
-
-.template-area {
-
-    padding: 16px;
-
-    background: #222;
-
-    border-radius: 10px;
+.deleteButton:hover {
+    background: #914141;
 }
 
-.template-fields {
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 12px;
+.field {
+    margin-bottom: 13px;
 }
 
-.card-field {
-
-    margin-bottom: 14px;
-}
-
-.card-field label {
-
+.field label {
     display: block;
 
     margin-bottom: 6px;
 
     color: #aaa;
 
-    font-size: 14px;
+    font-size: 13px;
 }
 
+.field select,
+.field input {
+    width: 100%;
 
-/* =========================================================
-   選択ボタン
-========================================================= */
+    padding: 11px;
 
-.choice-area {
+    border: none;
+    border-radius: 9px;
 
-    margin-top: 10px;
+    background: #1d1d1d;
+    color: white;
+
+    outline: none;
 }
 
-.choice-title {
+.timeRow {
+    display: grid;
 
-    margin-bottom: 8px;
+    grid-template-columns: 1fr 1fr;
 
-    color: #aaa;
-
-    font-size: 14px;
+    gap: 10px;
 }
 
-.choice-buttons {
+/* =========================
+   ON/OFF
+========================= */
 
+.enabledRow {
     display: flex;
 
-    flex-wrap: wrap;
-
-    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
 
     margin-bottom: 15px;
 }
 
-.choice-button {
+.switch {
+    position: relative;
 
-    padding:
-        10px
-        13px;
+    width: 52px;
+    height: 30px;
+}
 
-    background: #181818;
+.switch input {
+    opacity: 0;
 
-    color: #fff;
+    width: 0;
+    height: 0;
+}
 
-    border:
-        1px solid
-        #444;
+.slider {
+    position: absolute;
+
+    inset: 0;
+
+    background: #555;
+
+    border-radius: 30px;
+
+    transition: 0.2s;
+}
+
+.slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 22px;
+    height: 22px;
+
+    left: 4px;
+    top: 4px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    transition: 0.2s;
+}
+
+.switch input:checked + .slider {
+    background: #2455a6;
+}
+
+.switch input:checked + .slider::before {
+    transform: translateX(22px);
+}
+
+/* =========================
+   モード
+========================= */
+
+.modeRow {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+.modeButton {
+    padding: 11px;
+
+    border: 1px solid #444;
 
     border-radius: 9px;
 
-    cursor: pointer;
-}
-
-.choice-button:hover {
-
-    background: #303030;
-}
-
-.choice-button.active {
-
-    background: #18548a;
-
-    border-color: #438bd0;
-}
-
-
-/* =========================================================
-   自由入力
-========================================================= */
-
-.free-comment {
-
-    margin-top: 5px;
-}
-
-
-/* =========================================================
-   プレビュー
-========================================================= */
-
-.preview {
-
-    margin-top: 16px;
-
-    padding: 14px;
-
-    background: #111;
-
-    border:
-        1px solid
-        #383838;
-
-    border-radius: 10px;
-}
-
-.preview-label {
-
-    margin-bottom: 7px;
-
-    color: #777;
-
-    font-size: 13px;
-}
-
-.preview-text {
-
-    line-height: 1.8;
-
-    white-space: pre-wrap;
-
-    word-break: break-word;
-}
-
-
-/* =========================================================
-   音声設定
-========================================================= */
-
-.voice-panel {
-
-    margin-top: 16px;
-
-    padding: 16px;
-
     background: #222;
-
-    border-radius: 10px;
+    color: #aaa;
 }
 
-.voice-grid {
+.modeButton.active {
+    background: #2455a6;
+    border-color: #2455a6;
 
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 12px;
+    color: white;
 }
 
-.voice-test-button {
-
-    width: 100%;
-
-    margin-top: 12px;
-
-    background: #4a4a4a;
+.freeText {
+    display: none;
 }
 
-.voice-test-button:hover {
-
-    background: #5b5b5b;
+.freeText.active {
+    display: block;
 }
 
+/* =========================
+   状態表示
+========================= */
 
-/* =========================================================
-   削除
-========================================================= */
+.statusCard {
+    background: #1d1d1d;
 
-.delete-button {
+    border-radius: 18px;
 
-    padding: 10px 15px;
+    padding: 20px;
 
-    background: #682929;
-
-    color: #fff;
-
-    border: none;
-
-    border-radius: 10px;
-
-    cursor: pointer;
+    margin-bottom: 20px;
 }
 
-.delete-button:hover {
+#lastAnnouncement {
+    color: #aaa;
 
-    background: #893636;
+    line-height: 1.6;
 }
 
+/* =========================
+   レスポンシブ
+========================= */
 
-/* =========================================================
-   保存
-========================================================= */
+@media (max-width: 600px) {
 
-.save-status {
+    .joinCard {
+        padding: 22px;
+    }
 
-    min-height: 20px;
+    .timeRow {
+        grid-template-columns: 1fr;
+    }
 
-    margin-top: 10px;
-
-    color: #67cf91;
-}
-
-
-/* =========================================================
-   放送ログ
-========================================================= */
-
-.broadcast-log {
-
-    margin-top: 18px;
-
-    padding: 15px;
-
-    background: #111;
-
-    border-radius: 10px;
-}
-
-.broadcast-log-title {
-
-    margin-bottom: 10px;
-
-    color: #888;
-
-    font-size: 13px;
-}
-
-.broadcast-log-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 6px;
-}
-
-.log-item {
-
-    padding: 8px 10px;
-
-    background: #1c1c1c;
-
-    border-radius: 7px;
-
-    line-height: 1.5;
-
-    font-size: 13px;
-}
-
-.log-time {
-
-    color: #7db2e5;
-
-    margin-right: 7px;
-}
-
-
-/* =========================================================
-   空の状態
-========================================================= */
-
-.empty-message {
-
-    padding: 25px;
-
-    background: #111;
-
-    border-radius: 10px;
-
-    color: #777;
-
-    text-align: center;
-
-    line-height: 1.7;
-}
-
-
-/* =========================================================
-   スマホ
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .connection {
-
+    .header {
         flex-direction: column;
-
-        align-items: stretch;
-    }
-
-    .leave-button {
-
-        width: 100%;
-    }
-
-    .panel-title {
-
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-    .add-button {
-
-        width: 100%;
-    }
-
-    .announcement-header {
 
         align-items: flex-start;
+
+        gap: 5px;
     }
-
-    .header-right {
-
-        flex-wrap: wrap;
-
-        justify-content: flex-end;
-    }
-
-    .template-fields {
-
-        grid-template-columns: 1fr;
-    }
-
-    .voice-grid {
-
-        grid-template-columns: 1fr;
-    }
-
 }
 </style>
 </head>
 
-
 <body>
 
+<!-- ==========================================
+     部屋参加画面
+========================================== -->
 
-<header>
-    <h1>Clock_60X 放送設定</h1>
-</header>
+<div id="joinScreen">
 
+    <div class="joinCard">
 
+        <h1>🚉 Clock-60Xplus-say</h1>
 
-<!-- =====================================================
-     部屋参加
-===================================================== -->
+        <div class="joinDescription">
+            Clock-60Xの部屋に接続して<br>
+            発車・入庫放送を管理します
+        </div>
 
-<div
-    id="joinScreen"
-    class="container"
->
-
-    <div class="join-title">
-        部屋に参加
-    </div>
-
-
-    <div class="join-box">
-
-        <div class="field">
+        <div class="inputGroup">
 
             <label for="roomCode">
-                5桁の部屋番号
+                部屋番号
             </label>
 
             <input
@@ -1034,14 +521,12 @@ select {
                 type="text"
                 inputmode="numeric"
                 maxlength="5"
-                placeholder="例：42540"
-                autocomplete="off"
+                placeholder="5桁の部屋番号"
             >
 
         </div>
 
-
-        <div class="field">
+        <div class="inputGroup">
 
             <label for="roomPassword">
                 パスワード
@@ -1051,282 +536,88 @@ select {
                 id="roomPassword"
                 type="password"
                 placeholder="パスワード"
-                autocomplete="off"
             >
 
         </div>
 
-
-        <button
-            id="joinButton"
-            type="button"
-        >
-            部屋に参加
+        <button id="joinButton">
+            部屋に入る
         </button>
 
-
-        <div
-            id="joinStatus"
-        ></div>
+        <div id="errorMessage"></div>
 
     </div>
 
 </div>
 
 
+<!-- ==========================================
+     メイン画面
+========================================== -->
 
-<!-- =====================================================
-     アプリ
-===================================================== -->
+<div id="mainScreen" class="hidden">
 
-<div
-    id="appScreen"
-    class="container"
->
+    <div class="container">
 
-
-    <!-- 接続情報 -->
-
-    <div class="connection">
-
-        <div class="connection-left">
-
-            <div
-                id="connectionDot"
-                class="connection-dot"
-            ></div>
-
+        <div class="header">
 
             <div>
+                <h1>🚉 Clock-60Xplus-say</h1>
 
-                <div class="room-number">
-
-                    部屋
-                    <span id="currentRoom">
-                        -----
-                    </span>
-
+                <div class="roomInfo">
+                    部屋番号：
+                    <span id="displayRoomCode"></span>
                 </div>
-
-
-                <div
-                    id="connectionStatus"
-                    class="connection-status"
-                >
-                    接続中...
-                </div>
-
             </div>
 
         </div>
 
 
-        <button
-            id="leaveButton"
-            class="leave-button"
-            type="button"
-        >
-            部屋から退出
-        </button>
+        <!-- 時計 -->
 
-    </div>
+        <div class="clockCard">
 
+            <div class="clockLabel">
+                Clock-60X 現在時刻
+            </div>
 
+            <div id="currentTime">
+                00:00:00
+            </div>
 
-    <!-- =================================================
-         Clock
-    ================================================== -->
+            <div id="syncStatus">
+                ● 接続中
+            </div>
 
-    <div class="clock-panel">
-
-        <div
-            id="clock"
-            class="clock"
-        >
-            --:--:--
         </div>
 
 
-        <div
-            id="clockStatus"
-            class="clock-status"
-        >
-            Clock_60Xの時刻を取得中...
-        </div>
+        <!-- 放送設定 -->
 
-    </div>
+        <div class="card">
 
+            <h2>📢 放送設定</h2>
 
-
-    <!-- =================================================
-         放送設定
-    ================================================== -->
-
-    <div class="panel">
-
-        <div class="panel-title">
-
-            <h2>
-                放送設定
-            </h2>
-
+            <div id="announcementList"></div>
 
             <button
                 id="addAnnouncementButton"
-                class="add-button"
-                type="button"
+                class="addButton"
             >
-                ＋ 放送設定を追加
+                ＋ 放送を追加
             </button>
 
         </div>
 
 
-        <div
-            id="announcementList"
-            class="announcement-list"
-        ></div>
+        <!-- 状態 -->
 
+        <div class="statusCard">
 
-        <div
-            id="saveStatus"
-            class="save-status"
-        ></div>
+            <h2>📡 放送状態</h2>
 
-
-        <!-- =================================================
-             音声設定
-        ================================================= -->
-
-        <div class="voice-panel">
-
-            <div class="setting-label">
-                読み上げ設定
-            </div>
-
-
-            <div class="voice-grid">
-
-                <div class="card-field">
-
-                    <label for="voiceSelect">
-                        音声
-                    </label>
-
-                    <select
-                        id="voiceSelect"
-                    >
-                        <option>
-                            読み込み中...
-                        </option>
-                    </select>
-
-                </div>
-
-
-                <div class="card-field">
-
-                    <label for="voiceRate">
-                        読み上げ速度
-                    </label>
-
-                    <select
-                        id="voiceRate"
-                    >
-                        <option value="0.8">
-                            0.8
-                        </option>
-
-                        <option value="0.9">
-                            0.9
-                        </option>
-
-                        <option value="1.0" selected>
-                            1.0
-                        </option>
-
-                        <option value="1.1">
-                            1.1
-                        </option>
-
-                        <option value="1.2">
-                            1.2
-                        </option>
-
-                        <option value="1.3">
-                            1.3
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="card-field">
-
-                    <label for="voicePitch">
-                        声の高さ
-                    </label>
-
-                    <select
-                        id="voicePitch"
-                    >
-                        <option value="0.8">
-                            0.8
-                        </option>
-
-                        <option value="0.9">
-                            0.9
-                        </option>
-
-                        <option value="1.0" selected>
-                            1.0
-                        </option>
-
-                        <option value="1.1">
-                            1.1
-                        </option>
-
-                        <option value="1.2">
-                            1.2
-                        </option>
-
-                    </select>
-
-                </div>
-
-            </div>
-
-
-            <button
-                id="voiceTestButton"
-                class="voice-test-button"
-                type="button"
-            >
-                🔊 テスト読み上げ
-            </button>
-
-        </div>
-
-
-        <!-- =================================================
-             放送ログ
-        ================================================== -->
-
-        <div class="broadcast-log">
-
-            <div class="broadcast-log-title">
-                放送ログ
-            </div>
-
-
-            <div
-                id="broadcastLogList"
-                class="broadcast-log-list"
-            >
-                <div class="log-item">
-                    まだ放送されていません。
-                </div>
+            <div id="lastAnnouncement">
+                まだ放送されていません。
             </div>
 
         </div>
@@ -1336,34 +627,30 @@ select {
 </div>
 
 
+<!-- ==========================================
+     Firebase
+========================================== -->
 
 <script type="module">
 
-
-/* =========================================================
-   Firebase
-========================================================= */
-
 import {
     initializeApp
-}
-from
-    "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 import {
     getFirestore,
     doc,
     getDoc,
+    setDoc,
     onSnapshot
-}
-from
-    "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
-/* =========================================================
+/* ==========================================
    Firebase設定
-========================================================= */
+
+   Clock-60Xと同じFirebaseを使用
+========================================== */
 
 const firebaseConfig = {
 
@@ -1387,3208 +674,990 @@ const firebaseConfig = {
 
     measurementId:
         "G-JXQN631WTB"
-
 };
 
 
-const firebaseApp =
-    initializeApp(
-        firebaseConfig
-    );
+/* ==========================================
+   Firebase初期化
+========================================== */
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
 
 
-const db =
-    getFirestore(
-        firebaseApp
-    );
-
-
-/* =========================================================
+/* ==========================================
    DOM
-========================================================= */
+========================================== */
 
 const joinScreen =
-    document.getElementById(
-        "joinScreen"
-    );
+    document.getElementById("joinScreen");
 
-
-const appScreen =
-    document.getElementById(
-        "appScreen"
-    );
-
+const mainScreen =
+    document.getElementById("mainScreen");
 
 const roomCodeInput =
-    document.getElementById(
-        "roomCode"
-    );
-
+    document.getElementById("roomCode");
 
 const roomPasswordInput =
-    document.getElementById(
-        "roomPassword"
-    );
-
+    document.getElementById("roomPassword");
 
 const joinButton =
-    document.getElementById(
-        "joinButton"
-    );
+    document.getElementById("joinButton");
 
+const errorMessage =
+    document.getElementById("errorMessage");
 
-const joinStatus =
-    document.getElementById(
-        "joinStatus"
-    );
+const displayRoomCode =
+    document.getElementById("displayRoomCode");
 
+const currentTime =
+    document.getElementById("currentTime");
 
-const currentRoom =
-    document.getElementById(
-        "currentRoom"
-    );
-
-
-const connectionDot =
-    document.getElementById(
-        "connectionDot"
-    );
-
-
-const connectionStatus =
-    document.getElementById(
-        "connectionStatus"
-    );
-
-
-const leaveButton =
-    document.getElementById(
-        "leaveButton"
-    );
-
-
-const clock =
-    document.getElementById(
-        "clock"
-    );
-
-
-const clockStatus =
-    document.getElementById(
-        "clockStatus"
-    );
-
+const syncStatus =
+    document.getElementById("syncStatus");
 
 const announcementList =
-    document.getElementById(
-        "announcementList"
-    );
-
+    document.getElementById("announcementList");
 
 const addAnnouncementButton =
-    document.getElementById(
-        "addAnnouncementButton"
-    );
+    document.getElementById("addAnnouncementButton");
+
+const lastAnnouncement =
+    document.getElementById("lastAnnouncement");
 
 
-const saveStatus =
-    document.getElementById(
-        "saveStatus"
-    );
-
-
-const voiceSelect =
-    document.getElementById(
-        "voiceSelect"
-    );
-
-
-const voiceRate =
-    document.getElementById(
-        "voiceRate"
-    );
-
-
-const voicePitch =
-    document.getElementById(
-        "voicePitch"
-    );
-
-
-const voiceTestButton =
-    document.getElementById(
-        "voiceTestButton"
-    );
-
-
-const broadcastLogList =
-    document.getElementById(
-        "broadcastLogList"
-    );
-
-
-/* =========================================================
+/* ==========================================
    状態
-========================================================= */
+========================================== */
 
-let roomCode = null;
+let roomCode = "";
+let roomPassword = "";
 
-let roomData = null;
+let roomRef = null;
 
 let unsubscribeRoom = null;
 
+let virtualSeconds = 0;
+
+let running = false;
+
 let announcements = [];
 
-let voices = [];
 
+/* ==========================================
+   放送用選択肢
+========================================== */
 
-/*
-    読み上げ済み時刻を記録する。
-
-    例えば
-
-        05:00:00
-
-    の設定が発火したあと、
-    Clockの更新が何度来ても同じ放送を
-    何度も読み上げないようにする。
-*/
-const spokenKeys =
-    new Set();
-
-
-/*
-    現在読み上げ中の設定ID
-*/
-const speakingIds =
-    new Set();
-
-
-/*
-    過去の放送ログ。
-    最新10件だけ保持。
-*/
-let broadcastLogs = [];
-
-
-/* =========================================================
-   選択肢
-========================================================= */
-
-const STATIONS = [
-
+const stations = [
     "北春日部",
     "北越谷",
     "竹ノ塚"
-
 ];
 
-
-const OPERATIONS = [
-
+const operations = [
     "L1",
     "L2",
     "L3",
-
     "TH",
-
     "E1",
     "E2",
     "E3",
     "E4",
     "E5",
     "E6",
-
     "S1",
     "S2",
     "S3",
-
     "LM1",
     "LM2",
     "LM3",
     "LM4",
     "LM5",
     "LM6",
-
     "EM1",
     "EM2"
-
 ];
 
-
-const TYPES = [
-
+const types = [
     "回送",
     "普通",
     "急行",
     "特急",
     "TH"
-
 ];
 
-
-const TIME_TYPES = [
-
+const timeTypes = [
     "発車時刻",
     "入庫時刻"
-
 ];
 
-
-const INSTRUCTIONS = [
-
+const instructions = [
     "列車を駅に待機させてください",
-
     "各駅員、列車の位置を共有してください"
-
 ];
 
 
-/* =========================================================
-   部屋ごとの保存キー
-========================================================= */
+/* ==========================================
+   部屋ごとのlocalStorageキー
+========================================== */
 
 function getStorageKey() {
 
-    return (
-        "clock60x-say-" +
-        roomCode
-    );
+    return "Clock60XplusSay_" + roomCode;
 
 }
 
 
-function getVoiceStorageKey() {
+/* ==========================================
+   時刻表示
+========================================== */
 
-    return (
-        "clock60x-say-voice-" +
-        roomCode
-    );
+function formatTime(seconds) {
 
-}
+    seconds =
+        Math.floor(seconds) % 86400;
 
-
-/* =========================================================
-   新しい放送設定
-========================================================= */
-
-function createAnnouncement() {
-
-    return {
-
-        id:
-            Date.now() +
-            "-" +
-            Math.random()
-                .toString(36)
-                .substring(2),
-
-        enabled:
-            true,
-
-        time:
-            "05:00:00",
-
-        mode:
-            "template",
-
-        station:
-            "北春日部",
-
-        operation:
-            "L1",
-
-        type:
-            "普通",
-
-        timeType:
-            "発車時刻",
-
-        instruction:
-            "列車を駅に待機させてください",
-
-        comment:
-            ""
-
-    };
-
-}
-
-
-/* =========================================================
-   放送文章
-========================================================= */
-
-function getAnnouncementText(data) {
-
-
-    /*
-        自由入力
-    */
-
-    if (
-        data.mode === "free"
-    ) {
-
-        if (
-            data.comment &&
-            data.comment.trim() !== ""
-        ) {
-
-            return data.comment;
-
-        }
-
-
-        return "コメントがまだ入力されていません。";
-
+    if (seconds < 0) {
+        seconds += 86400;
     }
 
+    const h =
+        Math.floor(seconds / 3600);
 
-    /*
-        定型文
-    */
+    const m =
+        Math.floor((seconds % 3600) / 60);
+
+    const s =
+        seconds % 60;
 
     return (
-
-        "まもなく、" +
-
-        data.station +
-
-        "車庫、" +
-
-        data.operation +
-
-        data.type +
-
-        "、「" +
-
-        data.timeType +
-
-        "」です。" +
-
-        "「" +
-
-        data.instruction +
-
-        "」。"
-
+        String(h).padStart(2, "0")
+        + ":"
+        + String(m).padStart(2, "0")
+        + ":"
+        + String(s).padStart(2, "0")
     );
-
 }
 
 
-/* =========================================================
-   保存
-========================================================= */
+/* ==========================================
+   放送設定を保存
+========================================== */
 
 function saveAnnouncements() {
 
-    if (!roomCode) {
-
-        return;
-
-    }
-
-
     localStorage.setItem(
-
         getStorageKey(),
-
-        JSON.stringify(
-            announcements
-        )
-
+        JSON.stringify(announcements)
     );
-
-
-    saveStatus.textContent =
-        "設定を保存しました";
-
-
-    clearTimeout(
-        saveAnnouncements.timer
-    );
-
-
-    saveAnnouncements.timer =
-        setTimeout(
-            () => {
-
-                saveStatus.textContent =
-                    "";
-
-            },
-            1000
-        );
 
 }
 
 
-/* =========================================================
-   読み込み
-========================================================= */
+/* ==========================================
+   放送設定を読み込み
+========================================== */
 
 function loadAnnouncements() {
 
-    const raw =
-        localStorage.getItem(
-            getStorageKey()
-        );
+    const saved =
+        localStorage.getItem(getStorageKey());
 
-
-    if (!raw) {
+    if (!saved) {
 
         announcements = [];
 
-        renderAnnouncements();
-
         return;
-
     }
-
 
     try {
 
         const data =
-            JSON.parse(
-                raw
-            );
+            JSON.parse(saved);
 
+        if (Array.isArray(data)) {
 
-        if (
-            !Array.isArray(data)
-        ) {
+            announcements = data;
+
+        } else {
 
             announcements = [];
 
         }
-        else {
 
-            announcements =
-                data.map(
-                    item => {
-
-                        const base =
-                            createAnnouncement();
-
-
-                        return {
-
-                            ...base,
-
-                            ...item,
-
-                            /*
-                                新しい形式にない
-                                値だけ初期値に戻す。
-                            */
-
-                            mode:
-                                (
-                                    item.mode === "free" ||
-                                    item.mode === "template"
-                                )
-                                    ? item.mode
-                                    : "template"
-
-                        };
-
-                    }
-                );
-
-        }
-
-    }
-    catch (error) {
-
-        console.error(
-            "放送設定読み込みエラー:",
-            error
-        );
-
+    } catch {
 
         announcements = [];
 
     }
 
-
-    renderAnnouncements();
-
 }
 
 
-/* =========================================================
-   時刻の正規化
-========================================================= */
+/* ==========================================
+   ID生成
+========================================== */
 
-function normalizeTime(time) {
+function createId() {
 
-    if (
-        typeof time !== "string"
-    ) {
-
-        return "05:00:00";
-
-    }
-
-
-    const parts =
-        time.split(":");
-
-
-    if (
-        parts.length === 2
-    ) {
-
-        return (
-            time +
-            ":00"
-        );
-
-    }
-
-
-    if (
-        parts.length === 3
-    ) {
-
-        return time;
-
-    }
-
-
-    return "05:00:00";
-
-}
-
-
-/* =========================================================
-   SELECT作成
-========================================================= */
-
-function createSelectField(
-    parent,
-    labelText,
-    options,
-    currentValue,
-    onChange
-) {
-
-    const field =
-        document.createElement(
-            "div"
-        );
-
-
-    field.className =
-        "card-field";
-
-
-    const label =
-        document.createElement(
-            "label"
-        );
-
-
-    label.textContent =
-        labelText;
-
-
-    const select =
-        document.createElement(
-            "select"
-        );
-
-
-    options.forEach(
-        value => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                value;
-
-
-            option.textContent =
-                value;
-
-
-            if (
-                value ===
-                currentValue
-            ) {
-
-                option.selected =
-                    true;
-
-            }
-
-
-            select.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    select.addEventListener(
-        "change",
-        () => {
-
-            onChange(
-                select.value
-            );
-
-        }
-    );
-
-
-    field.appendChild(
-        label
-    );
-
-
-    field.appendChild(
-        select
-    );
-
-
-    parent.appendChild(
-        field
+    return (
+        Date.now().toString(36)
+        +
+        Math.random()
+            .toString(36)
+            .substring(2)
     );
 
 }
 
 
-/* =========================================================
-   選択ボタン作成
-========================================================= */
+/* ==========================================
+   <option>作成
+========================================== */
 
-function createChoiceButton(
-    parent,
-    text,
-    currentValue,
-    onChange
-) {
+function makeOptions(array, selected) {
 
-    const button =
-        document.createElement(
-            "button"
-        );
+    return array.map(value => {
 
+        const isSelected =
+            value === selected
+                ? "selected"
+                : "";
 
-    button.type =
-        "button";
+        return `
+            <option
+                value="${escapeHtml(value)}"
+                ${isSelected}
+            >
+                ${escapeHtml(value)}
+            </option>
+        `;
 
+    }).join("");
 
-    button.className =
-        "choice-button";
-
-
-    if (
-        text ===
-        currentValue
-    ) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
+}
 
 
-    button.textContent =
-        text;
+/* ==========================================
+   HTMLエスケープ
+========================================== */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+}
 
 
-    button.addEventListener(
-        "click",
-        () => {
+/* ==========================================
+   放送文を作成
+========================================== */
 
+function makeTemplateText(item) {
 
-            parent
-                .querySelectorAll(
-                    ".choice-button"
-                )
-                .forEach(
-                    other => {
-
-                        other.classList.remove(
-                            "active"
-                        );
-
-                    }
-                );
-
-
-            button.classList.add(
-                "active"
-            );
-
-
-            onChange(
-                text
-            );
-
-        }
-    );
-
-
-    parent.appendChild(
-        button
+    return (
+        "まもなく、"
+        + item.station
+        + "車庫、"
+        + item.operation
+        + item.type
+        + "、「"
+        + item.time
+        + "」です。「"
+        + item.instruction
+        + "」。"
     );
 
 }
 
 
-/* =========================================================
-   放送設定描画
-========================================================= */
+/* ==========================================
+   放送一覧を描画
+========================================== */
 
 function renderAnnouncements() {
 
-    announcementList.innerHTML =
-        "";
+    announcementList.innerHTML = "";
 
 
-    if (
-        announcements.length === 0
-    ) {
+    announcements.forEach((item, index) => {
 
-        const empty =
-            document.createElement(
-                "div"
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "announcement";
+
+
+        const header =
+            document.createElement("div");
+
+        header.className =
+            "announcementHeader";
+
+
+        header.innerHTML = `
+            <div class="announcementTitle">
+                放送 ${index + 1}
+            </div>
+
+            <button
+                class="deleteButton"
+                data-action="delete"
+            >
+                削除
+            </button>
+        `;
+
+
+        card.appendChild(header);
+
+
+        /* ON/OFF */
+
+        const enabledRow =
+            document.createElement("div");
+
+        enabledRow.className =
+            "enabledRow";
+
+        enabledRow.innerHTML = `
+            <span>この放送を有効にする</span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    data-field="enabled"
+                    ${item.enabled ? "checked" : ""}
+                >
+
+                <span class="slider"></span>
+
+            </label>
+        `;
+
+        card.appendChild(enabledRow);
+
+
+        /* モード */
+
+        const modeRow =
+            document.createElement("div");
+
+        modeRow.className =
+            "modeRow";
+
+
+        const templateButton =
+            document.createElement("button");
+
+        templateButton.className =
+            "modeButton "
+            +
+            (
+                item.mode === "template"
+                    ? "active"
+                    : ""
             );
 
+        templateButton.textContent =
+            "定型文";
 
-        empty.className =
-            "empty-message";
-
-
-        empty.textContent =
-            "まだ放送設定がありません。「＋ 放送設定を追加」から登録してください。";
-
-
-        announcementList.appendChild(
-            empty
-        );
-
-
-        return;
-
-    }
-
-
-    announcements.forEach(
-        (data, index) => {
-
-            const card =
-                createAnnouncementCard(
-                    data,
-                    index
-                );
-
-
-            announcementList.appendChild(
-                card
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   放送設定カード
-========================================================= */
-
-function createAnnouncementCard(
-    data,
-    index
-) {
-
-    const card =
-        document.createElement(
-            "div"
-        );
-
-
-    card.className =
-        "announcement-card";
-
-
-    if (
-        speakingIds.has(
-            data.id
-        )
-    ) {
-
-        card.classList.add(
-            "speaking"
-        );
-
-    }
-
-
-    /* =====================================================
-       ヘッダー
-    ===================================================== */
-
-    const header =
-        document.createElement(
-            "div"
-        );
-
-
-    header.className =
-        "announcement-header";
-
-
-    const title =
-        document.createElement(
-            "div"
-        );
-
-
-    title.className =
-        "announcement-number";
-
-
-    title.textContent =
-        "放送設定 " +
-        (index + 1);
-
-
-    const headerRight =
-        document.createElement(
-            "div"
-        );
-
-
-    headerRight.className =
-        "header-right";
-
-
-    /* 状態 */
-
-    const status =
-        document.createElement(
-            "div"
-        );
-
-
-    status.className =
-        "announcement-status";
-
-
-    if (
-        speakingIds.has(
-            data.id
-        )
-    ) {
-
-        status.classList.add(
-            "speaking"
-        );
-
-
-        status.textContent =
-            "🔊 放送中";
-
-    }
-    else {
-
-        status.textContent =
-            "待機中";
-
-    }
-
-
-    /* ON/OFF */
-
-    const switchLabel =
-        document.createElement(
-            "label"
-        );
-
-
-    switchLabel.className =
-        "switch";
-
-
-    const checkbox =
-        document.createElement(
-            "input"
-        );
-
-
-    checkbox.type =
-        "checkbox";
-
-
-    checkbox.checked =
-        data.enabled;
-
-
-    const stateText =
-        document.createElement(
-            "span"
-        );
-
-
-    stateText.textContent =
-        data.enabled
-            ? "ON"
-            : "OFF";
-
-
-    checkbox.addEventListener(
-        "change",
-        () => {
-
-            data.enabled =
-                checkbox.checked;
-
-
-            stateText.textContent =
-                data.enabled
-                    ? "ON"
-                    : "OFF";
-
-
-            saveAnnouncements();
-
-        }
-    );
-
-
-    switchLabel.appendChild(
-        checkbox
-    );
-
-
-    switchLabel.appendChild(
-        stateText
-    );
-
-
-    headerRight.appendChild(
-        status
-    );
-
-
-    headerRight.appendChild(
-        switchLabel
-    );
-
-
-    /* 削除 */
-
-    const deleteButton =
-        document.createElement(
-            "button"
-        );
-
-
-    deleteButton.type =
-        "button";
-
-
-    deleteButton.className =
-        "delete-button";
-
-
-    deleteButton.textContent =
-        "削除";
-
-
-    deleteButton.addEventListener(
-        "click",
-        () => {
-
-            if (
-                !confirm(
-                    "この放送設定を削除しますか？"
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            announcements =
-                announcements.filter(
-                    item =>
-                        item.id !==
-                        data.id
-                );
-
-
-            saveAnnouncements();
-
-
-            renderAnnouncements();
-
-        }
-    );
-
-
-    headerRight.appendChild(
-        deleteButton
-    );
-
-
-    header.appendChild(
-        title
-    );
-
-
-    header.appendChild(
-        headerRight
-    );
-
-
-    card.appendChild(
-        header
-    );
-
-
-    /* =====================================================
-       通知時刻
-    ===================================================== */
-
-    const timeArea =
-        document.createElement(
-            "div"
-        );
-
-
-    timeArea.className =
-        "time-area";
-
-
-    const timeLabel =
-        document.createElement(
-            "div"
-        );
-
-
-    timeLabel.className =
-        "setting-label";
-
-
-    timeLabel.textContent =
-        "通知時刻";
-
-
-    const timeInput =
-        document.createElement(
-            "input"
-        );
-
-
-    timeInput.type =
-        "time";
-
-
-    timeInput.step =
-        "1";
-
-
-    timeInput.className =
-        "time-input";
-
-
-    timeInput.value =
-        normalizeTime(
-            data.time
-        );
-
-
-    timeInput.addEventListener(
-        "change",
-        () => {
-
-            if (
-                timeInput.value
-            ) {
-
-                data.time =
-                    normalizeTime(
-                        timeInput.value
-                    );
-
-
-                saveAnnouncements();
-
-            }
-
-        }
-    );
-
-
-    timeArea.appendChild(
-        timeLabel
-    );
-
-
-    timeArea.appendChild(
-        timeInput
-    );
-
-
-    card.appendChild(
-        timeArea
-    );
-
-
-    /* =====================================================
-       コメント方式
-    ===================================================== */
-
-    const modeLabel =
-        document.createElement(
-            "div"
-        );
-
-
-    modeLabel.className =
-        "setting-label";
-
-
-    modeLabel.textContent =
-        "コメント方式";
-
-
-    card.appendChild(
-        modeLabel
-    );
-
-
-    const modeButtons =
-        document.createElement(
-            "div"
-        );
-
-
-    modeButtons.className =
-        "mode-buttons";
-
-
-    /* 定型文 */
-
-    const templateLabel =
-        document.createElement(
-            "label"
-        );
-
-
-    templateLabel.className =
-        "mode-button";
-
-
-    const templateRadio =
-        document.createElement(
-            "input"
-        );
-
-
-    templateRadio.type =
-        "radio";
-
-
-    templateRadio.name =
-        "mode-" +
-        data.id;
-
-
-    templateRadio.value =
-        "template";
-
-
-    templateRadio.checked =
-        data.mode ===
-        "template";
-
-
-    const templateText =
-        document.createElement(
-            "span"
-        );
-
-
-    templateText.textContent =
-        "定型文";
-
-
-    templateLabel.appendChild(
-        templateRadio
-    );
-
-
-    templateLabel.appendChild(
-        templateText
-    );
-
-
-    /* 自由入力 */
-
-    const freeLabel =
-        document.createElement(
-            "label"
-        );
-
-
-    freeLabel.className =
-        "mode-button";
-
-
-    const freeRadio =
-        document.createElement(
-            "input"
-        );
-
-
-    freeRadio.type =
-        "radio";
-
-
-    freeRadio.name =
-        "mode-" +
-        data.id;
-
-
-    freeRadio.value =
-        "free";
-
-
-    freeRadio.checked =
-        data.mode ===
-        "free";
-
-
-    const freeText =
-        document.createElement(
-            "span"
-        );
-
-
-    freeText.textContent =
-        "自由入力";
-
-
-    freeLabel.appendChild(
-        freeRadio
-    );
-
-
-    freeLabel.appendChild(
-        freeText
-    );
-
-
-    modeButtons.appendChild(
-        templateLabel
-    );
-
-
-    modeButtons.appendChild(
-        freeLabel
-    );
-
-
-    card.appendChild(
-        modeButtons
-    );
-
-
-    /* =====================================================
-       定型文エリア
-    ===================================================== */
-
-    const templateArea =
-        document.createElement(
-            "div"
-        );
-
-
-    templateArea.className =
-        "template-area";
-
-
-    const templateFields =
-        document.createElement(
-            "div"
-        );
-
-
-    templateFields.className =
-        "template-fields";
-
-
-    /* 車庫 */
-
-    createSelectField(
-        templateFields,
-
-        "車庫",
-
-        STATIONS,
-
-        data.station,
-
-        value => {
-
-            data.station =
-                value;
-
-
-            updatePreview();
-
-        }
-    );
-
-
-    /* 運用番号 */
-
-    createSelectField(
-        templateFields,
-
-        "運用番号",
-
-        OPERATIONS,
-
-        data.operation,
-
-        value => {
-
-            data.operation =
-                value;
-
-
-            updatePreview();
-
-        }
-    );
-
-
-    /* 種別 */
-
-    createSelectField(
-        templateFields,
-
-        "種別",
-
-        TYPES,
-
-        data.type,
-
-        value => {
-
-            data.type =
-                value;
-
-
-            updatePreview();
-
-        }
-    );
-
-
-    templateArea.appendChild(
-        templateFields
-    );
-
-
-    /* =====================================================
-       発車時刻 / 入庫時刻
-    ===================================================== */
-
-    const timeTypeTitle =
-        document.createElement(
-            "div"
-        );
-
-
-    timeTypeTitle.className =
-        "choice-title";
-
-
-    timeTypeTitle.textContent =
-        "時刻種別";
-
-
-    const timeTypeButtons =
-        document.createElement(
-            "div"
-        );
-
-
-    timeTypeButtons.className =
-        "choice-buttons";
-
-
-    TIME_TYPES.forEach(
-        value => {
-
-            createChoiceButton(
-                timeTypeButtons,
-
-                value,
-
-                data.timeType,
-
-                selected => {
-
-                    data.timeType =
-                        selected;
-
-
-                    updatePreview();
-
-                }
-            );
-
-        }
-    );
-
-
-    templateArea.appendChild(
-        timeTypeTitle
-    );
-
-
-    templateArea.appendChild(
-        timeTypeButtons
-    );
-
-
-    /* =====================================================
-       指示内容
-    ===================================================== */
-
-    const instructionTitle =
-        document.createElement(
-            "div"
-        );
-
-
-    instructionTitle.className =
-        "choice-title";
-
-
-    instructionTitle.textContent =
-        "指示内容";
-
-
-    const instructionButtons =
-        document.createElement(
-            "div"
-        );
-
-
-    instructionButtons.className =
-        "choice-buttons";
-
-
-    INSTRUCTIONS.forEach(
-        value => {
-
-            createChoiceButton(
-                instructionButtons,
-
-                value,
-
-                data.instruction,
-
-                selected => {
-
-                    data.instruction =
-                        selected;
-
-
-                    updatePreview();
-
-                }
-            );
-
-        }
-    );
-
-
-    templateArea.appendChild(
-        instructionTitle
-    );
-
-
-    templateArea.appendChild(
-        instructionButtons
-    );
-
-
-    card.appendChild(
-        templateArea
-    );
-
-
-    /* =====================================================
-       自由入力
-    ===================================================== */
-
-    const freeArea =
-        document.createElement(
-            "div"
-        );
-
-
-    freeArea.className =
-        "free-comment";
-
-
-    const freeLabel =
-        document.createElement(
-            "div"
-        );
-
-
-    freeLabel.className =
-        "setting-label";
-
-
-    freeLabel.textContent =
-        "コメント";
-
-
-    const freeInput =
-        document.createElement(
-            "textarea"
-        );
-
-
-    freeInput.placeholder =
-        "この時刻に読み上げる文章を入力してください。";
-
-
-    freeInput.value =
-        data.comment || "";
-
-
-    freeInput.addEventListener(
-        "input",
-        () => {
-
-            data.comment =
-                freeInput.value;
-
-
-            updatePreview();
-
-        }
-    );
-
-
-    freeArea.appendChild(
-        freeLabel
-    );
-
-
-    freeArea.appendChild(
-        freeInput
-    );
-
-
-    card.appendChild(
-        freeArea
-    );
-
-
-    /* =====================================================
-       プレビュー
-    ===================================================== */
-
-    const previewBox =
-        document.createElement(
-            "div"
-        );
-
-
-    previewBox.className =
-        "preview";
-
-
-    const previewLabel =
-        document.createElement(
-            "div"
-        );
-
-
-    previewLabel.className =
-        "preview-label";
-
-
-    previewLabel.textContent =
-        "この設定で読み上げる内容";
-
-
-    const previewText =
-        document.createElement(
-            "div"
-        );
-
-
-    previewText.className =
-        "preview-text";
-
-
-    previewBox.appendChild(
-        previewLabel
-    );
-
-
-    previewBox.appendChild(
-        previewText
-    );
-
-
-    card.appendChild(
-        previewBox
-    );
-
-
-    /* =====================================================
-       モード切替
-    ===================================================== */
-
-    function updateModeDisplay() {
-
-        const templateMode =
-            data.mode ===
+        templateButton.dataset.mode =
             "template";
 
 
-        templateArea.style.display =
-            templateMode
-                ? "block"
-                : "none";
+        const freeButton =
+            document.createElement("button");
 
-
-        freeArea.style.display =
-            templateMode
-                ? "none"
-                : "block";
-
-
-        templateLabel.classList.toggle(
-            "active",
-            templateMode
-        );
-
-
-        freeLabel.classList.toggle(
-            "active",
-            !templateMode
-        );
-
-
-        updatePreviewOnly();
-
-    }
-
-
-    /* =====================================================
-       プレビュー更新
-    ===================================================== */
-
-    function updatePreviewOnly() {
-
-        previewText.textContent =
-            getAnnouncementText(
-                data
+        freeButton.className =
+            "modeButton "
+            +
+            (
+                item.mode === "free"
+                    ? "active"
+                    : ""
             );
 
-    }
+        freeButton.textContent =
+            "自由入力";
 
+        freeButton.dataset.mode =
+            "free";
 
-    function updatePreview() {
 
-        updatePreviewOnly();
+        modeRow.appendChild(templateButton);
+        modeRow.appendChild(freeButton);
 
-        saveAnnouncements();
+        card.appendChild(modeRow);
 
-    }
 
+        /* ==================================
+           定型文
+        ================================== */
 
-    /* =====================================================
-       定型文へ
-    ===================================================== */
+        const templateArea =
+            document.createElement("div");
 
-    templateRadio.addEventListener(
-        "change",
-        () => {
+        templateArea.className =
+            item.mode === "template"
+                ? ""
+                : "hidden";
 
-            if (
-                templateRadio.checked
-            ) {
 
-                data.mode =
-                    "template";
+        templateArea.innerHTML = `
 
+            <div class="field">
 
-                updateModeDisplay();
+                <label>駅名</label>
 
-                saveAnnouncements();
+                <select data-field="station">
 
-            }
+                    ${makeOptions(
+                        stations,
+                        item.station
+                    )}
 
-        }
-    );
+                </select>
 
+            </div>
 
-    /* =====================================================
-       自由入力へ
-    ===================================================== */
 
-    freeRadio.addEventListener(
-        "change",
-        () => {
+            <div class="field">
 
-            if (
-                freeRadio.checked
-            ) {
+                <label>運用番号</label>
 
-                data.mode =
-                    "free";
+                <select data-field="operation">
 
+                    ${makeOptions(
+                        operations,
+                        item.operation
+                    )}
 
-                updateModeDisplay();
+                </select>
 
-                saveAnnouncements();
+            </div>
 
-            }
 
-        }
-    );
+            <div class="field">
 
+                <label>種別</label>
 
-    updateModeDisplay();
+                <select data-field="type">
 
+                    ${makeOptions(
+                        types,
+                        item.type
+                    )}
 
-    return card;
+                </select>
 
-}
+            </div>
 
 
-/* =========================================================
-   Clock表示
-========================================================= */
+            <div class="timeRow">
 
-function formatClockTime(seconds) {
+                <div class="field">
 
-    const value =
-        Math.floor(
-            Number(
-                seconds
-            )
-        );
+                    <label>時刻</label>
 
+                    <input
+                        type="time"
+                        step="1"
+                        data-field="time"
+                        value="${item.time}"
+                    >
 
-    if (
-        !Number.isFinite(
-            value
-        )
-    ) {
+                </div>
 
-        return "--:--:--";
 
-    }
+                <div class="field">
 
+                    <label>時刻の種類</label>
 
-    const normalized =
-        (
-            (value % 86400) +
-            86400
-        ) % 86400;
+                    <select data-field="timeType">
 
+                        ${makeOptions(
+                            timeTypes,
+                            item.timeType
+                        )}
 
-    const hours =
-        Math.floor(
-            normalized / 3600
-        );
+                    </select>
 
+                </div>
 
-    const minutes =
-        Math.floor(
-            (normalized % 3600) / 60
-        );
+            </div>
 
 
-    const secs =
-        normalized % 60;
+            <div class="field">
 
+                <label>指示内容</label>
 
-    return (
+                <select data-field="instruction">
 
-        String(
-            hours
-        ).padStart(2, "0")
+                    ${makeOptions(
+                        instructions,
+                        item.instruction
+                    )}
 
-        +
+                </select>
 
-        ":"
+            </div>
 
-        +
+        `;
 
-        String(
-            minutes
-        ).padStart(2, "0")
 
-        +
+        card.appendChild(templateArea);
 
-        ":"
 
-        +
+        /* ==================================
+           自由入力
+        ================================== */
 
-        String(
-            secs
-        ).padStart(2, "0")
+        const freeArea =
+            document.createElement("div");
 
-    );
+        freeArea.className =
+            item.mode === "free"
+                ? "freeText active"
+                : "freeText";
 
-}
 
+        freeArea.innerHTML = `
 
-/* =========================================================
-   Clock更新
-========================================================= */
+            <div class="field">
 
-function updateClock() {
+                <label>自由入力</label>
 
-    if (!roomData) {
+                <input
+                    type="text"
+                    data-field="freeText"
+                    value="${escapeHtml(
+                        item.freeText || ""
+                    )}"
+                    placeholder="読み上げる文章"
+                >
 
-        return;
+            </div>
 
-    }
+        `;
 
 
-    /*
-        まず画面の時計を更新
-    */
+        card.appendChild(freeArea);
 
-    const currentSeconds =
-        Number(
-            roomData.virtualSeconds
-        );
 
+        /* ==================================
+           イベント
+        ================================== */
 
-    clock.textContent =
-        formatClockTime(
-            currentSeconds
-        );
+        card.addEventListener(
+            "change",
+            event => {
 
+                const field =
+                    event.target.dataset.field;
 
-    /*
-        Clock_60Xの状態
-    */
-
-    const running =
-        Boolean(
-            roomData.running
-        );
-
-
-    const speed =
-        Number(
-            roomData.speed || 1
-        );
-
-
-    if (running) {
-
-        clockStatus.textContent =
-            "Clock_60X運転中 ・ " +
-            speed +
-            "倍速";
-
-    }
-    else {
-
-        clockStatus.textContent =
-            "Clock_60X停止中";
-
-    }
-
-
-    /*
-        放送時刻判定
-    */
-
-    checkAnnouncements(
-        currentSeconds
-    );
-
-}
-
-
-/* =========================================================
-   時刻文字列 → 秒
-========================================================= */
-
-function timeToSeconds(
-    time
-) {
-
-    const parts =
-        normalizeTime(
-            time
-        ).split(":");
-
-
-    const h =
-        Number(
-            parts[0]
-        );
-
-
-    const m =
-        Number(
-            parts[1]
-        );
-
-
-    const s =
-        Number(
-            parts[2]
-        );
-
-
-    if (
-        !Number.isFinite(h) ||
-        !Number.isFinite(m) ||
-        !Number.isFinite(s)
-    ) {
-
-        return null;
-
-    }
-
-
-    return (
-        h * 3600 +
-        m * 60 +
-        s
-    );
-
-}
-
-
-/* =========================================================
-   放送判定
-========================================================= */
-
-function checkAnnouncements(
-    currentSeconds
-) {
-
-    /*
-        現在の時刻を
-        0～86399秒にそろえる。
-    */
-
-    const now =
-        (
-            Math.floor(
-                Number(
-                    currentSeconds
-                )
-            ) % 86400 +
-            86400
-        ) % 86400;
-
-
-    announcements.forEach(
-        announcement => {
-
-
-            /*
-                OFFなら何もしない
-            */
-
-            if (
-                !announcement.enabled
-            ) {
-
-                return;
-
-            }
-
-
-            const target =
-                timeToSeconds(
-                    announcement.time
-                );
-
-
-            if (
-                target === null
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-                現在時刻と設定時刻が
-                完全一致したとき。
-            */
-
-            if (
-                now !== target
-            ) {
-
-                return;
-
-            }
-
-
-            /*
-                1秒に複数回
-                同じ放送を出さない。
-            */
-
-            const key =
-                announcement.id +
-                "-" +
-                target;
-
-
-            if (
-                spokenKeys.has(
-                    key
-                )
-            ) {
-
-                return;
-
-            }
-
-
-            spokenKeys.add(
-                key
-            );
-
-
-            /*
-                放送実行
-            */
-
-            speakAnnouncement(
-                announcement
-            );
-
-        }
-    );
-
-
-
-    /*
-        古いspokenKeysが増えすぎないようにする。
-
-        1周したらリセットできるように、
-        virtualSecondsが0付近になったら
-        今回はまとめてクリアする。
-    */
-
-    if (
-        now <= 2
-    ) {
-
-        spokenKeys.clear();
-
-    }
-
-}
-
-
-/* =========================================================
-   読み上げ
-========================================================= */
-
-function speakAnnouncement(
-    data
-) {
-
-    const text =
-        getAnnouncementText(
-            data
-        );
-
-
-    if (
-        !text ||
-        text.trim() === ""
-    ) {
-
-        return;
-
-    }
-
-
-    /*
-        現在読み上げ中として表示
-    */
-
-    speakingIds.add(
-        data.id
-    );
-
-
-    renderAnnouncements();
-
-
-    /*
-        ログへ追加
-    */
-
-    addBroadcastLog(
-        text
-    );
-
-
-    /*
-        SpeechSynthesisUtteranceを作成
-    */
-
-    const utterance =
-        new SpeechSynthesisUtterance(
-            text
-        );
-
-
-    /*
-        日本語として読み上げる。
-    */
-
-    utterance.lang =
-        "ja-JP";
-
-
-    /*
-        ユーザーが選択した音声
-    */
-
-    const selectedVoiceName =
-        voiceSelect.value;
-
-
-    const selectedVoice =
-        voices.find(
-            voice =>
-                voice.name ===
-                selectedVoiceName
-        );
-
-
-    if (
-        selectedVoice
-    ) {
-
-        utterance.voice =
-            selectedVoice;
-
-    }
-
-
-    /*
-        読み上げ速度
-    */
-
-    utterance.rate =
-        Number(
-            voiceRate.value
-        );
-
-
-    /*
-        声の高さ
-    */
-
-    utterance.pitch =
-        Number(
-            voicePitch.value
-        );
-
-
-    /*
-        音量
-
-        1 = 最大
-    */
-
-    utterance.volume =
-        1.0;
-
-
-    /*
-        読み上げ終了時
-    */
-
-    utterance.onend =
-        () => {
-
-            speakingIds.delete(
-                data.id
-            );
-
-
-            renderAnnouncements();
-
-        };
-
-
-    /*
-        エラー時も状態を戻す
-    */
-
-    utterance.onerror =
-        error => {
-
-            console.error(
-                "読み上げエラー:",
-                error
-            );
-
-
-            speakingIds.delete(
-                data.id
-            );
-
-
-            renderAnnouncements();
-
-        };
-
-
-    /*
-        音声再生。
-
-        近い時刻の放送も
-        それぞれここへ追加する。
-    */
-
-    window.speechSynthesis.speak(
-        utterance
-    );
-
-}
-
-
-/* =========================================================
-   テスト読み上げ
-========================================================= */
-
-function testVoice() {
-
-    const utterance =
-        new SpeechSynthesisUtterance(
-            "これはClock_60X放送設定のテスト読み上げです。"
-        );
-
-
-    utterance.lang =
-        "ja-JP";
-
-
-    const selectedVoice =
-        voices.find(
-            voice =>
-                voice.name ===
-                voiceSelect.value
-        );
-
-
-    if (
-        selectedVoice
-    ) {
-
-        utterance.voice =
-            selectedVoice;
-
-    }
-
-
-    utterance.rate =
-        Number(
-            voiceRate.value
-        );
-
-
-    utterance.pitch =
-        Number(
-            voicePitch.value
-        );
-
-
-    utterance.volume =
-        1.0;
-
-
-    /*
-        現在キューに残っている音声を
-        テスト開始時だけ消す。
-    */
-    window.speechSynthesis.cancel();
-
-
-    window.speechSynthesis.speak(
-        utterance
-    );
-
-}
-
-
-/* =========================================================
-   音声一覧を読み込む
-========================================================= */
-
-function loadVoices() {
-
-    voices =
-        window.speechSynthesis.getVoices();
-
-
-    voiceSelect.innerHTML =
-        "";
-
-
-    /*
-        日本語音声を先にする
-    */
-
-    const sorted =
-        [...voices].sort(
-            (a, b) => {
-
-                const aJa =
-                    a.lang
-                        .toLowerCase()
-                        .startsWith(
-                            "ja"
-                        );
-
-
-                const bJa =
-                    b.lang
-                        .toLowerCase()
-                        .startsWith(
-                            "ja"
-                        );
+                if (!field) return;
 
 
                 if (
-                    aJa &&
-                    !bJa
+                    event.target.type ===
+                    "checkbox"
                 ) {
 
-                    return -1;
+                    item[field] =
+                        event.target.checked;
+
+                } else {
+
+                    item[field] =
+                        event.target.value;
 
                 }
 
 
-                if (
-                    !aJa &&
-                    bJa
-                ) {
+                saveAnnouncements();
 
-                    return 1;
+                updateLastPreview();
+
+            }
+        );
+
+
+        templateButton.addEventListener(
+            "click",
+            () => {
+
+                item.mode = "template";
+
+                saveAnnouncements();
+
+                renderAnnouncements();
+
+            }
+        );
+
+
+        freeButton.addEventListener(
+            "click",
+            () => {
+
+                item.mode = "free";
+
+                saveAnnouncements();
+
+                renderAnnouncements();
+
+            }
+        );
+
+
+        header
+            .querySelector("[data-action='delete']")
+            .addEventListener(
+                "click",
+                () => {
+
+                    announcements =
+                        announcements.filter(
+                            x => x.id !== item.id
+                        );
+
+                    saveAnnouncements();
+
+                    renderAnnouncements();
 
                 }
-
-
-                return 0;
-
-            }
-        );
-
-
-    sorted.forEach(
-        voice => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                voice.name;
-
-
-            option.textContent =
-                voice.name +
-                " (" +
-                voice.lang +
-                ")";
-
-
-            voiceSelect.appendChild(
-                option
-            );
-
-        }
-    );
-
-
-    /*
-        日本語音声があれば自動選択
-    */
-
-    const japaneseVoice =
-        sorted.find(
-            voice =>
-                voice.lang
-                    .toLowerCase()
-                    .startsWith(
-                        "ja"
-                    )
-        );
-
-
-    if (
-        japaneseVoice
-    ) {
-
-        voiceSelect.value =
-            japaneseVoice.name;
-
-    }
-
-
-    loadVoiceSettings();
-
-}
-
-
-/* =========================================================
-   音声設定を保存
-========================================================= */
-
-function saveVoiceSettings() {
-
-    if (!roomCode) {
-
-        return;
-
-    }
-
-
-    localStorage.setItem(
-
-        getVoiceStorageKey(),
-
-        JSON.stringify({
-
-            voice:
-                voiceSelect.value,
-
-            rate:
-                voiceRate.value,
-
-            pitch:
-                voicePitch.value
-
-        })
-
-    );
-
-}
-
-
-/* =========================================================
-   音声設定を読み込み
-========================================================= */
-
-function loadVoiceSettings() {
-
-    if (!roomCode) {
-
-        return;
-
-    }
-
-
-    const raw =
-        localStorage.getItem(
-            getVoiceStorageKey()
-        );
-
-
-    if (!raw) {
-
-        return;
-
-    }
-
-
-    try {
-
-        const settings =
-            JSON.parse(
-                raw
             );
 
 
-        if (
-            settings.rate
-        ) {
-
-            voiceRate.value =
-                settings.rate;
-
-        }
-
-
-        if (
-            settings.pitch
-        ) {
-
-            voicePitch.value =
-                settings.pitch;
-
-        }
-
-
-        if (
-            settings.voice
-        ) {
-
-            const exists =
-                [...voiceSelect.options]
-                    .some(
-                        option =>
-                            option.value ===
-                            settings.voice
-                    );
-
-
-            if (
-                exists
-            ) {
-
-                voiceSelect.value =
-                    settings.voice;
-
-            }
-
-        }
-
-    }
-    catch (error) {
-
-        console.error(
-            "音声設定読み込みエラー:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
-   放送ログ
-========================================================= */
-
-function addBroadcastLog(
-    text
-) {
-
-    const now =
-        formatClockTime(
-            roomData
-                ? roomData.virtualSeconds
-                : 0
-        );
-
-
-    broadcastLogs.unshift({
-
-        time:
-            now,
-
-        text:
-            text
+        announcementList.appendChild(card);
 
     });
 
 
-    /*
-        最大10件
-    */
-
-    if (
-        broadcastLogs.length >
-        10
-    ) {
-
-        broadcastLogs =
-            broadcastLogs.slice(
-                0,
-                10
-            );
-
-    }
-
-
-    renderBroadcastLogs();
+    updateLastPreview();
 
 }
 
 
-/* =========================================================
-   ログ描画
-========================================================= */
-
-function renderBroadcastLogs() {
-
-    broadcastLogList.innerHTML =
-        "";
-
-
-    if (
-        broadcastLogs.length === 0
-    ) {
-
-        const empty =
-            document.createElement(
-                "div"
-            );
-
-
-        empty.className =
-            "log-item";
-
-
-        empty.textContent =
-            "まだ放送されていません。";
-
-
-        broadcastLogList.appendChild(
-            empty
-        );
-
-
-        return;
-
-    }
-
-
-    broadcastLogs.forEach(
-        log => {
-
-            const item =
-                document.createElement(
-                    "div"
-                );
-
-
-            item.className =
-                "log-item";
-
-
-            const time =
-                document.createElement(
-                    "span"
-                );
-
-
-            time.className =
-                "log-time";
-
-
-            time.textContent =
-                "[" +
-                log.time +
-                "]";
-
-
-            const text =
-                document.createElement(
-                    "span"
-                );
-
-
-            text.textContent =
-                log.text;
-
-
-            item.appendChild(
-                time
-            );
-
-
-            item.appendChild(
-                text
-            );
-
-
-            broadcastLogList.appendChild(
-                item
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   音声テスト
-========================================================= */
-
-voiceTestButton.addEventListener(
-    "click",
-    () => {
-
-        testVoice();
-
-    }
-);
-
-
-/* 音声設定変更 */
-
-voiceSelect.addEventListener(
-    "change",
-    saveVoiceSettings
-);
-
-
-voiceRate.addEventListener(
-    "change",
-    saveVoiceSettings
-);
-
-
-voicePitch.addEventListener(
-    "change",
-    saveVoiceSettings
-);
-
-
-/* =========================================================
-   放送設定追加
-========================================================= */
+/* ==========================================
+   放送追加
+========================================== */
 
 addAnnouncementButton.addEventListener(
     "click",
     () => {
 
-        announcements.push(
-            createAnnouncement()
-        );
+        announcements.push({
+
+            id: createId(),
+
+            enabled: true,
+
+            mode: "template",
+
+            station: stations[0],
+
+            operation: operations[0],
+
+            type: types[0],
+
+            time: "04:00:00",
+
+            timeType: timeTypes[0],
+
+            instruction: instructions[0],
+
+            freeText: ""
+
+        });
 
 
         saveAnnouncements();
 
-
         renderAnnouncements();
-
-
-        setTimeout(
-            () => {
-
-                const cards =
-                    document.querySelectorAll(
-                        ".announcement-card"
-                    );
-
-
-                const last =
-                    cards[
-                        cards.length - 1
-                    ];
-
-
-                if (
-                    last
-                ) {
-
-                    last.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-
-                }
-
-            },
-            100
-        );
 
     }
 );
 
 
-/* =========================================================
-   部屋参加
-========================================================= */
+/* ==========================================
+   現在の設定を表示
+========================================== */
+
+function updateLastPreview() {
+
+    const enabled =
+        announcements.filter(
+            item => item.enabled
+        );
+
+    if (enabled.length === 0) {
+
+        lastAnnouncement.textContent =
+            "有効な放送はありません。";
+
+        return;
+    }
+
+
+    const item =
+        enabled[0];
+
+
+    let text;
+
+
+    if (item.mode === "free") {
+
+        text =
+            item.freeText || "未入力";
+
+    } else {
+
+        text =
+            makeTemplateText(item);
+
+    }
+
+
+    lastAnnouncement.textContent =
+        "設定済みの放送："
+        + text;
+
+}
+
+
+/* ==========================================
+   Clock_60Xへ参加
+========================================== */
 
 joinButton.addEventListener(
     "click",
     async () => {
 
+        errorMessage.textContent = "";
 
-        const inputRoomCode =
+        const code =
             roomCodeInput.value.trim();
-
 
         const password =
             roomPasswordInput.value;
 
 
-        /*
-            部屋番号チェック
-        */
+        /* 5桁チェック */
 
-        if (
-            !/^\d{5}$/.test(
-                inputRoomCode
-            )
-        ) {
+        if (!/^\d{5}$/.test(code)) {
 
-            joinStatus.textContent =
+            errorMessage.textContent =
                 "部屋番号は5桁の数字で入力してください。";
 
-
-            joinStatus.style.color =
-                "#ff6b6b";
-
-
             return;
-
         }
 
 
-        /*
-            パスワード
-        */
+        if (!password) {
 
-        if (
-            password === ""
-        ) {
-
-            joinStatus.textContent =
+            errorMessage.textContent =
                 "パスワードを入力してください。";
 
-
-            joinStatus.style.color =
-                "#ff6b6b";
-
-
             return;
-
         }
 
 
-        joinButton.disabled =
-            true;
-
+        joinButton.disabled = true;
 
         joinButton.textContent =
-            "接続中...";
-
-
-        joinStatus.textContent =
-            "部屋を確認しています...";
-
-
-        joinStatus.style.color =
-            "#aaa";
+            "接続中…";
 
 
         try {
 
-
             /*
-                元のClock_60Xと同じ
-                rooms/{部屋番号}
-            */
+             * Clock-60Xと同じ
+             *
+             * rooms/{部屋番号}
+             */
 
-            const roomRef =
+            const ref =
                 doc(
                     db,
                     "rooms",
-                    inputRoomCode
+                    code
                 );
 
-
-            /*
-                部屋取得
-            */
 
             const snapshot =
-                await getDoc(
-                    roomRef
+                await getDoc(ref);
+
+
+            /* 部屋が存在しない */
+
+            if (!snapshot.exists()) {
+
+                throw new Error(
+                    "部屋が存在しません。"
                 );
-
-
-            /*
-                存在確認
-            */
-
-            if (
-                !snapshot.exists()
-            ) {
-
-                joinStatus.textContent =
-                    "部屋が存在しません。";
-
-
-                joinStatus.style.color =
-                    "#ff6b6b";
-
-
-                return;
 
             }
 
-
-            /*
-                データ
-            */
 
             const data =
                 snapshot.data();
 
 
-            /*
-                パスワード
-            */
+            /* パスワード確認 */
 
             if (
-                data.password !==
-                password
+                data.password !== password
             ) {
 
-                joinStatus.textContent =
-                    "パスワードが違います。";
-
-
-                joinStatus.style.color =
-                    "#ff6b6b";
-
-
-                return;
+                throw new Error(
+                    "パスワードが違います。"
+                );
 
             }
 
 
-            /*
-                ==============================
-                参加成功
-                ==============================
-            */
+            /* ==================================
+               ここまで来たら参加成功
+            ================================== */
 
-            roomCode =
-                inputRoomCode;
+            roomCode = code;
 
+            roomPassword = password;
 
-            roomData =
-                data;
+            roomRef = ref;
 
 
-            currentRoom.textContent =
+            displayRoomCode.textContent =
                 roomCode;
 
 
-            /*
-                参加画面を隠す
-            */
-
-            joinScreen.style.display =
-                "none";
-
-
-            /*
-                アプリ表示
-            */
-
-            appScreen.style.display =
-                "block";
-
-
-            /*
-                接続表示
-            */
-
-            connectionDot.classList.add(
-                "online"
-            );
-
-
-            connectionStatus.textContent =
-                "Clock_60Xと同期中";
-
-
-            /*
-                設定読み込み
-            */
+            /* 部屋ごとの設定を読み込む */
 
             loadAnnouncements();
 
-
-            /*
-                音声一覧
-            */
-
-            loadVoices();
+            renderAnnouncements();
 
 
-            /*
-                時計初期表示
-            */
+            /* 画面切り替え */
 
-            updateClock();
+            joinScreen.classList.add(
+                "hidden"
+            );
 
-
-            /*
-                以前の監視を解除
-            */
-
-            if (
-                unsubscribeRoom
-            ) {
-
-                unsubscribeRoom();
+            mainScreen.classList.remove(
+                "hidden"
+            );
 
 
-                unsubscribeRoom =
-                    null;
-
-            }
+            syncStatus.textContent =
+                "● Clock-60Xに接続しました";
 
 
             /*
-                Clock_60Xを監視
-            */
+             * Firestoreリアルタイム監視
+             */
 
             unsubscribeRoom =
                 onSnapshot(
-
                     roomRef,
-
                     snapshot => {
 
+                        if (!snapshot.exists()) {
 
-                        /*
-                            部屋が消えた
-                        */
-
-                        if (
-                            !snapshot.exists()
-                        ) {
-
-                            connectionDot.classList.remove(
-                                "online"
-                            );
-
-
-                            connectionStatus.textContent =
-                                "部屋が削除されました";
-
+                            syncStatus.textContent =
+                                "● 部屋が削除されました";
 
                             return;
 
                         }
 
 
-                        /*
-                            最新データ
-                        */
-
-                        roomData =
+                        const data =
                             snapshot.data();
 
 
                         /*
-                            接続中
-                        */
+                         * Clock-60Xの
+                         * virtualSeconds
+                         */
 
-                        connectionDot.classList.add(
-                            "online"
-                        );
+                        if (
+                            typeof data.virtualSeconds
+                            === "number"
+                        ) {
 
+                            virtualSeconds =
+                                data.virtualSeconds;
 
-                        connectionStatus.textContent =
-                            "Clock_60Xと同期中";
+                            currentTime.textContent =
+                                formatTime(
+                                    virtualSeconds
+                                );
+
+                        }
 
 
                         /*
-                            時計＋放送判定
-                        */
+                         * Clock-60Xのrunning
+                         */
 
-                        updateClock();
+                        if (
+                            typeof data.running
+                            === "boolean"
+                        ) {
+
+                            running =
+                                data.running;
+
+                        }
+
+
+                        syncStatus.textContent =
+                            running
+                                ? "● 同期中・時計動作中"
+                                : "● 同期中・時計停止中";
 
                     },
 
                     error => {
 
-
                         console.error(
-                            "Firestore監視エラー:",
                             error
                         );
 
-
-                        connectionDot.classList.remove(
-                            "online"
-                        );
-
-
-                        connectionStatus.textContent =
-                            "接続エラー";
+                        syncStatus.textContent =
+                            "● 同期エラー";
 
                     }
-
                 );
 
 
-        }
-        catch (error) {
+        } catch (error) {
 
+            console.error(error);
 
-            console.error(
-                "部屋参加エラー:",
-                error
-            );
+            errorMessage.textContent =
+                error.message
+                ||
+                "部屋への接続に失敗しました。";
 
+        } finally {
 
-            joinStatus.textContent =
-                "接続エラー\n\n" +
-                error.message;
-
-
-            joinStatus.style.color =
-                "#ff6b6b";
-
-        }
-        finally {
-
-
-            joinButton.disabled =
-                false;
-
+            joinButton.disabled = false;
 
             joinButton.textContent =
-                "部屋に参加";
+                "部屋に入る";
 
         }
 
@@ -4596,18 +1665,15 @@ joinButton.addEventListener(
 );
 
 
-/* =========================================================
-   Enter
-========================================================= */
+/* ==========================================
+   Enterキーで参加
+========================================== */
 
 roomPasswordInput.addEventListener(
     "keydown",
     event => {
 
-        if (
-            event.key ===
-            "Enter"
-        ) {
+        if (event.key === "Enter") {
 
             joinButton.click();
 
@@ -4617,125 +1683,29 @@ roomPasswordInput.addEventListener(
 );
 
 
-/* =========================================================
-   退出
-========================================================= */
+/* ==========================================
+   部屋番号を数字だけにする
+========================================== */
 
-leaveButton.addEventListener(
-    "click",
+roomCodeInput.addEventListener(
+    "input",
     () => {
 
-
-        if (
-            unsubscribeRoom
-        ) {
-
-            unsubscribeRoom();
-
-
-            unsubscribeRoom =
-                null;
-
-        }
-
-
-        /*
-            SpeechSynthesis停止
-        */
-
-        window.speechSynthesis.cancel();
-
-
-        roomCode =
-            null;
-
-
-        roomData =
-            null;
-
-
-        announcements =
-            [];
-
-
-        spokenKeys.clear();
-
-
-        speakingIds.clear();
-
-
-        joinScreen.style.display =
-            "block";
-
-
-        appScreen.style.display =
-            "none";
-
-
         roomCodeInput.value =
-            "";
-
-
-        roomPasswordInput.value =
-            "";
-
-
-        connectionDot.classList.remove(
-            "online"
-        );
-
-
-        connectionStatus.textContent =
-            "接続中...";
-
-
-        clock.textContent =
-            "--:--:--";
-
-
-        clockStatus.textContent =
-            "Clock_60Xの時刻を取得中...";
-
-
-        renderAnnouncements();
+            roomCodeInput.value
+                .replace(/\D/g, "")
+                .slice(0, 5);
 
     }
 );
 
 
-/* =========================================================
-   音声一覧が後から読み込まれた場合
-========================================================= */
+/* ==========================================
+   初期表示
+========================================== */
 
-if (
-    "speechSynthesis" in window
-) {
-
-    /*
-        ブラウザによっては
-        ページロード直後にはvoicesが空で、
-        voiceschangedイベント後に取得できる。
-    */
-
-    window.speechSynthesis.onvoiceschanged =
-        loadVoices;
-
-}
-else {
-
-    voiceSelect.innerHTML =
-        "<option>音声読み上げ非対応</option>";
-
-}
-
-
-/* =========================================================
-   初期化
-========================================================= */
-
-renderAnnouncements();
-
-renderBroadcastLogs();
+currentTime.textContent =
+    "00:00:00";
 
 </script>
 
